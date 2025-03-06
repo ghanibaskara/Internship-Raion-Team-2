@@ -18,6 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.internshipraionteam2.ui.theme.InternshipRaionTeam2Theme
 import com.example.internshipraionteam2.presentation.home.HomeScreenApplicants
 import com.example.internshipraionteam2.presentation.home.HomeScreenCafe
+import com.example.internshipraionteam2.presentation.registration.AppNavigation
 import com.example.internshipraionteam2.presentation.registration.AuthViewModel
 import com.example.internshipraionteam2.presentation.registration.LoginScreenApplicants
 import com.example.internshipraionteam2.presentation.registration.LoginScreenCafe
@@ -33,56 +34,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         val authViewModel : AuthViewModel by viewModels()
         setContent {
-            val navController = rememberNavController()
-
-            NavHost(navController, startDestination = "UserOption", builder = {
-                composable("UserOption"){
-                    UserOption(navController)
-                }
-                composable("LoginScreenApplicants"){
-                    LoginScreenApplicants(navController, authViewModel)
-                }
-                composable("LoginScreenCafe"){
-                    LoginScreenCafe(navController)
-                }
-                composable("HomeScreenCafe"){
-                    HomeScreenCafe(navController)
-                }
-                composable("HomeScreenApplicants"){
-                    HomeScreenApplicants(navController)
-                }
-                composable("SignupScreenApplicants"){
-                    SignupScreenApplicants(navController,authViewModel)
-                }
-                composable("SignupScreenCafe"){
-                    SignupScreenCafe(navController)
-                }
-                composable("RegisterScreenApplicants"){
-                    RegisterScreenApplicants()
-                }
-                composable("RegisterScreenCafe"){
-                    RegisterScreenCafe()
-                }
-
-            })
-
-
+            Scaffold (modifier = Modifier.fillMaxSize()){ innerPadding ->
+                AppNavigation(modifier = Modifier.padding(innerPadding),
+                    authViewModel = authViewModel)
+            }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    InternshipRaionTeam2Theme {
-        Greeting("Android")
     }
 }
