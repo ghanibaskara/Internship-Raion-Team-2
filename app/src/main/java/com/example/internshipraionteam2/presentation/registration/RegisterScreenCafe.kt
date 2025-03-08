@@ -23,43 +23,47 @@ import com.example.internshipraionteam2.reusable.BiodataTextField
 
 @Composable
 fun RegisterScreenCafe(navController: NavController) {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(Color.White),
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally) {
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         var fname by remember { mutableStateOf("") } // first name
         var lname by remember { mutableStateOf("") } // last name
         var phone by remember { mutableStateOf("") } // phone number
         var dob by remember { mutableStateOf("") } // date of birth
         var lor by remember { mutableStateOf("") } // location of residence
 
-        Text("Register Applicants",
-            fontSize = 32.sp)
+        Text(
+            "Register Applicants",
+            fontSize = 32.sp
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        BiodataTextField(fname, onValueChange = {fname = it}, label = "name")
+        BiodataTextField(fname, onValueChange = { fname = it }, label = "first name")
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        BiodataTextField(lname, onValueChange = {lname = it}, label = "name")
+        BiodataTextField(lname, onValueChange = { lname = it }, label = "last name")
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        BiodataTextField(phone, onValueChange = {phone = it}, label = "name")
+        BiodataTextField(phone, onValueChange = { phone = it }, label = "phone")
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        BiodataTextField(dob, onValueChange = {dob = it}, label = "age")
+        BiodataTextField(dob, onValueChange = { dob = it }, label = "date of birth")
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        BiodataTextField(lor, onValueChange = {lor = it}, label = "age")
+        BiodataTextField(lor, onValueChange = { lor = it }, label = "age")
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = {navController.navigate("HomeScreenCafe")}) {
+        Button(onClick = { navController.navigate("HomeScreenCafe") }) {
             Text("Register as Cafe Owner")
         }
 

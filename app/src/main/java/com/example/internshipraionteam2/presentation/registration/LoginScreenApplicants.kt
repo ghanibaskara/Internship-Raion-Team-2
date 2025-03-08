@@ -46,7 +46,8 @@ fun LoginScreenApplicants(navController: NavController, authViewModel: AuthViewM
 
         RegisterTextField(password, onValueChange = {password = it}, "Password", icons = Icons.Filled.Lock)
 
-        Button(onClick = {authViewModel.login(email, password)}) {
+        Button(onClick = {authViewModel.login(email, password)
+        navController.navigate("RegisterScreenApplicants")}) {
             Text("Login")
         }
 
