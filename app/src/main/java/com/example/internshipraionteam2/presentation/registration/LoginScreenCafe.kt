@@ -1,6 +1,7 @@
 package com.example.internshipraionteam2.presentation.registration
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,13 +32,19 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.internshipraionteam2.R
+import com.example.internshipraionteam2.reusable.PasswordTextField
 import com.example.internshipraionteam2.reusable.RegisterTextField
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 
@@ -85,7 +92,7 @@ fun LoginScreenCafe(navController: NavController,authViewModel: AuthViewModel) {
                 fontWeight = FontWeight.W700,
                 fontSize = 16.sp)
 
-            RegisterTextField(password, onValueChange = {password = it}, "Kata sandi", icons = Icons.Filled.Lock)
+            PasswordTextField(password, onValueChange = {password = it}, "Kata sandi", icons = Icons.Filled.Lock, visualTransformation = PasswordVisualTransformation())
 
         }
 
@@ -134,7 +141,8 @@ fun LoginScreenCafe(navController: NavController,authViewModel: AuthViewModel) {
             colors = ButtonDefaults.buttonColors(Color.Transparent),
             border = BorderStroke(3.dp, Color.Gray)
         ) {
-//            Image(painter = painterResource(R.drawable.))
+            Icon(painter = painterResource(id = R.drawable.ic_google),
+                contentDescription = "google icon")
             Text("Daftar dengan Google",
                 fontSize = 14.sp,
                 color = Color(0xFF000000),

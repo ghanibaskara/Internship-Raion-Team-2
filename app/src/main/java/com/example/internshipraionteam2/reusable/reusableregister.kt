@@ -53,8 +53,33 @@ fun RegisterTextField(name: String, onValueChange : (String) -> Unit, label: Str
             unfocusedTextColor = Color.Gray
         )
     )
-
-
+}
+@Composable
+fun PasswordTextField(name: String, onValueChange : (String) -> Unit, label: String, icons : ImageVector,visualTransformation: PasswordVisualTransformation) {
+    OutlinedTextField(
+        name,
+        onValueChange = onValueChange,
+        label = { Text(label) },
+        maxLines = 1,
+        leadingIcon = {
+            Icon(icons, contentDescription = "", tint = Color.Gray)
+        },
+        visualTransformation = PasswordVisualTransformation(),
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Text, imeAction = ImeAction.Done
+        ),
+        shape = RoundedCornerShape(24.dp),
+        modifier = Modifier.padding(top = 4.dp)
+            .fillMaxWidth(),
+        colors = OutlinedTextFieldDefaults.colors(
+            unfocusedLabelColor = Color.Gray,
+            focusedLabelColor = Color.Gray,
+            unfocusedBorderColor = Color.Gray,
+            focusedBorderColor = Color.Gray,
+            focusedTextColor = Color.Gray,
+            unfocusedTextColor = Color.Gray
+        )
+    )
 }
 
 

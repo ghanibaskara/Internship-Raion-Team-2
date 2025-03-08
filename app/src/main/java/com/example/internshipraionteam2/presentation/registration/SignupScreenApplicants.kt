@@ -22,6 +22,7 @@ import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -40,11 +41,13 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.internshipraionteam2.reusable.PasswordTextField
 import com.example.internshipraionteam2.reusable.signupbutton
 import com.example.internshipraionteam2.reusable.RegisterTextField
 import com.example.internshipraionteam2.ui.theme.buttonfocus
@@ -103,7 +106,7 @@ fun SignupScreenApplicants(navController: NavController,authViewModel: AuthViewM
                 fontWeight = FontWeight.W700,
                 fontSize = 16.sp)
 
-            RegisterTextField(password, onValueChange = {password = it}, "Kata sandi", icons = Icons.Filled.Lock)
+            PasswordTextField(password, onValueChange = {password = it}, "Kata sandi", icons = Icons.Filled.Lock, visualTransformation = PasswordVisualTransformation())
 
             Spacer(modifier = Modifier.height(20.dp))
 
@@ -111,7 +114,7 @@ fun SignupScreenApplicants(navController: NavController,authViewModel: AuthViewM
                 fontWeight = FontWeight.W700,
                 fontSize = 16.sp)
 
-            RegisterTextField(confirmpassword, onValueChange = {confirmpassword = it}, "Konfirmasi kata sandi", icons = Icons.Filled.Lock)
+            PasswordTextField(confirmpassword, onValueChange = {confirmpassword = it}, "Konfirmasi kata sandi", icons = Icons.Filled.Lock, visualTransformation = PasswordVisualTransformation())
         }
 
         Row (
@@ -158,7 +161,8 @@ fun SignupScreenApplicants(navController: NavController,authViewModel: AuthViewM
             colors = ButtonDefaults.buttonColors(Color.Transparent),
             border = BorderStroke(3.dp, Color.Gray)
             ) {
-//            Image(painter = painterResource(R.drawable.))
+            Icon(painter = painterResource(id = com.example.internshipraionteam2.R.drawable.ic_google),
+                contentDescription = "google icon")
             Text("Daftar dengan Google",
                 fontSize = 14.sp,
                 color = Color(0xFF000000),
