@@ -58,12 +58,14 @@ fun LoginScreenApplicants(navController: NavController, authViewModel: AuthViewM
                 .fillMaxWidth()
                 .padding(start = 32.dp, end = 32.dp, top = 210.dp)
         ) {
-            Text("Selamat Datang!",
+            Text(
+                "Selamat Datang!",
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFF000000)
             )
-            Text("Lowongan baru sudah menunggu!",
+            Text(
+                "Lowongan baru sudah menunggu!",
                 fontSize = 14.sp,
                 color = Color(0xFF000000)
             )
@@ -74,87 +76,120 @@ fun LoginScreenApplicants(navController: NavController, authViewModel: AuthViewM
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 32.dp,end = 32.dp)
+                .padding(start = 32.dp, end = 32.dp)
         ) {
-            Text(text = "Email",
+            Text(
+                text = "Email",
                 fontWeight = FontWeight.W700,
-                fontSize = 16.sp)
+                fontSize = 16.sp
+            )
 
-            RegisterTextField(email, onValueChange = {email = it}, "Email", icons = Icons.Filled.AccountCircle)
+            RegisterTextField(
+                email,
+                onValueChange = { email = it },
+                "Email",
+                icons = Icons.Filled.AccountCircle
+            )
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            Text(text = "Kata sandi",
+            Text(
+                text = "Kata sandi",
                 fontWeight = FontWeight.W700,
-                fontSize = 16.sp)
+                fontSize = 16.sp
+            )
 
-            PasswordTextField(password, onValueChange = {password = it}, "Kata sandi", icons = Icons.Filled.Lock, visualTransformation = PasswordVisualTransformation())
+            PasswordTextField(
+                password,
+                onValueChange = { password = it },
+                "Kata sandi",
+                icons = Icons.Filled.Lock,
+                visualTransformation = PasswordVisualTransformation()
+            )
 
         }
 
         Spacer(modifier = Modifier.height(6.dp))
 
-        Row (
+        Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceAround
         ) {
-                Checkbox(
-                    checked = check,
-                    onCheckedChange = {check = it},
-                    colors = CheckboxDefaults.colors(buttonfocus)
-                )
-                Text("Ingat saya",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
+            Checkbox(
+                checked = check,
+                onCheckedChange = { check = it },
+                colors = CheckboxDefaults.colors(buttonfocus)
+            )
+            Text(
+                "Ingat saya",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.SemiBold
+            )
 
-        Button(onClick = {authViewModel.login(email, password)
-        navController.navigate("RegisterScreenApplicants")}) {
+            Button(onClick = {
+                authViewModel.login(email, password)
+                navController.navigate("RegisterScreenApplicants")
+            }) {
                 Spacer(modifier = Modifier.width(130.dp))
 
-                Text("Lupa kata sandi?",
-                    fontSize = 14.sp)
-        }
+                Text(
+                    "Lupa kata sandi?",
+                    fontSize = 14.sp
+                )
+            }
 
-        Button(onClick = {authViewModel.login(email, password)
-        navController.navigate("RegisterScreenApplicants")},
-            modifier = Modifier.fillMaxWidth()
-                .padding(start = 32.dp, end = 32.dp),
-            colors = ButtonDefaults.buttonColors(buttonfocus)) {
-            Text("Login")
-        }
+            Button(
+                onClick = {
+                    authViewModel.login(email, password)
+                    navController.navigate("RegisterScreenApplicants")
+                },
+                modifier = Modifier.fillMaxWidth()
+                    .padding(start = 32.dp, end = 32.dp),
+                colors = ButtonDefaults.buttonColors(buttonfocus)
+            ) {
+                Text("Login")
+            }
 
-        Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-        Text("atau",
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Medium,
-            color = Color(0xFF9E9E9E)
-        )
-
-        Spacer(modifier = Modifier.height(8.dp))
-
-        Button(onClick = {},
-            modifier = Modifier.size(width = 346.dp, height = 41.dp),
-            colors = ButtonDefaults.buttonColors(Color.Transparent),
-            border = BorderStroke(3.dp, Color.Gray)
-        ) {
-            Icon(painter = painterResource(id = R.drawable.ic_google),
-                contentDescription = "google icon")
-            Text("Daftar dengan Google",
-                fontSize = 14.sp,
-                color = Color(0xFF000000),
-                fontWeight = FontWeight.SemiBold)
-        }
-
-        TextButton(onClick = {navController.navigate("SignupScreenApplicants")}) {
-            Text("Belum memiliki akun? ",
-                color = Color(0xFF000000)
+            Text(
+                "atau",
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Medium,
+                color = Color(0xFF9E9E9E)
             )
-            Text("Daftar sekarang",
-                color = Color(0xFF000000),
-                fontWeight = FontWeight.Bold
-            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Button(
+                onClick = {},
+                modifier = Modifier.size(width = 346.dp, height = 41.dp),
+                colors = ButtonDefaults.buttonColors(Color.Transparent),
+                border = BorderStroke(3.dp, Color.Gray)
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_google),
+                    contentDescription = "google icon"
+                )
+                Text(
+                    "Daftar dengan Google",
+                    fontSize = 14.sp,
+                    color = Color(0xFF000000),
+                    fontWeight = FontWeight.SemiBold
+                )
+            }
+
+            TextButton(onClick = { navController.navigate("SignupScreenApplicants") }) {
+                Text(
+                    "Belum memiliki akun? ",
+                    color = Color(0xFF000000)
+                )
+                Text(
+                    "Daftar sekarang",
+                    color = Color(0xFF000000),
+                    fontWeight = FontWeight.Bold
+                )
+            }
         }
     }
 }
