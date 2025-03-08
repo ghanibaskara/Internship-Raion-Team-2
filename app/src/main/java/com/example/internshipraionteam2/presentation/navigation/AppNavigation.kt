@@ -25,10 +25,10 @@ fun AppNavigation(modifier: Modifier,authViewModel: AuthViewModel) {
             UserOption(navController)
         }
         composable("LoginScreenApplicants"){
-            LoginScreenApplicants(navController, authViewModel)
+            LoginScreenApplicants(navController,authViewModel)
         }
         composable("LoginScreenCafe"){
-            LoginScreenCafe(navController)
+            LoginScreenCafe(navController,authViewModel)
         }
         composable("HomeScreenCafe"){
             HomeScreenCafe(navController)

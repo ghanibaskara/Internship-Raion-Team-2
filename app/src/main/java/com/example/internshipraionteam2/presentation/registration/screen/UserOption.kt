@@ -67,9 +67,9 @@ fun UserOption(navController: NavController) {
                     .padding(top = 32.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                useroptionbutton(painterResource(R.drawable.vector1), "Pencari Kerja", 32)
+                useroptionbutton(painterResource(R.drawable.vector1), "Pencari Kerja", 32,"SignupScreenApplicants",navController)
                 Spacer(modifier = Modifier.height(24.dp))
-                useroptionbutton(painterResource(R.drawable.vector2), "Perekrut", 16)
+                useroptionbutton(painterResource(R.drawable.vector2), "Perekrut", 16,"SignupScreenApplicants",navController)
                 Button(
                     onClick = {},
                     colors = ButtonDefaults.buttonColors(maincolor),

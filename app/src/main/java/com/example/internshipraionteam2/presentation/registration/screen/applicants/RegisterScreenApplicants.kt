@@ -16,10 +16,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.reusable.BiodataTextField
+import com.example.internshipraionteam2.reusable.RegisterTextField
 
 @Composable
 fun RegisterScreenApplicants(navController: NavController) {
@@ -39,19 +41,19 @@ fun RegisterScreenApplicants(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        BiodataTextField(fname, onValueChange = {fname = it}, label = "name")
+        BiodataTextField(fname, onValueChange = {fname = it}, label = "first name")
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        BiodataTextField(lname, onValueChange = {lname = it}, label = "name")
+        BiodataTextField(lname, onValueChange = {lname = it}, label = "last name")
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        BiodataTextField(phone, onValueChange = {phone = it}, label = "name")
+        BiodataTextField(phone, onValueChange = {phone = it}, label = "phone")
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        BiodataTextField(dob, onValueChange = {dob = it}, label = "age")
+        BiodataTextField(dob, onValueChange = {dob = it}, label = "date of birth")
 
         Spacer(modifier = Modifier.height(8.dp))
 

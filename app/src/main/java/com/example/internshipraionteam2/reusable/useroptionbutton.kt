@@ -25,12 +25,13 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.internshipraionteam2.data.local.localFontFamily
 import com.example.internshipraionteam2.ui.theme.bordercolor
 import com.example.internshipraionteam2.ui.theme.maincolor
 
 @Composable
-fun useroptionbutton(vector : Painter, text : String, padding : Int) {
+fun useroptionbutton(vector : Painter, text : String, padding : Int, navigate : String, navController: NavController) {
     var stroke by remember { mutableStateOf(1.dp) }
     var border by remember { mutableStateOf(bordercolor) }
     var font by remember { mutableStateOf(FontWeight.Normal) }
@@ -40,7 +41,9 @@ fun useroptionbutton(vector : Painter, text : String, padding : Int) {
         modifier = Modifier
             .height(138.dp)
             .width(294.dp)
-            .clickable {}
+            .clickable {
+                navController.navigate(navigate)
+            }
             .border(
                 BorderStroke(stroke, border),
                 shape = RoundedCornerShape(16.dp)
