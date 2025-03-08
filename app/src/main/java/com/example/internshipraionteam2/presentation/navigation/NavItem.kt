@@ -1,4 +1,4 @@
-package com.example.internshipraionteam2.data.local
+package com.example.internshipraionteam2.presentation.navigation
 
 import androidx.compose.ui.graphics.vector.ImageVector
 

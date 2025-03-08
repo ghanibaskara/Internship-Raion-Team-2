@@ -1,10 +1,7 @@
 package com.example.internshipraionteam2.reusable
 
 import android.widget.Toast
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
@@ -19,7 +16,6 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.reusable.signupbutton
@@ -37,7 +33,6 @@ fun RegisterTextField(name: String, onValueChange : (String) -> Unit, label: Str
         leadingIcon = {
             Icon(icons, contentDescription = "", tint = Color.Gray)
         },
-//        visualTransformation = PasswordVisualTransformation(),
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Text, imeAction = ImeAction.Done
         ),
@@ -80,6 +75,8 @@ fun PasswordTextField(name: String, onValueChange : (String) -> Unit, label: Str
             unfocusedTextColor = Color.Gray
         )
     )
+
+
 }
 
 
