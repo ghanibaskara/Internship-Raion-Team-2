@@ -49,6 +49,7 @@ import com.example.internshipraionteam2.presentation.registration.AuthViewModel
 import com.example.internshipraionteam2.reusable.signupbutton
 import com.example.internshipraionteam2.reusable.RegisterTextField
 import com.example.internshipraionteam2.ui.theme.buttonfocus
+import com.example.internshipraionteam2.ui.theme.localFontFamily
 
 
 @Composable
@@ -71,12 +72,15 @@ fun SignupScreenApplicants(navController: NavController,authViewModel: AuthViewM
             Text(
                 "Halo !",
                 fontSize = 36.sp,
+                fontFamily = localFontFamily,
                 fontWeight = FontWeight.Bold,
                 color = Color(0xFF000000),
                 textAlign = TextAlign.Start
             )
             Text(
                 "Kerja di kafe jadi lebih mudah, daftar sekarang!",
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.Normal,
                 fontSize = 14.sp,
                 color = Color(0xFF000000),
                 textAlign = TextAlign.Start
@@ -93,7 +97,8 @@ fun SignupScreenApplicants(navController: NavController,authViewModel: AuthViewM
 
         ) {
             Text(text = "Email",
-                fontWeight = FontWeight.W700,
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.SemiBold,
                 fontSize = 16.sp)
 
             RegisterTextField(email, onValueChange = {email = it}, "Email", icons = Icons.Filled.AccountCircle)
@@ -101,7 +106,8 @@ fun SignupScreenApplicants(navController: NavController,authViewModel: AuthViewM
             Spacer(modifier = Modifier.height(20.dp))
 
             Text(text = "Kata sandi",
-                fontWeight = FontWeight.W700,
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.SemiBold,
                 fontSize = 16.sp)
 
             RegisterTextField(password, onValueChange = {password = it}, "Kata sandi", icons = Icons.Filled.Lock)
@@ -109,7 +115,8 @@ fun SignupScreenApplicants(navController: NavController,authViewModel: AuthViewM
             Spacer(modifier = Modifier.height(20.dp))
 
             Text(text = "Konfirmasi kata sandi",
-                fontWeight = FontWeight.W700,
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.SemiBold,
                 fontSize = 16.sp)
 
             RegisterTextField(confirmpassword, onValueChange = {confirmpassword = it}, "Konfirmasi kata sandi", icons = Icons.Filled.Lock)
@@ -125,29 +132,37 @@ fun SignupScreenApplicants(navController: NavController,authViewModel: AuthViewM
                 colors = CheckboxDefaults.colors(buttonfocus)
             )
             Text("I agree with the ",
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.Normal,
                 fontSize = 12.sp)
 
             Text("terms of service ",
                 fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold)
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.Bold,)
             Text("and ",
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.Normal,
                 fontSize = 12.sp)
             Text("privacy policy",
                 fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold)
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.Bold)
         }
 
         Button(onClick = { navController.navigate("LoginScreenApplicants") },
             modifier = Modifier.size(width = 346.dp, height = 41.dp),
             colors = ButtonDefaults.buttonColors(containerColor = com.example.internshipraionteam2.ui.theme.buttonfocus)
         ) {
-            Text("Daftar")
+            Text("Daftar",fontFamily = localFontFamily,
+                fontWeight = FontWeight.SemiBold)
         }
 
         Spacer(modifier = Modifier.height(8.dp))
 
         Text("atau",
             fontSize = 12.sp,
+            fontFamily = localFontFamily,
             fontWeight = FontWeight.Medium,
             color = Color(0xFF9E9E9E)
         )
@@ -163,15 +178,19 @@ fun SignupScreenApplicants(navController: NavController,authViewModel: AuthViewM
             Text("Daftar dengan Google",
                 fontSize = 14.sp,
                 color = Color(0xFF000000),
+                fontFamily = localFontFamily,
                 fontWeight = FontWeight.SemiBold)
         }
 
         TextButton(onClick = {}) {
             Text("Sudah memiliki akun? ",
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.Normal,
                 color = Color(0xFF000000)
             )
             Text("Masuk",
                 color = Color(0xFF000000),
+                fontFamily = localFontFamily,
                 fontWeight = FontWeight.Bold
             )
         }
