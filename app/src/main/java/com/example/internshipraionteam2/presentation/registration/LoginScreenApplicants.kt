@@ -108,6 +108,8 @@ fun LoginScreenApplicants(navController: NavController, authViewModel: AuthViewM
                     fontWeight = FontWeight.SemiBold
                 )
 
+        Button(onClick = {authViewModel.login(email, password)
+        navController.navigate("RegisterScreenApplicants")}) {
                 Spacer(modifier = Modifier.width(130.dp))
 
                 Text("Lupa kata sandi?",
