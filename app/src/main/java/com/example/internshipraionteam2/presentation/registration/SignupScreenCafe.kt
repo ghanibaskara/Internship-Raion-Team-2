@@ -1,5 +1,6 @@
 package com.example.internshipraionteam2.presentation.registration
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -129,6 +130,20 @@ fun SignupScreenCafe(navController: NavController) {
             colors = ButtonDefaults.buttonColors(containerColor = com.example.internshipraionteam2.ui.theme.buttonfocus)
         ) {
             Text("Daftar")
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Button(onClick = {},
+            modifier = Modifier.size(width = 346.dp, height = 41.dp),
+            colors = ButtonDefaults.buttonColors(Color.Transparent),
+            border = BorderStroke(3.dp, Color.Gray)
+        ) {
+//            Image(painter = painterResource(R.drawable.))
+            Text("Daftar dengan Google",
+                fontSize = 14.sp,
+                color = Color(0xFF000000),
+                fontWeight = FontWeight.SemiBold)
         }
 
         TextButton(onClick = {}) {

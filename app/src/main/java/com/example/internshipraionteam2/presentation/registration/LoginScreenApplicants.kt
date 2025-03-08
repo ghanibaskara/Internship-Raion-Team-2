@@ -1,5 +1,6 @@
 package com.example.internshipraionteam2.presentation.registration
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -113,6 +115,28 @@ fun LoginScreenApplicants(navController: NavController, authViewModel: AuthViewM
                 .padding(start = 32.dp, end = 32.dp),
             colors = ButtonDefaults.buttonColors(buttonfocus)) {
             Text("Login")
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text("atau",
+            fontSize = 12.sp,
+            fontWeight = FontWeight.Medium,
+            color = Color(0xFF9E9E9E)
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Button(onClick = {},
+            modifier = Modifier.size(width = 346.dp, height = 41.dp),
+            colors = ButtonDefaults.buttonColors(Color.Transparent),
+            border = BorderStroke(3.dp, Color.Gray)
+        ) {
+//            Image(painter = painterResource(R.drawable.))
+            Text("Daftar dengan Google",
+                fontSize = 14.sp,
+                color = Color(0xFF000000),
+                fontWeight = FontWeight.SemiBold)
         }
 
         TextButton(onClick = {navController.navigate("SignupScreenApplicants")}) {

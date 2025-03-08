@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.reusable.signupbutton
@@ -36,6 +37,7 @@ fun RegisterTextField(name: String, onValueChange : (String) -> Unit, label: Str
         leadingIcon = {
             Icon(icons, contentDescription = "", tint = Color.Gray)
         },
+//        visualTransformation = PasswordVisualTransformation(),
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Text, imeAction = ImeAction.Done
         ),
