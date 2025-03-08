@@ -19,7 +19,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.example.internshipraionteam2.data.local.NavItem
+import com.example.internshipraionteam2.presentation.navigation.NavItem
 
 @Composable
 fun HomeScreenApplicants(navController: NavController) {
