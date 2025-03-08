@@ -1,4 +1,4 @@
-package com.example.internshipraionteam2.presentation.registration
+package com.example.internshipraionteam2.presentation.registration.screen.cafe
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

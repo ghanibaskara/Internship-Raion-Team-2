@@ -1,4 +1,4 @@
-package com.example.internshipraionteam2.presentation.registration
+package com.example.internshipraionteam2.presentation.registration.screen.cafe
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,14 +9,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -25,7 +22,7 @@ import androidx.navigation.NavController
 import com.example.internshipraionteam2.reusable.RegisterTextField
 
 @Composable
-fun SignupScreenCafe(navController: NavController) {
+fun LoginScreenCafe(navController: NavController) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -33,12 +30,9 @@ fun SignupScreenCafe(navController: NavController) {
     ) {
         var password by remember { mutableStateOf("") }
         var email by remember { mutableStateOf("") }
-        var confirmpassword by remember { mutableStateOf("") }
 
-        Text(
-            "Cafe Signup Page",
-            fontSize = 32.sp
-        )
+        Text("Cafe Login Page",
+            fontSize = 32.sp)
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -48,16 +42,12 @@ fun SignupScreenCafe(navController: NavController) {
 
         RegisterTextField(password, onValueChange = {password = it}, "Password", icons = Icons.Filled.Lock)
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        RegisterTextField(confirmpassword, onValueChange = {confirmpassword = it}, "Confirm Password", icons = Icons.Filled.Lock)
-
-        Button(onClick = { navController.navigate("LoginScreenCafe") }) {
-            Text("SignUp")
+        Button(onClick = {navController.navigate("RegisterScreenCafe")}) {
+            Text("Login")
         }
 
-        TextButton(onClick = {}) {
-            Text("Already have an account? Login Here.")
+        TextButton(onClick = {navController.navigate("SignupScreenCafe")}) {
+            Text("Dont have an account? Signup Here.")
         }
 
     }
