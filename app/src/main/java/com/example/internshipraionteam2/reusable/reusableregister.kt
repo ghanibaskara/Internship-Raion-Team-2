@@ -1,7 +1,10 @@
 package com.example.internshipraionteam2.reusable
 
 import android.widget.Toast
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
@@ -37,7 +40,8 @@ fun RegisterTextField(name: String, onValueChange : (String) -> Unit, label: Str
             keyboardType = KeyboardType.Text, imeAction = ImeAction.Done
         ),
         shape = RoundedCornerShape(24.dp),
-        modifier = Modifier.padding(top = 16.dp),
+        modifier = Modifier.padding(top = 4.dp)
+            .fillMaxWidth(),
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedLabelColor = Color.Gray,
             focusedLabelColor = Color.Gray,

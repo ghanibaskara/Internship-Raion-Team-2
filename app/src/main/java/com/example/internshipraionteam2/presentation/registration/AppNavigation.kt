@@ -21,7 +21,7 @@ fun AppNavigation(modifier: Modifier,authViewModel: AuthViewModel) {
             LoginScreenApplicants(navController, authViewModel)
         }
         composable("LoginScreenCafe"){
-            LoginScreenCafe(navController)
+            LoginScreenCafe(navController, authViewModel)
         }
         composable("HomeScreenCafe"){
             HomeScreenCafe(navController)
