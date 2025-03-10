@@ -12,17 +12,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.internshipraionteam2.data.network.SharedViewModel
+import com.example.internshipraionteam2.data.network.UserData
 import com.example.internshipraionteam2.reusable.BiodataTextField
 
 @Composable
-fun RegisterScreenCafe(navController: NavController) {
+fun RegisterScreenCafe(
+    navController: NavController,
+    sharedViewModel: SharedViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -30,11 +36,12 @@ fun RegisterScreenCafe(navController: NavController) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        var fname by remember { mutableStateOf("") } // first name
-        var lname by remember { mutableStateOf("") } // last name
-        var phone by remember { mutableStateOf("") } // phone number
-        var dob by remember { mutableStateOf("") } // date of birth
-        var lor by remember { mutableStateOf("") } // location of residence
+        val context = LocalContext.current
+        var fname by rememberSaveable { mutableStateOf("") } // first name
+        var lname by rememberSaveable { mutableStateOf("") } // last name
+        var phone by rememberSaveable { mutableStateOf("") } // phone number
+        var dob by rememberSaveable { mutableStateOf("") } // date of birth
+        var lor by rememberSaveable { mutableStateOf("") } // location of residence
 
         Text(
             "Register Applicants",
@@ -59,11 +66,23 @@ fun RegisterScreenCafe(navController: NavController) {
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        BiodataTextField(lor, onValueChange = { lor = it }, label = "age")
+        BiodataTextField(lor, onValueChange = { lor = it }, label = "location of birth")
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = { navController.navigate("HomeScreenCafe") }) {
+        Button(onClick = {
+
+            val userData = UserData(
+                fname = fname,
+                lname = lname,
+                phone = phone,
+                dob = dob,
+                lor = lor
+            )
+
+            sharedViewModel.saveData(userData = userData, context = context)
+
+            navController.navigate("HomeScreenCafe") }) {
             Text("Register as Cafe Owner")
         }
 

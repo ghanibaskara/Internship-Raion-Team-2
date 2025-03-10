@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.internshipraionteam2.data.network.SharedViewModel
 import com.example.internshipraionteam2.presentation.home.HomeScreenApplicants
 import com.example.internshipraionteam2.presentation.home.HomeScreenCafe
 import com.example.internshipraionteam2.presentation.registration.AuthViewModel
@@ -43,10 +44,10 @@ fun AppNavigation(modifier: Modifier,authViewModel: AuthViewModel) {
             SignupScreenCafe(navController)
         }
         composable("RegisterScreenApplicants"){
-            RegisterScreenApplicants(navController)
+            RegisterScreenApplicants(navController, sharedViewModel = SharedViewModel())
         }
         composable("RegisterScreenCafe"){
-            RegisterScreenCafe(navController)
+            RegisterScreenCafe(navController, sharedViewModel = SharedViewModel())
         }
     })
 }
