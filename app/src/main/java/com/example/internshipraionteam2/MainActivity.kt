@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             Scaffold (modifier = Modifier.fillMaxSize()){ innerPadding ->
                 AppNavigation(modifier = Modifier.padding(innerPadding),
-                    authViewModel = authViewModel)
+                    authViewModel = authViewModel, sharedViewModel = sharedViewModel)
             }
         }
     }

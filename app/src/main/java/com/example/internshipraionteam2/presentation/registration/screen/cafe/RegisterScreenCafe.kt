@@ -36,12 +36,12 @@ fun RegisterScreenCafe(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val context = LocalContext.current
         var fname by rememberSaveable { mutableStateOf("") } // first name
         var lname by rememberSaveable { mutableStateOf("") } // last name
         var phone by rememberSaveable { mutableStateOf("") } // phone number
         var dob by rememberSaveable { mutableStateOf("") } // date of birth
         var lor by rememberSaveable { mutableStateOf("") } // location of residence
+        val context = LocalContext.current
 
         Text(
             "Register Applicants",

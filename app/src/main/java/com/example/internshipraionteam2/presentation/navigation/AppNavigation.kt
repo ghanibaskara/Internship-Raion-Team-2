@@ -18,7 +18,7 @@ import com.example.internshipraionteam2.presentation.registration.screen.cafe.Re
 import com.example.internshipraionteam2.presentation.registration.screen.cafe.SignupScreenCafe
 
 @Composable
-fun AppNavigation(modifier: Modifier,authViewModel: AuthViewModel) {
+fun AppNavigation(modifier: Modifier,authViewModel: AuthViewModel, sharedViewModel: SharedViewModel) {
     val navController = rememberNavController()
 
     NavHost(navController, startDestination = "UserOption", builder = {
