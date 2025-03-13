@@ -49,7 +49,9 @@ fun CvScreenApplicants(
         Row(modifier = Modifier.fillMaxWidth(),
         ) {
             Spacer(modifier = Modifier.width(32.dp))
-            Icon(modifier = Modifier.clickable {},painter = painterResource(R.drawable.ic_arrow_back),
+            Icon(modifier = Modifier.clickable {
+                navController.popBackStack()
+            },painter = painterResource(R.drawable.ic_arrow_back),
                 contentDescription = "arrow back")
             Spacer(modifier = Modifier.width(80.dp))
             Text("Unggah berkas",
