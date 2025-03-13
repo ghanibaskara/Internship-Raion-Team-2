@@ -5,19 +5,28 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.internshipraionteam2.data.network.SharedViewModel
 import com.example.internshipraionteam2.presentation.home.HomeScreenApplicants
 import com.example.internshipraionteam2.presentation.home.HomeScreenCafe
 import com.example.internshipraionteam2.presentation.registration.AuthViewModel
 import com.example.internshipraionteam2.presentation.registration.screen.UserOption
+import com.example.internshipraionteam2.presentation.registration.screen.applicants.CertificateScreenApplicants
+import com.example.internshipraionteam2.presentation.registration.screen.applicants.CvScreenApplicants
+import com.example.internshipraionteam2.presentation.registration.screen.applicants.GreetingScreenApplicants
 import com.example.internshipraionteam2.presentation.registration.screen.applicants.LoginScreenApplicants
 import com.example.internshipraionteam2.presentation.registration.screen.applicants.RegisterScreenApplicants
 import com.example.internshipraionteam2.presentation.registration.screen.applicants.SignupScreenApplicants
+import com.example.internshipraionteam2.presentation.registration.screen.applicants.SummaryScreenApplicants
+import com.example.internshipraionteam2.presentation.registration.screen.cafe.CertificateScreenCafe
+import com.example.internshipraionteam2.presentation.registration.screen.cafe.CvScreenCafe
+import com.example.internshipraionteam2.presentation.registration.screen.cafe.GreetingScreenCafe
 import com.example.internshipraionteam2.presentation.registration.screen.cafe.LoginScreenCafe
 import com.example.internshipraionteam2.presentation.registration.screen.cafe.RegisterScreenCafe
 import com.example.internshipraionteam2.presentation.registration.screen.cafe.SignupScreenCafe
+import com.example.internshipraionteam2.presentation.registration.screen.cafe.SummaryScreenCafe
 
 @Composable
-fun AppNavigation(modifier: Modifier,authViewModel: AuthViewModel) {
+fun AppNavigation(modifier: Modifier,authViewModel: AuthViewModel, sharedViewModel: SharedViewModel) {
     val navController = rememberNavController()
 
     NavHost(navController, startDestination = "UserOption", builder = {
@@ -43,10 +52,34 @@ fun AppNavigation(modifier: Modifier,authViewModel: AuthViewModel) {
             SignupScreenCafe(navController)
         }
         composable("RegisterScreenApplicants"){
-            RegisterScreenApplicants(navController)
+            RegisterScreenApplicants(navController, sharedViewModel = SharedViewModel())
         }
         composable("RegisterScreenCafe"){
-            RegisterScreenCafe(navController)
+            RegisterScreenCafe(navController, sharedViewModel = SharedViewModel())
+        }
+        composable("GreetingScreenApplicants"){
+            GreetingScreenApplicants(navController)
+        }
+        composable("GreetingScreenCafe"){
+            GreetingScreenCafe(navController)
+        }
+        composable("CvScreenApplicants"){
+           CvScreenApplicants(navController)
+        }
+        composable("CvScreenCafe"){
+           CvScreenCafe(navController)
+        }
+        composable("CertificateScreenApplicants"){
+            CertificateScreenApplicants(navController)
+        }
+        composable("CertificateScreenCafe"){
+            CertificateScreenCafe(navController)
+        }
+        composable("SummaryScreenApplicants"){
+            SummaryScreenApplicants(navController)
+        }
+        composable("SummaryScreenCafe"){
+            SummaryScreenCafe(navController)
         }
     })
 }
