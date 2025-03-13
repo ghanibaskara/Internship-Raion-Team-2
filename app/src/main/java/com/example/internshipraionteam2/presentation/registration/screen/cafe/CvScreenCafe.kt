@@ -58,7 +58,6 @@ fun CvScreenCafe(
                 color = Color.Black
             )
         }
-
         Spacer(modifier = Modifier.height(40.dp))
         Row(
             modifier = Modifier

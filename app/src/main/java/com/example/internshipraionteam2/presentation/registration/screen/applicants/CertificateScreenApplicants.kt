@@ -221,7 +221,6 @@ fun CertificateScreenApplicants(
 
             Spacer(modifier = Modifier.height(134.dp))
         }
-
         Button(onClick = {
             navController.navigate("SummaryScreenApplicants")
         },
