@@ -1,5 +1,6 @@
 package com.example.internshipraionteam2.reusable
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -27,7 +28,8 @@ fun BiodataTextField(name: String, onValueChange : (String) -> Unit, label: Stri
             keyboardType = KeyboardType.Text, imeAction = ImeAction.Done
         ),
         shape = RoundedCornerShape(24.dp),
-        modifier = Modifier.padding(top = 16.dp),
+        modifier = Modifier
+            .fillMaxWidth(),
         colors = OutlinedTextFieldDefaults.colors(
             unfocusedLabelColor = Color.Gray,
             focusedLabelColor = Color.Gray,

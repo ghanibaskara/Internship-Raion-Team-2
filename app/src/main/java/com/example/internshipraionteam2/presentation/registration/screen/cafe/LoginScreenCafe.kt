@@ -113,7 +113,7 @@ fun LoginScreenCafe(navController: NavController,authViewModel: AuthViewModel) {
         }
 
         Button(onClick = {authViewModel.login(email, password)
-            navController.navigate("RegisterScreenApplicants")},
+            navController.navigate("GreetingScreenCafe")},
             modifier = Modifier.fillMaxWidth()
                 .padding(start = 32.dp, end = 32.dp),
             colors = ButtonDefaults.buttonColors(buttonfocus)) {

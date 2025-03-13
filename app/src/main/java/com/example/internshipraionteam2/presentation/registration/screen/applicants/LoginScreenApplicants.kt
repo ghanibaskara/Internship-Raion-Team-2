@@ -117,7 +117,7 @@ fun LoginScreenApplicants(navController: NavController, authViewModel: AuthViewM
         }
 
         Button(onClick = {authViewModel.login(email, password)
-            navController.navigate("RegisterScreenApplicants")},
+            navController.navigate("GreetingScreenApplicants")},
             modifier = Modifier.fillMaxWidth()
                 .padding(start = 32.dp, end = 32.dp),
             colors = ButtonDefaults.buttonColors(buttonfocus)) {
