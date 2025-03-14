@@ -186,7 +186,7 @@ fun LoginScreenApplicants(navController: NavController, authViewModel: AuthViewM
 
         Spacer(modifier = Modifier.height(6.dp))
 
-        Row (
+        Row (modifier = Modifier.padding(top = 4.dp, bottom = 4.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceAround
         ) {

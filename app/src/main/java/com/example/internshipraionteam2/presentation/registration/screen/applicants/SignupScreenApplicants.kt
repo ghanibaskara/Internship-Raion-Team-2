@@ -249,7 +249,7 @@ fun SignupScreenApplicants(navController: NavController, authViewModel: AuthView
             )
         }
 
-        Row(
+        Row(modifier = Modifier.padding(top = 12.dp, bottom = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
