@@ -54,6 +54,7 @@ import com.example.internshipraionteam2.reusable.RegisterTextField
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 import com.example.internshipraionteam2.ui.theme.maincolor
+import com.google.firebase.auth.FirebaseAuth
 import kotlin.coroutines.coroutineContext
 
 
@@ -74,6 +75,10 @@ fun RegisterScreenApplicants(
         var dob by rememberSaveable { mutableStateOf("") } // date of birth
         var lor by rememberSaveable { mutableStateOf("") } // location of residence
         val context = LocalContext.current
+
+        val auth = FirebaseAuth.getInstance().currentUser
+        val email = auth?.email
+        val uid = auth?.uid
 
         var isFilled by remember { mutableStateOf(false) }
         var color by remember { mutableStateOf(Color(0xFFEDEDED)) }
@@ -217,7 +222,9 @@ fun RegisterScreenApplicants(
                 lname = lname,
                 phone = phone,
                 dob = dob,
-                lor = lor
+                lor = lor,
+                email = email ?: "",
+                uid = uid ?: ""
             )
 
             sharedViewModel.saveData(userData = userData, context = context)
