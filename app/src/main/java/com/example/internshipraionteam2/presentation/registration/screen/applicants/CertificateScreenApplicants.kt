@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
 import com.example.internshipraionteam2.ui.theme.buttonfocus
+import com.example.internshipraionteam2.ui.theme.localFontFamily
 
 @Composable
 fun CertificateScreenApplicants(
@@ -46,7 +47,7 @@ fun CertificateScreenApplicants(
 
         Row(modifier = Modifier.fillMaxWidth(),
         ) {
-            Spacer(modifier = Modifier.width(32.dp))
+            Spacer(modifier = Modifier.width(24.dp))
             Icon(modifier = Modifier.clickable {
                 navController.popBackStack()
             },painter = painterResource(R.drawable.ic_arrow_back),
@@ -54,7 +55,8 @@ fun CertificateScreenApplicants(
             Spacer(modifier = Modifier.width(80.dp))
             Text("Unggah berkas",
                 fontSize = 20.sp,
-                fontWeight = FontWeight.W600,
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center,
                 color = Color.Black
             )
@@ -74,7 +76,8 @@ fun CertificateScreenApplicants(
                 )
                 Text(text = "1",
                     fontSize = 24.sp,
-                    fontWeight = FontWeight.W700,
+                    fontFamily = localFontFamily,
+                    fontWeight = FontWeight.Bold,
                     color = Color.White)
             }
             Icon(
@@ -89,7 +92,8 @@ fun CertificateScreenApplicants(
                     tint = buttonfocus)
                 Text(text = "2",
                     fontSize = 24.sp,
-                    fontWeight = FontWeight.W700,
+                    fontFamily = localFontFamily,
+                    fontWeight = FontWeight.Bold,
                     color = Color.White)
             }
             Icon(
@@ -98,12 +102,13 @@ fun CertificateScreenApplicants(
                 tint = buttonfocus)
             Box(contentAlignment = Alignment.Center) {
                 Icon(
-                    painterResource(R.drawable.ellipse_25),
+                    painterResource(R.drawable.ellipse_26),
                     contentDescription = "",
                     tint = buttonfocus)
                 Text(text = "3",
                     fontSize = 24.sp,
-                    fontWeight = FontWeight.W700)
+                    fontFamily = localFontFamily,
+                    fontWeight = FontWeight.Bold)
             }
         }
 
@@ -111,7 +116,8 @@ fun CertificateScreenApplicants(
 
         Text(text = "Sertifikasi*",
             fontSize = 24.sp,
-            fontWeight = FontWeight.W700)
+            fontFamily = localFontFamily,
+            fontWeight = FontWeight.Bold)
 
         Spacer(modifier = Modifier.height(24.dp))
 
@@ -137,14 +143,16 @@ fun CertificateScreenApplicants(
                         modifier = Modifier.size(56.dp))
                     Text(text = "Unggah berkas sertifikasi/lisensi Anda",
                         fontSize = 14.sp,
-                        fontWeight = FontWeight.W400)
+                        fontFamily = localFontFamily,
+                        fontWeight = FontWeight.Normal)
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
 
             Text("*Ketentuan berkas sertifikasi",
                 fontSize = 14.sp,
-                fontWeight = FontWeight.W700)
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.Bold)
 
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -161,7 +169,8 @@ fun CertificateScreenApplicants(
 
                 Spacer(modifier = Modifier.width(12.dp))
                 Text("Opsional (tidak wajib ada)",
-                    fontWeight = FontWeight.W400,
+                    fontFamily = localFontFamily,
+                    fontWeight = FontWeight.Normal,
                     fontSize = 12.sp)
             }
             Spacer(modifier = Modifier.height(8.dp))
@@ -179,7 +188,8 @@ fun CertificateScreenApplicants(
 
                 Spacer(modifier = Modifier.width(12.dp))
                 Text("Format berkas: PDF",
-                    fontWeight = FontWeight.W400,
+                    fontFamily = localFontFamily,
+                    fontWeight = FontWeight.Normal,
                     fontSize = 12.sp)
             }
             Spacer(modifier = Modifier.height(8.dp))
@@ -197,7 +207,8 @@ fun CertificateScreenApplicants(
 
                 Spacer(modifier = Modifier.width(12.dp))
                 Text("Format nama berkas: Nama lengkap_sertifikasi.pdf",
-                    fontWeight = FontWeight.W400,
+                    fontFamily = localFontFamily,
+                    fontWeight = FontWeight.Normal,
                     fontSize = 12.sp)
             }
             Spacer(modifier = Modifier.height(8.dp))
@@ -215,7 +226,8 @@ fun CertificateScreenApplicants(
 
                 Spacer(modifier = Modifier.width(12.dp))
                 Text("Ukuran berkas maksimum: 5Mb",
-                    fontWeight = FontWeight.W400,
+                    fontFamily = localFontFamily,
+                    fontWeight = FontWeight.Normal,
                     fontSize = 12.sp)
             }
 
@@ -232,7 +244,8 @@ fun CertificateScreenApplicants(
         ) {
             Text("Selanjutnya",
                 fontSize = 14.sp,
-                fontWeight = FontWeight.W600)
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.Bold)
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -248,7 +261,8 @@ fun CertificateScreenApplicants(
         ) {
             Text(text = "Lewati",
                 fontSize = 14.sp,
-                fontWeight = FontWeight.W600,
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.Normal,
                 color = Color(0x61000000)
             )
         }

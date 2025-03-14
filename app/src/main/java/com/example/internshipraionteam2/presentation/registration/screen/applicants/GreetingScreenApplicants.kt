@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
 import com.example.internshipraionteam2.ui.theme.buttonfocus
+import com.example.internshipraionteam2.ui.theme.localFontFamily
 
 
 @Composable
@@ -50,7 +51,8 @@ fun GreetingScreenApplicants(
             horizontalArrangement = Arrangement.Start) {
             Text("Langkah pertama",
                 fontSize = 28.sp,
-                fontWeight = FontWeight.W700)
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.Bold)
 
         }
 
@@ -58,7 +60,8 @@ fun GreetingScreenApplicants(
             horizontalArrangement = Arrangement.Start) {
             Text("menuju kesuksesan",
                 fontSize = 28.sp,
-                fontWeight = FontWeight.W700)
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.Bold)
         }
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -67,6 +70,8 @@ fun GreetingScreenApplicants(
             horizontalArrangement = Arrangement.Start
         ) {
             Text("Lengkapi biodata sekarang dan temukan",
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.Normal,
                 fontSize = 14.sp)
         }
         Row(
@@ -87,9 +92,10 @@ fun GreetingScreenApplicants(
                 .size(width = 0.dp, height = 41.dp),
             colors = ButtonDefaults.buttonColors(containerColor = buttonfocus)
         ) {
-            Text("Selanjutnya",
+            Text("Mulai",
                 fontSize = 14.sp,
-                fontWeight = FontWeight.W600)
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.SemiBold)
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -104,7 +110,8 @@ fun GreetingScreenApplicants(
         ) {
             Text(text = "Lewati",
                 fontSize = 14.sp,
-                fontWeight = FontWeight.W600,
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.Normal,
                 color = Color(0x61000000)
             )
         }

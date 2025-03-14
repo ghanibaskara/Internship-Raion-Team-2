@@ -1,6 +1,7 @@
 package com.example.internshipraionteam2.presentation.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -9,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarDefaults
@@ -17,22 +19,27 @@ import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.internshipraionteam2.data.ViewModel.AuthState
+import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
 import com.example.internshipraionteam2.data.network.SharedViewModel
 import com.example.internshipraionteam2.presentation.navigation.NavItem
 import com.example.internshipraionteam2.reusable.buttonfocus
 
 @Composable
-fun HomeScreenApplicants(navController: NavController) {
+fun HomeScreenApplicants(navController: NavController, authViewModel: AuthViewModel) {
     val navItemList = listOf(
         NavItem("Home", Icons.Default.Home),
         NavItem("Notification", Icons.Default.Notifications),
@@ -41,6 +48,21 @@ fun HomeScreenApplicants(navController: NavController) {
 
     var selectedIndex by remember {
         mutableStateOf(0)
+    }
+
+    val authState = authViewModel.authState.observeAsState()
+
+    LaunchedEffect(authState.value) {
+        when(authState.value){
+            is AuthState.Unauthenticated -> navController.navigate("UserOption")
+            else -> Unit
+        }
+    }
+
+    Column (modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally){
+        Button(onClick = {authViewModel.signout()}) { }
     }
 
     Scaffold(
@@ -66,7 +88,11 @@ fun HomeScreenApplicants(navController: NavController) {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues)
-            ) {}
+            ) {
+
+                    Button(onClick = {authViewModel.signout()}) { }
+
+            }
         }
     )
 }

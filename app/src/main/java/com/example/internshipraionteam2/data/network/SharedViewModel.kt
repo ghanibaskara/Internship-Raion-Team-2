@@ -38,7 +38,7 @@ class SharedViewModel(): ViewModel(){
 
         val fireStoreRef = Firebase.firestore
             .collection("biodata")
-            .document(userData.fname)
+            .document(userData.userID)
 
         try {
 

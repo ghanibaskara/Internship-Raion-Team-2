@@ -5,5 +5,6 @@ data class UserData( // untuk memberitahu program bahwa kita ingin mengambil dat
     var lname: String = "", // last name
     var phone: String = "", // phone number
     var dob: String = "", // date of birth
-    var lor: String = "" // location of residance
+    var lor: String = "", // location of residance
+    var userID: String = ""
 )

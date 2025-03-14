@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Place
@@ -51,6 +52,8 @@ import com.example.internshipraionteam2.data.network.UserData
 import com.example.internshipraionteam2.reusable.BiodataTextField
 import com.example.internshipraionteam2.reusable.RegisterTextField
 import com.example.internshipraionteam2.ui.theme.buttonfocus
+import com.example.internshipraionteam2.ui.theme.localFontFamily
+import com.example.internshipraionteam2.ui.theme.maincolor
 import kotlin.coroutines.coroutineContext
 
 
@@ -72,9 +75,25 @@ fun RegisterScreenApplicants(
         var lor by rememberSaveable { mutableStateOf("") } // location of residence
         val context = LocalContext.current
 
+        var isFilled by remember { mutableStateOf(false) }
+        var color by remember { mutableStateOf(Color(0xFFEDEDED)) }
+        var fontcolor by remember { mutableStateOf(Color(0xFF9E9E9E)) }
+
+
+        if (fname != ""&& lname != ""&& phone != ""&& dob != "" && lor != ""){
+            color = maincolor
+            fontcolor = Color.White
+            isFilled = true
+        } else {
+            color = Color(0xFFEDEDED)
+            fontcolor = Color(0xFF9E9E9E)
+            isFilled = false
+
+        }
+
         Row(modifier = Modifier.fillMaxWidth(),
             ) {
-            Spacer(modifier = Modifier.width(32.dp))
+            Spacer(modifier = Modifier.width(24.dp))
             Icon(modifier = Modifier.clickable {
                 navController.popBackStack()
             },painter = painterResource(R.drawable.ic_arrow_back),
@@ -82,7 +101,8 @@ fun RegisterScreenApplicants(
             Spacer(modifier = Modifier.width(80.dp))
             Text("Unggah berkas",
                 fontSize = 20.sp,
-                fontWeight = FontWeight.W600,
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center,
                 color = Color.Black
                 )
@@ -100,27 +120,29 @@ fun RegisterScreenApplicants(
                     tint = buttonfocus)
                 Text(text = "1",
                     fontSize = 24.sp,
-                    fontWeight = FontWeight.W700)
+                    fontFamily = localFontFamily,
+                    fontWeight = FontWeight.Bold)
             }
             Icon(painterResource(R.drawable.rectangle_794),
                 contentDescription = "")
             Box(contentAlignment = Alignment.Center) {
-                Icon(painterResource(R.drawable.ellipse_25),
-                    contentDescription = "",
-                    tint = buttonfocus)
+                Icon(painterResource(R.drawable.ellipse_26),
+                    contentDescription = "" )
                 Text(text = "2",
                     fontSize = 24.sp,
-                    fontWeight = FontWeight.W700)
+                    fontFamily = localFontFamily,
+                    fontWeight = FontWeight.Bold)
             }
             Icon(painterResource(R.drawable.rectangle_794),
                 contentDescription = "")
             Box(contentAlignment = Alignment.Center) {
-                Icon(painterResource(R.drawable.ellipse_25),
+                Icon(painterResource(R.drawable.ellipse_26),
                     contentDescription = "",
                     tint = buttonfocus)
                 Text(text = "3",
                     fontSize = 24.sp,
-                    fontWeight = FontWeight.W700)
+                    fontFamily = localFontFamily,
+                    fontWeight = FontWeight.Bold)
             }
         }
 
@@ -128,7 +150,8 @@ fun RegisterScreenApplicants(
 
         Text(text = "Biodata",
             fontSize = 24.sp,
-            fontWeight = FontWeight.W700)
+            fontFamily = localFontFamily,
+            fontWeight = FontWeight.Bold)
 
         Spacer(modifier = Modifier.height(24.dp))
 
@@ -138,46 +161,51 @@ fun RegisterScreenApplicants(
             horizontalAlignment = Alignment.Start) {
             Text(text = "Nama depan",
                 fontSize = 12.sp,
-                fontWeight = FontWeight.W400,
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(start = 16.dp))
 
-            BiodataTextField(fname, onValueChange = {fname = it}, label = "Nama depan")
+            BiodataTextField(fname, onValueChange = {fname = it}, label = "Masukkan nama depan Anda", icons = Icons.Filled.AccountCircle)
 
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(text = "Nama belakang",
                 fontSize = 12.sp,
-                fontWeight = FontWeight.W400,
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(start = 16.dp))
 
-            BiodataTextField(lname, onValueChange = {lname = it}, label = "Nama belakang")
+            BiodataTextField(lname, onValueChange = {lname = it}, label = "Masukkan nama belakang Anda", icons = Icons.Filled.AccountCircle)
 
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(text = "Tanggal lahir",
                 fontSize = 12.sp,
-                fontWeight = FontWeight.W400,
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(start = 16.dp))
 
-            RegisterTextField(dob, onValueChange = {dob = it}, label = "Tanggal lahir", icons = Icons.Filled.DateRange)
+            BiodataTextField(dob, onValueChange = {dob = it}, label = "Masukkan tanggal lahir Anda", icons = Icons.Filled.DateRange)
 
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(text = "Nomor telepon",
                 fontSize = 12.sp,
-                fontWeight = FontWeight.W400,
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(start = 16.dp))
 
-            RegisterTextField(phone, onValueChange = {phone = it}, label = "Nomor telepon", icons = Icons.Filled.Call)
+            BiodataTextField(phone, onValueChange = {phone = it}, label = "Masukkan nomor telepon Anda", icons = Icons.Filled.Call)
 
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(text = "Lokasi tinggal",
                 fontSize = 12.sp,
-                fontWeight = FontWeight.W400,
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(start = 16.dp))
 
-            RegisterTextField(lor, onValueChange = {lor = it}, label = "Lokasi tinggal", icons = Icons.Filled.Place)
+            BiodataTextField(lor, onValueChange = {lor = it}, label = "Masukkan lokasi tinggal Anda", icons = Icons.Filled.Place)
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -198,11 +226,14 @@ fun RegisterScreenApplicants(
             modifier = Modifier.fillMaxWidth()
                 .padding(start = 32.dp, end = 32.dp)
                 .size(width = 0.dp, height = 41.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = buttonfocus)
+            colors = ButtonDefaults.buttonColors(containerColor = color),
+            enabled = isFilled
         ) {
             Text("Selanjutnya",
                 fontSize = 14.sp,
-                fontWeight = FontWeight.W600)
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.Bold,
+                color = fontcolor)
         }
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -218,7 +249,8 @@ fun RegisterScreenApplicants(
         ) {
             Text(text = "Lewati",
                 fontSize = 14.sp,
-                fontWeight = FontWeight.W600,
+                    fontFamily = localFontFamily,
+                    fontWeight = FontWeight.Normal,
                 color = Color(0x61000000)
             )
         }

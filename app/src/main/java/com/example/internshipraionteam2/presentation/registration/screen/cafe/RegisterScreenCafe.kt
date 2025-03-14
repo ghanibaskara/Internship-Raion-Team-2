@@ -133,7 +133,7 @@ fun RegisterScreenCafe(
                 fontWeight = FontWeight.W400,
                 modifier = Modifier.padding(start = 16.dp))
 
-            BiodataTextField(fname, onValueChange = {fname = it}, label = "Nama depan")
+//            BiodataTextField(fname, onValueChange = {fname = it}, label = "Nama depan")
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -142,7 +142,7 @@ fun RegisterScreenCafe(
                 fontWeight = FontWeight.W400,
                 modifier = Modifier.padding(start = 16.dp))
 
-            BiodataTextField(lname, onValueChange = {lname = it}, label = "Nama belakang")
+//            BiodataTextField(lname, onValueChange = {lname = it}, label = "Nama belakang")
 
             Spacer(modifier = Modifier.height(12.dp))
 

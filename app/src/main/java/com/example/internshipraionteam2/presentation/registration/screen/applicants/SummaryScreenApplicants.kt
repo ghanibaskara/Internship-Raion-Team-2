@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
 import com.example.internshipraionteam2.ui.theme.buttonfocus
+import com.example.internshipraionteam2.ui.theme.localFontFamily
 
 @Composable
 fun SummaryScreenApplicants(
@@ -46,7 +47,7 @@ fun SummaryScreenApplicants(
 
         Row(modifier = Modifier.fillMaxWidth(),
         ) {
-            Spacer(modifier = Modifier.width(32.dp))
+            Spacer(modifier = Modifier.width(24.dp))
             Icon(modifier = Modifier.clickable {
                 navController.popBackStack()
             },painter = painterResource(R.drawable.ic_arrow_back),
@@ -54,7 +55,8 @@ fun SummaryScreenApplicants(
             Spacer(modifier = Modifier.width(80.dp))
             Text("Unggah berkas",
                 fontSize = 20.sp,
-                fontWeight = FontWeight.W600,
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center,
                 color = Color.Black
             )
@@ -74,7 +76,8 @@ fun SummaryScreenApplicants(
                 )
                 Text(text = "1",
                     fontSize = 24.sp,
-                    fontWeight = FontWeight.W700,
+                    fontFamily = localFontFamily,
+                    fontWeight = FontWeight.Bold,
                     color = Color.White)
             }
             Icon(
@@ -90,7 +93,8 @@ fun SummaryScreenApplicants(
                 )
                 Text(text = "2",
                     fontSize = 24.sp,
-                    fontWeight = FontWeight.W700,
+                    fontFamily = localFontFamily,
+                    fontWeight = FontWeight.Bold,
                     color = Color.White)
             }
             Icon(
@@ -106,7 +110,8 @@ fun SummaryScreenApplicants(
                 )
                 Text(text = "3",
                     fontSize = 24.sp,
-                    fontWeight = FontWeight.W700,
+                    fontFamily = localFontFamily,
+                    fontWeight = FontWeight.Bold,
                     color = Color.White)
             }
         }
@@ -115,7 +120,8 @@ fun SummaryScreenApplicants(
 
         Text(text = "Rangkuman Berkas",
             fontSize = 24.sp,
-            fontWeight = FontWeight.W700)
+            fontFamily = localFontFamily,
+            fontWeight = FontWeight.Bold)
 
         Spacer(modifier = Modifier.height(24.dp))
 
@@ -126,7 +132,8 @@ fun SummaryScreenApplicants(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text("Biodata",
-                fontWeight = FontWeight.W600,
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.SemiBold,
                 fontSize = 16.sp)
             Icon(painterResource(R.drawable.ic_arrow_down),
                 contentDescription = "")
@@ -138,7 +145,8 @@ fun SummaryScreenApplicants(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text("Curriculum Vitae",
-                fontWeight = FontWeight.W600,
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.SemiBold,
                 fontSize = 16.sp)
             Icon(painterResource(R.drawable.ic_arrow_down),
                 contentDescription = "")
@@ -150,7 +158,8 @@ fun SummaryScreenApplicants(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text("Sertifikasi",
-                fontWeight = FontWeight.W600,
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.SemiBold,
                 fontSize = 16.sp)
             Icon(painterResource(R.drawable.ic_arrow_down),
                 contentDescription = "")
@@ -169,7 +178,8 @@ fun SummaryScreenApplicants(
         ) {
             Text("Selanjutnya",
                 fontSize = 14.sp,
-                fontWeight = FontWeight.W600)
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.Bold)
         }
     }
 }
