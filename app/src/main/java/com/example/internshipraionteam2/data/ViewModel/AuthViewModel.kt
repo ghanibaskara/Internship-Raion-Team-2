@@ -1,6 +1,5 @@
-package com.example.internshipraionteam2.presentation.registration
+package com.example.internshipraionteam2.data.ViewModel
 
-import android.provider.ContactsContract.CommonDataKinds.Email
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,6 +20,8 @@ class AuthViewModel : ViewModel() {
     fun checkAuthStatus(){
         if (auth.currentUser==null){
             _authState.value = AuthState.Unauthenticated
+        }else{
+            _authState.value = AuthState.Authenticated
         }
     }
 
@@ -32,12 +33,14 @@ class AuthViewModel : ViewModel() {
             return
         }
 
+        _authState.value = AuthState.Loading
         auth.signInWithEmailAndPassword(email,password)
             .addOnCompleteListener { task->
                 if (task.isSuccessful){
                     _authState.value = AuthState.Authenticated
                 }else{
-                    _authState.value = AuthState.Error(task.exception?.message?:"Something went wrong")
+                    _authState.value =
+                        AuthState.Error(task.exception?.message ?: "Something went wrong")
                 }
             }
     }
@@ -56,7 +59,8 @@ class AuthViewModel : ViewModel() {
                 if (task.isSuccessful){
                     _authState.value = AuthState.Authenticated
                 }else{
-                    _authState.value = AuthState.Error(task.exception?.message?:"Something went wrong")
+                    _authState.value =
+                        AuthState.Error(task.exception?.message ?: "Something went wrong")
                 }
             }
 
