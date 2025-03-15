@@ -2,7 +2,6 @@ package com.example.internshipraionteam2.presentation.registration.screen.applic
 
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -39,7 +38,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -52,7 +50,6 @@ import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
 import com.example.internshipraionteam2.data.ViewModel.AuthState
 import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
-import com.example.internshipraionteam2.reusable.RegisterTextField
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 import com.example.internshipraionteam2.ui.theme.maincolor
@@ -71,7 +68,9 @@ fun SignupScreenApplicants(navController: NavController, authViewModel: AuthView
         var check by remember { mutableStateOf(false) }
         val context = LocalContext.current
         var isPasswordVisible by remember { mutableStateOf(false) }
+
         val authState = authViewModel.authState.observeAsState()
+
         var color1 by remember { mutableStateOf(Color.Gray) }
         if (email == "") color1 = Color.Gray else color1 = maincolor
 
@@ -84,15 +83,11 @@ fun SignupScreenApplicants(navController: NavController, authViewModel: AuthView
         LaunchedEffect(authState.value) {
             when (authState.value) {
                 is AuthState.Authenticated -> navController.navigate("GreetingScreenApplicants")
-                is AuthState.Error -> Toast.makeText(
-                    context,
-                    (authState.value as AuthState.Error).message,
-                    Toast.LENGTH_SHORT
-                ).show()
-
+                is AuthState.Error -> Toast.makeText(context, (authState.value as AuthState.Error).message,Toast.LENGTH_SHORT).show()
                 else -> Unit
             }
         }
+
 
         Column(
             modifier = Modifier
@@ -302,7 +297,7 @@ fun SignupScreenApplicants(navController: NavController, authViewModel: AuthView
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    authViewModel.signup(email, password)
+                    authViewModel.signup(email,password)
                 }
             },
             modifier = Modifier.size(width = 346.dp, height = 41.dp),

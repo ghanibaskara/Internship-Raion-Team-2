@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.google.gms.google.services)
+    kotlin("plugin.serialization") version "2.0.0"
 }
 
 android {
@@ -69,5 +70,12 @@ dependencies {
     //Livedata
     implementation ("androidx.compose.runtime:runtime-livedata:1.0.0-beta01")
 
+    //Supabase
+    implementation("io.github.jan-tennert.supabase:gotrue-kt:1.3.2")
+    implementation("io.github.jan-tennert.supabase:storage-kt:1.3.2")
+    implementation("io.ktor:ktor-client-cio:2.3.4")
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+    implementation("io.coil-kt:coil-compose:2.4.0")
 
 }

@@ -1,7 +1,6 @@
 package com.example.internshipraionteam2.presentation.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -17,12 +16,13 @@ import com.example.internshipraionteam2.presentation.registration.screen.applica
 import com.example.internshipraionteam2.presentation.registration.screen.applicants.RegisterScreenApplicants
 import com.example.internshipraionteam2.presentation.registration.screen.applicants.SignupScreenApplicants
 import com.example.internshipraionteam2.presentation.registration.screen.applicants.SummaryScreenApplicants
+import com.example.internshipraionteam2.supabase.SupabaseViewModel
 
 
 //belum dipake
 
 @Composable
-fun ApplicantsNavigation(authViewModel: AuthViewModel, sharedViewModel: SharedViewModel) {
+fun ApplicantsNavigation(authViewModel: AuthViewModel, sharedViewModel: SharedViewModel, supabaseViewModel: SupabaseViewModel) {
     val navController = rememberNavController()
 
     NavHost(navController, startDestination = "LoginScreenApplicants", builder = {
@@ -36,7 +36,7 @@ fun ApplicantsNavigation(authViewModel: AuthViewModel, sharedViewModel: SharedVi
             HomeScreenCafe(navController)
         }
         composable("HomeScreenApplicants"){
-            HomeScreenApplicants(navController, authViewModel)
+            HomeScreenApplicants(navController, authViewModel, supabaseViewModel)
         }
         composable("SignupScreenApplicants"){
             SignupScreenApplicants(navController,authViewModel)
@@ -48,7 +48,7 @@ fun ApplicantsNavigation(authViewModel: AuthViewModel, sharedViewModel: SharedVi
             GreetingScreenApplicants(navController)
         }
         composable("CvScreenApplicants"){
-            CvScreenApplicants(navController)
+            CvScreenApplicants(navController, supabaseViewModel)
         }
         composable("CertificateScreenApplicants"){
             CertificateScreenApplicants(navController)

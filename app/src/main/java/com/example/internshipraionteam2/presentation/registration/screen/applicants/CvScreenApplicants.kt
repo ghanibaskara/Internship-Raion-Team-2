@@ -1,5 +1,8 @@
 package com.example.internshipraionteam2.presentation.registration.screen.applicants
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -18,6 +21,10 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusModifier
@@ -32,13 +39,26 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
 import com.example.internshipraionteam2.reusable.buttonfocus
+import com.example.internshipraionteam2.supabase.SupabaseViewModel
+import com.example.internshipraionteam2.supabase.utils.uriToByteArray
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.localFontFamily
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun CvScreenApplicants(
-    navController: NavController
+    navController: NavController,
+    supabaseViewModel: SupabaseViewModel
 ) {
+    var pdfUri by remember { mutableStateOf<Uri?>(null) }
+
+    val auth = FirebaseAuth.getInstance().currentUser
+    val uid = auth?.uid ?: ""
+
+    val launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) { uri: Uri? -> pdfUri = uri }
+
     Column(modifier = Modifier
         .fillMaxSize()
         .background(Color.White)
@@ -127,7 +147,9 @@ fun CvScreenApplicants(
             Box(modifier = Modifier
                 .fillMaxWidth()
                 .height(149.dp)
-                .clickable { }){
+                .clickable {
+                    launcher.launch("application/pdf")
+                }){
             Icon(painterResource(R.drawable.rectangle_796),
                 contentDescription = "Cv column")
                 Column(
@@ -209,7 +231,11 @@ fun CvScreenApplicants(
             Spacer(modifier = Modifier.height(156.dp))
         }
         Button(onClick = {
-            navController.navigate("CertificateScreenApplicants")
+            navController.navigate("CertificateScreenApplicants");
+            val pdfByteArray = pdfUri?.uriToByteArray(context)
+            pdfByteArray?.let {
+                supabaseViewModel.uploadFIle("pdf", "cv_${uid}", it)
+            }
                          },
             modifier = Modifier
                 .fillMaxWidth()
