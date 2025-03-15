@@ -1,15 +1,10 @@
 package com.example.internshipraionteam2.presentation.navigation
 
-import android.widget.Toast
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.internshipraionteam2.data.ViewModel.AuthState
 import com.example.internshipraionteam2.data.network.SharedViewModel
 import com.example.internshipraionteam2.presentation.home.HomeScreenApplicants
 import com.example.internshipraionteam2.presentation.home.HomeScreenCafe
@@ -26,12 +21,12 @@ import com.example.internshipraionteam2.presentation.registration.screen.cafe.Ce
 import com.example.internshipraionteam2.presentation.registration.screen.cafe.CvScreenCafe
 import com.example.internshipraionteam2.presentation.registration.screen.cafe.GreetingScreenCafe
 import com.example.internshipraionteam2.presentation.registration.screen.cafe.LoginScreenCafe
-import com.example.internshipraionteam2.presentation.registration.screen.cafe.RegisterScreenCafe
 import com.example.internshipraionteam2.presentation.registration.screen.cafe.SignupScreenCafe
 import com.example.internshipraionteam2.presentation.registration.screen.cafe.SummaryScreenCafe
+import com.example.internshipraionteam2.supabase.SupabaseViewModel
 
 @Composable
-fun UserNavigation(modifier: Modifier, authViewModel: AuthViewModel, sharedViewModel: SharedViewModel) {
+fun UserNavigation(modifier: Modifier, authViewModel: AuthViewModel, sharedViewModel: SharedViewModel, supabaseViewModel: SupabaseViewModel) {
     val navController = rememberNavController()
 
     NavHost(navController, startDestination = "UserOption", builder = {
@@ -39,7 +34,7 @@ fun UserNavigation(modifier: Modifier, authViewModel: AuthViewModel, sharedViewM
             UserOption(navController, authViewModel)
         }
         composable("ApplicantsNavigation"){
-            ApplicantsNavigation(authViewModel,sharedViewModel)
+            ApplicantsNavigation(authViewModel,sharedViewModel, supabaseViewModel)
         }
         composable("LoginScreenApplicants"){
             LoginScreenApplicants(navController,authViewModel)
@@ -51,7 +46,7 @@ fun UserNavigation(modifier: Modifier, authViewModel: AuthViewModel, sharedViewM
             HomeScreenCafe(navController)
         }
         composable("HomeScreenApplicants"){
-            HomeScreenApplicants(navController, authViewModel)
+            HomeScreenApplicants(navController, authViewModel, supabaseViewModel)
         }
         composable("SignupScreenApplicants"){
             SignupScreenApplicants(navController,authViewModel)
@@ -72,7 +67,7 @@ fun UserNavigation(modifier: Modifier, authViewModel: AuthViewModel, sharedViewM
             GreetingScreenCafe(navController)
         }
         composable("CvScreenApplicants"){
-           CvScreenApplicants(navController)
+           CvScreenApplicants(navController, supabaseViewModel)
         }
         composable("CvScreenCafe"){
            CvScreenCafe(navController)
