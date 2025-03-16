@@ -47,6 +47,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
+import com.example.internshipraionteam2.data.network.AccountTypeData
 import com.example.internshipraionteam2.data.network.SharedViewModel
 import com.example.internshipraionteam2.data.network.UserData
 import com.example.internshipraionteam2.reusable.BiodataTextField
@@ -77,8 +78,8 @@ fun RegisterScreenApplicants(
         val context = LocalContext.current
 
         val auth = FirebaseAuth.getInstance().currentUser
-        val email = auth?.email
-        val uid = auth?.uid
+        val email = auth?.email ?: ""
+        val uid = auth?.uid ?: ""
 
         var isFilled by remember { mutableStateOf(false) }
         var color by remember { mutableStateOf(Color(0xFFEDEDED)) }
@@ -224,10 +225,13 @@ fun RegisterScreenApplicants(
                 dob = dob,
                 lor = lor,
                 email = email ?: "",
-                uid = uid ?: ""
+                uid = uid,
+                biodataisfilled = true
+
             )
 
             sharedViewModel.saveData(userData = userData, context = context)
+
 
             navController.navigate("CvScreenApplicants")},
             modifier = Modifier.fillMaxWidth()

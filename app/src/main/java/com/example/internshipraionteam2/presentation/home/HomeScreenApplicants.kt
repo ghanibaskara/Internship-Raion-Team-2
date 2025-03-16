@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -40,16 +42,19 @@ import coil.compose.AsyncImage
 import com.example.internshipraionteam2.data.ViewModel.AuthState
 import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
 import com.example.internshipraionteam2.data.network.SharedViewModel
+import com.example.internshipraionteam2.data.network.UserData
+import com.example.internshipraionteam2.data.network.cafeId
 import com.example.internshipraionteam2.presentation.navigation.NavItem
 import com.example.internshipraionteam2.reusable.buttonfocus
 import com.example.internshipraionteam2.supabase.SupabaseClient
 import com.example.internshipraionteam2.supabase.SupabaseViewModel
 import com.example.internshipraionteam2.supabase.utils.uriToByteArray
+import com.google.firebase.auth.FirebaseAuth
 import io.github.jan.supabase.BuildConfig
 
 @Composable
 fun HomeScreenApplicants(
-    navController: NavController, authViewModel: AuthViewModel, supabaseViewModel: SupabaseViewModel
+    navController: NavController, authViewModel: AuthViewModel, supabaseViewModel: SupabaseViewModel, sharedViewModel: SharedViewModel
 ) {
     val navItemList = listOf(
         NavItem("Home", Icons.Default.Home),
@@ -67,6 +72,14 @@ fun HomeScreenApplicants(
 
     var imageUri by remember { mutableStateOf<Uri?>(null) }
 
+    var cafeIds by remember { mutableStateOf(cafeId()) }
+
+    LaunchedEffect(Unit) {
+        sharedViewModel.getAllCafeIds { ids ->
+            cafeIds = ids
+        }
+    }
+
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
     ) { uri: Uri? -> imageUri = uri }
@@ -74,6 +87,12 @@ fun HomeScreenApplicants(
     var imageUrl by remember {
         mutableStateOf("")
     }
+
+    val auth = FirebaseAuth.getInstance().currentUser
+    val email = auth?.email ?: ""
+    val uid = auth?.uid ?: ""
+    var biodataisfilled by remember { mutableStateOf(false) }
+
 
     LaunchedEffect(authState.value) {
         when (authState.value) {
@@ -130,6 +149,12 @@ fun HomeScreenApplicants(
                 }
             }) {
                 Text("Preview Image")
+            }
+
+            LazyColumn  {
+                items(cafeIds.cafeUid) { cafeUid ->
+                    Text(text = cafeUid, modifier = Modifier.padding(8.dp)) // Menampilkan setiap cafeUid
+                }
             }
 
             Text(text = if (imageUri != null) "Image is Selected" else "")

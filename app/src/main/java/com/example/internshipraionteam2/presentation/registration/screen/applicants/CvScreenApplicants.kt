@@ -1,6 +1,7 @@
 package com.example.internshipraionteam2.presentation.registration.screen.applicants
 
 import android.net.Uri
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -21,9 +22,11 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,6 +41,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
+import com.example.internshipraionteam2.data.network.SharedViewModel
+import com.example.internshipraionteam2.data.network.UserData
 import com.example.internshipraionteam2.reusable.buttonfocus
 import com.example.internshipraionteam2.supabase.SupabaseViewModel
 import com.example.internshipraionteam2.supabase.utils.uriToByteArray
@@ -48,12 +53,34 @@ import com.google.firebase.auth.FirebaseAuth
 @Composable
 fun CvScreenApplicants(
     navController: NavController,
-    supabaseViewModel: SupabaseViewModel
+    supabaseViewModel: SupabaseViewModel,
+    sharedViewModel: SharedViewModel
 ) {
     var pdfUri by remember { mutableStateOf<Uri?>(null) }
 
+    var fname: String by remember { mutableStateOf("") } // first name
+    var lname: String by remember { mutableStateOf("") } // last name
+    var phone: String by remember { mutableStateOf("") } // phone number
+    var dob: String by remember { mutableStateOf("") } // date of birth
+    var lor: String by remember { mutableStateOf("") } // location of residence
+    val context = LocalContext.current
+
+    var fname1 by remember { mutableStateOf("") }
+
+    LaunchedEffect(Unit) {
+        sharedViewModel.retrieveData(context){
+                data ->
+            fname = data.fname
+            lname = data.lname
+            phone = data.phone
+            dob = data.dob
+            lor = data.lor
+        }
+    }
+
     val auth = FirebaseAuth.getInstance().currentUser
     val uid = auth?.uid ?: ""
+    val email = auth?.email ?: ""
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
@@ -236,6 +263,21 @@ fun CvScreenApplicants(
             pdfByteArray?.let {
                 supabaseViewModel.uploadFIle("pdf", "cv_${uid}", it)
             }
+
+            val userData = UserData(
+                fname = fname,
+                lname = lname,
+                phone = phone,
+                dob = dob,
+                lor = lor,
+                email = email ?: "",
+                uid = uid,
+                biodataisfilled = true,
+                cvurl = "https://ujpaetwqzaklppgsqvof.supabase.co/storage/v1/object/public/pdf//cv_${uid}.pdf"
+
+            )
+            sharedViewModel.saveData(userData,context)
+
                          },
             modifier = Modifier
                 .fillMaxWidth()

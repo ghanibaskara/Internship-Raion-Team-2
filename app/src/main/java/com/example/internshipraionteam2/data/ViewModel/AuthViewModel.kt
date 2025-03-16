@@ -12,6 +12,9 @@ class AuthViewModel : ViewModel() {
 
     val authState: LiveData<AuthState> = _authState
 
+    val firebaseauth = FirebaseAuth.getInstance().currentUser
+    var uid = firebaseauth?.uid ?: ""
+
     init {
         checkAuthStatus()
 
@@ -52,7 +55,6 @@ class AuthViewModel : ViewModel() {
             _authState.value = AuthState.Error("Email or password can't be empty.")
             return
         }
-
 
         auth.createUserWithEmailAndPassword(email,password)
             .addOnCompleteListener { task->

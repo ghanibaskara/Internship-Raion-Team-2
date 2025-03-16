@@ -31,28 +31,28 @@ fun UserNavigation(modifier: Modifier, authViewModel: AuthViewModel, sharedViewM
 
     NavHost(navController, startDestination = "UserOption", builder = {
         composable("UserOption"){
-            UserOption(navController, authViewModel)
+            UserOption(navController, authViewModel, sharedViewModel)
         }
-        composable("ApplicantsNavigation"){
-            ApplicantsNavigation(authViewModel,sharedViewModel, supabaseViewModel)
-        }
+//        composable("ApplicantsNavigation"){
+//            ApplicantsNavigation(authViewModel,sharedViewModel, supabaseViewModel)
+//        }
         composable("LoginScreenApplicants"){
-            LoginScreenApplicants(navController,authViewModel)
+            LoginScreenApplicants(navController,authViewModel,sharedViewModel)
         }
         composable("LoginScreenCafe"){
-            LoginScreenCafe(navController,authViewModel)
+            LoginScreenCafe(navController,authViewModel,sharedViewModel)
         }
         composable("HomeScreenCafe"){
-            HomeScreenCafe(navController)
+            HomeScreenCafe(navController,authViewModel,sharedViewModel)
         }
         composable("HomeScreenApplicants"){
-            HomeScreenApplicants(navController, authViewModel, supabaseViewModel)
+            HomeScreenApplicants(navController, authViewModel, supabaseViewModel,sharedViewModel)
         }
         composable("SignupScreenApplicants"){
-            SignupScreenApplicants(navController,authViewModel)
+            SignupScreenApplicants(navController,authViewModel, sharedViewModel)
         }
         composable("SignupScreenCafe"){
-            SignupScreenCafe(navController)
+            SignupScreenCafe(navController, authViewModel,sharedViewModel)
         }
         composable("RegisterScreenApplicants"){
             RegisterScreenApplicants(navController, sharedViewModel = SharedViewModel())
@@ -61,19 +61,19 @@ fun UserNavigation(modifier: Modifier, authViewModel: AuthViewModel, sharedViewM
 //            RegisterScreenCafe(navController, sharedViewModel = SharedViewModel())
 //        }
         composable("GreetingScreenApplicants"){
-            GreetingScreenApplicants(navController)
+            GreetingScreenApplicants(navController, authViewModel, sharedViewModel)
         }
         composable("GreetingScreenCafe"){
             GreetingScreenCafe(navController)
         }
         composable("CvScreenApplicants"){
-           CvScreenApplicants(navController, supabaseViewModel)
+           CvScreenApplicants(navController, supabaseViewModel,sharedViewModel)
         }
         composable("CvScreenCafe"){
            CvScreenCafe(navController)
         }
         composable("CertificateScreenApplicants"){
-            CertificateScreenApplicants(navController)
+            CertificateScreenApplicants(navController,supabaseViewModel,sharedViewModel)
         }
         composable("CertificateScreenCafe"){
             CertificateScreenCafe(navController)
