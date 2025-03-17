@@ -102,7 +102,7 @@ fun GreetingScreenApplicants(
 
         Button(
             onClick = {
-                navController.navigate("HomeScreenApplicants")
+                navController.navigate("BottomScreenApplicants")
             },
             modifier = Modifier
                 .fillMaxWidth(),

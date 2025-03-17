@@ -252,7 +252,7 @@ fun CertificateScreenApplicants(
 
         Button(
             onClick = {
-                navController.navigate("HomeScreenApplicants")
+                navController.navigate("BottomScreenApplicants")
             },
             modifier = Modifier
                 .fillMaxWidth()

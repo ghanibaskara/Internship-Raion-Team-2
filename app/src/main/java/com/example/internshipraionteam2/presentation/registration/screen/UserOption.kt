@@ -66,12 +66,12 @@ fun UserOption(navController: NavController, authViewModel: AuthViewModel) {
 
     val authState = authViewModel.authState.observeAsState()
 
-    LaunchedEffect(authState.value) {
-        when(authState.value){
-            is AuthState.Authenticated -> navController.navigate("HomeScreenApplicants")
-            else -> Unit
-        }
-    }
+//    LaunchedEffect(authState.value) {
+//        when(authState.value){
+//            is AuthState.Authenticated -> navController.navigate("HomeScreenApplicants")
+//            else -> Unit
+//        }
+//    }
 
     if (isSelected1 || isSelected2){
         color = maincolor

@@ -1,19 +1,21 @@
 package com.example.internshipraionteam2.presentation.navigation
 
-import android.widget.Toast
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.internshipraionteam2.data.ViewModel.AuthState
 import com.example.internshipraionteam2.data.network.SharedViewModel
 import com.example.internshipraionteam2.presentation.home.HomeScreenApplicants
-import com.example.internshipraionteam2.presentation.home.HomeScreenCafe
+//import com.example.internshipraionteam2.presentation.home.HomeScreenCafe
 import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
+import com.example.internshipraionteam2.presentation.home.BottomScreenApplicants
+import com.example.internshipraionteam2.presentation.home.EditProfileScreen
+import com.example.internshipraionteam2.presentation.home.ExperienceInformationScreen
+import com.example.internshipraionteam2.presentation.home.InformationAccountScreen
+import com.example.internshipraionteam2.presentation.home.ProfileScreenApplicants
+import com.example.internshipraionteam2.presentation.home.SecurityPrivacyScreen
 import com.example.internshipraionteam2.presentation.registration.screen.UserOption
 import com.example.internshipraionteam2.presentation.registration.screen.applicants.CertificateScreenApplicants
 import com.example.internshipraionteam2.presentation.registration.screen.applicants.CvScreenApplicants
@@ -38,9 +40,9 @@ fun UserNavigation(modifier: Modifier, authViewModel: AuthViewModel, sharedViewM
         composable("UserOption"){
             UserOption(navController, authViewModel)
         }
-        composable("ApplicantsNavigation"){
-            ApplicantsNavigation(authViewModel,sharedViewModel)
-        }
+//        composable("ApplicantsNavigation"){
+//            ApplicantsNavigation(authViewModel,sharedViewModel)
+//        }
         composable("LoginScreenApplicants"){
             LoginScreenApplicants(navController,authViewModel)
         }
@@ -48,10 +50,10 @@ fun UserNavigation(modifier: Modifier, authViewModel: AuthViewModel, sharedViewM
             LoginScreenCafe(navController,authViewModel)
         }
         composable("HomeScreenCafe"){
-            HomeScreenCafe(navController)
+//            HomeScreenCafe(navController)
         }
-        composable("HomeScreenApplicants"){
-            HomeScreenApplicants(navController, authViewModel)
+        composable("BottomScreenApplicants"){
+            BottomScreenApplicants(navController, authViewModel)
         }
         composable("SignupScreenApplicants"){
             SignupScreenApplicants(navController,authViewModel)
@@ -62,9 +64,9 @@ fun UserNavigation(modifier: Modifier, authViewModel: AuthViewModel, sharedViewM
         composable("RegisterScreenApplicants"){
             RegisterScreenApplicants(navController, sharedViewModel = SharedViewModel())
         }
-//        composable("RegisterScreenCafe"){
-//            RegisterScreenCafe(navController, sharedViewModel = SharedViewModel())
-//        }
+        composable("RegisterScreenCafe"){
+            RegisterScreenCafe(navController, sharedViewModel = SharedViewModel())
+        }
         composable("GreetingScreenApplicants"){
             GreetingScreenApplicants(navController)
         }
@@ -88,6 +90,21 @@ fun UserNavigation(modifier: Modifier, authViewModel: AuthViewModel, sharedViewM
         }
         composable("SummaryScreenCafe"){
             SummaryScreenCafe(navController)
+        }
+        composable("ProfileScreenApplicants"){
+            ProfileScreenApplicants(navController)
+        }
+        composable("InformationAccountScreen"){
+            InformationAccountScreen(navController)
+        }
+        composable("EditProfileScreen"){
+            EditProfileScreen(navController)
+        }
+        composable("ExperienceInformationScreen"){
+            ExperienceInformationScreen(navController)
+        }
+        composable("SecurityPrivacyScreen"){
+            SecurityPrivacyScreen(navController)
         }
     })
 }

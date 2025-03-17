@@ -21,43 +21,43 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.presentation.navigation.NavItem
 
-@Composable
-fun HomeScreenCafe(navController: NavController) {
-
-    val navItemList = listOf(
-        NavItem("Home", Icons.Default.Home),
-        NavItem("Notification", Icons.Default.Notifications),
-        NavItem("Sttings", Icons.Default.Settings)
-    )
-
-    var selectedIndex by remember {
-        mutableStateOf(0)
-    }
-
-    Scaffold(
-        bottomBar = {
-            NavigationBar {
-                navItemList.forEachIndexed { index, navItem ->
-                NavigationBarItem(
-                    selected = selectedIndex == index,
-                    onClick = {
-                        selectedIndex = index},
-                    icon = {
-                        Icon(imageVector = navItem.icon, contentDescription = "Icon")
-                    },
-                    label = {
-                        Text(text = navItem.label)
-                    }
-                )
-                }
-            }
-        }, content = { 
-            paddingValues ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues)
-            ) {}
-        }
-    )
-}
+//@Composable
+//fun HomeScreenCafe(navController: NavController) {
+//
+//    val navItemList = listOf(
+//        NavItem("Home", Icons.Default.Home),
+//        NavItem("Notification", Icons.Default.Notifications),
+//        NavItem("Sttings", Icons.Default.Settings)
+//    )
+//
+//    var selectedIndex by remember {
+//        mutableStateOf(0)
+//    }
+//
+//    Scaffold(
+//        bottomBar = {
+//            NavigationBar {
+//                navItemList.forEachIndexed { index, navItem ->
+//                NavigationBarItem(
+//                    selected = selectedIndex == index,
+//                    onClick = {
+//                        selectedIndex = index},
+//                    icon = {
+//                        Icon(imageVector = navItem.icon, contentDescription = "Icon")
+//                    },
+//                    label = {
+//                        Text(text = navItem.label)
+//                    }
+//                )
+//                }
+//            }
+//        }, content = {
+//            paddingValues ->
+//            Column(
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .padding(paddingValues)
+//            ) {}
+//        }
+//    )
+//}
