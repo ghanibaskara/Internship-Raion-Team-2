@@ -69,5 +69,7 @@ dependencies {
     //Livedata
     implementation ("androidx.compose.runtime:runtime-livedata:1.0.0-beta01")
 
+    //Splash Screen
+    implementation(libs.androidx.core.splashscreen)
 
 }
