@@ -184,7 +184,7 @@ fun RegisterScreenCafe(
                 lor = lor
             )
 
-            sharedViewModel.saveData(userData = userData, context = context)
+//            sharedViewModel.saveData(userData = userData, context = context)
 
             navController.navigate("CvScreenCafe")},
             modifier = Modifier.fillMaxWidth()

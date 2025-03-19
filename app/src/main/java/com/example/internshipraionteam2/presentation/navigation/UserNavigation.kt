@@ -2,7 +2,9 @@ package com.example.internshipraionteam2.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+
 import androidx.lifecycle.viewmodel.compose.viewModel
+
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -31,38 +33,42 @@ import com.example.internshipraionteam2.presentation.registration.screen.cafe.Ce
 import com.example.internshipraionteam2.presentation.registration.screen.cafe.CvScreenCafe
 import com.example.internshipraionteam2.presentation.registration.screen.cafe.GreetingScreenCafe
 import com.example.internshipraionteam2.presentation.registration.screen.cafe.LoginScreenCafe
-import com.example.internshipraionteam2.presentation.registration.screen.cafe.RegisterScreenCafe
 import com.example.internshipraionteam2.presentation.registration.screen.cafe.SignupScreenCafe
 import com.example.internshipraionteam2.presentation.registration.screen.cafe.SummaryScreenCafe
+import com.example.internshipraionteam2.supabase.SupabaseViewModel
 
 @Composable
-fun UserNavigation(modifier: Modifier, authViewModel: AuthViewModel, sharedViewModel: SharedViewModel) {
+fun UserNavigation(modifier: Modifier, authViewModel: AuthViewModel, sharedViewModel: SharedViewModel, supabaseViewModel: SupabaseViewModel) {
     val navController = rememberNavController()
 
     NavHost(navController, startDestination = "UserOption", builder = {
         composable("UserOption"){
-            UserOption(navController, authViewModel)
+
+            UserOption(navController, authViewModel, sharedViewModel)
         }
 //        composable("ApplicantsNavigation"){
-//            ApplicantsNavigation(authViewModel,sharedViewModel)
+//            ApplicantsNavigation(authViewModel,sharedViewModel, supabaseViewModel)
+
 //        }
         composable("LoginScreenApplicants"){
-            LoginScreenApplicants(navController,authViewModel)
+            LoginScreenApplicants(navController,authViewModel,sharedViewModel)
         }
         composable("LoginScreenCafe"){
-            LoginScreenCafe(navController,authViewModel)
+            LoginScreenCafe(navController,authViewModel,sharedViewModel)
         }
         composable("HomeScreenCafe"){
-//            HomeScreenCafe(navController)
+
+            HomeScreenCafe(navController,authViewModel,sharedViewModel)
         }
-        composable("BottomScreenApplicants"){
-            BottomScreenApplicants(navController, authViewModel)
+        composable("HomeScreenApplicants"){
+            HomeScreenApplicants(navController, authViewModel, supabaseViewModel,sharedViewModel)
+
         }
         composable("SignupScreenApplicants"){
-            SignupScreenApplicants(navController,authViewModel)
+            SignupScreenApplicants(navController,authViewModel, sharedViewModel)
         }
         composable("SignupScreenCafe"){
-            SignupScreenCafe(navController)
+            SignupScreenCafe(navController, authViewModel,sharedViewModel)
         }
         composable("RegisterScreenApplicants"){
             RegisterScreenApplicants(navController, sharedViewModel = SharedViewModel())
@@ -71,19 +77,19 @@ fun UserNavigation(modifier: Modifier, authViewModel: AuthViewModel, sharedViewM
             RegisterScreenCafe(navController, sharedViewModel = SharedViewModel())
         }
         composable("GreetingScreenApplicants"){
-            GreetingScreenApplicants(navController)
+            GreetingScreenApplicants(navController, authViewModel, sharedViewModel)
         }
         composable("GreetingScreenCafe"){
             GreetingScreenCafe(navController)
         }
         composable("CvScreenApplicants"){
-           CvScreenApplicants(navController)
+           CvScreenApplicants(navController, supabaseViewModel,sharedViewModel)
         }
         composable("CvScreenCafe"){
            CvScreenCafe(navController)
         }
         composable("CertificateScreenApplicants"){
-            CertificateScreenApplicants(navController)
+            CertificateScreenApplicants(navController,supabaseViewModel,sharedViewModel)
         }
         composable("CertificateScreenCafe"){
             CertificateScreenCafe(navController)

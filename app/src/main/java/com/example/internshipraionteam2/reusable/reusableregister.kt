@@ -107,7 +107,7 @@ fun signupbutton(confirmpassword : String, password : String, email : String, au
         } else if(password.length <= 8){
             Toast.makeText(context, "Password harus lebih panjang dari 8 karakter.", Toast.LENGTH_SHORT).show()
         } else {
-            authViewModel.signup(email, password)
+            authViewModel.signup(email, password, "")
             Toast.makeText(context, "Pembuatan Akun berhasil.", Toast.LENGTH_SHORT).show()
             navController.navigate("RegisterScreenApplicants")
         }

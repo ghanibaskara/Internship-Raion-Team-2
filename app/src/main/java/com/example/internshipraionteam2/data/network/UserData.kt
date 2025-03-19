@@ -7,5 +7,8 @@ data class UserData( // untuk memberitahu program bahwa kita ingin mengambil dat
     var dob: String = "", // date of birth
     var lor: String = "", // location of residance
     var email: String = "",
-    var uid: String = ""
+    var uid: String = "",
+    var biodataisfilled: Boolean = false,
+    var cvurl: String = "",
+    var certificateurl: String = ""
 )
