@@ -261,9 +261,11 @@ fun SearchScreen(
             LazyVerticalGrid(modifier = Modifier
                 .fillMaxSize()
                 .background(Color.White),
+                contentPadding = PaddingValues(bottom = 55.dp),
                 columns = GridCells.Fixed(2)) {
                 items(8){
                         VacancyCard()
+                    Spacer(modifier = Modifier.height(10.dp))
                 }
             }
         }

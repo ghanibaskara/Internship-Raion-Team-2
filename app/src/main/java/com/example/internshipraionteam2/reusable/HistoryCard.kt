@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,13 +26,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 
-@Preview
+
 @Composable
-fun HistoryCard(text: String) {
+fun HistoryCard(text: String
+,navController: NavController) {
     Card(
+        elevation = CardDefaults.cardElevation(8.dp),
         modifier = Modifier.fillMaxWidth()
             .height(185.dp)
             .padding(bottom = 10.dp)
@@ -103,7 +107,9 @@ fun HistoryCard(text: String) {
 
             Row(modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center) {
-                Button(onClick = {}
+                Button(onClick = {
+                    navController.navigate("Lamaran")
+                }
                 , colors = ButtonDefaults.buttonColors(Color.White)) {
                     Text("Cek status lamaran",
                         fontWeight = FontWeight.W600,

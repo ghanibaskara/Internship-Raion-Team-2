@@ -26,15 +26,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
 import com.example.internshipraionteam2.reusable.HistoryCard
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 import java.lang.reflect.Modifier
 
-@Preview
+
 @Composable
-fun Lamaran() {
+fun Lamaran(navController: NavController) {
     Column(modifier = androidx.compose.ui.Modifier
         .fillMaxSize()
         .background(Color.White)
@@ -47,7 +48,7 @@ fun Lamaran() {
         ) {
             Icon(
                 modifier = androidx.compose.ui.Modifier.clickable {
-//                navController.popBackStack()
+                navController.navigate("BottomScreenApplicants")
                 }, painter = painterResource(R.drawable.ic_arrow_back),
                 contentDescription = "",
                 tint = Color.Black

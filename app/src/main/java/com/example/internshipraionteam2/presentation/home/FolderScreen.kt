@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,10 +31,10 @@ import com.example.internshipraionteam2.R
 import com.example.internshipraionteam2.reusable.HistoryCard
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 
-@Preview
+//@Preview
 @Composable
 fun FolderScreen(
-//    navController: NavController = rememberNavController()
+    navController: NavController
 ) {
     Column(modifier = Modifier
         .fillMaxSize()
@@ -46,7 +47,7 @@ fun FolderScreen(
             horizontalArrangement = Arrangement.Start
         ) {
             Icon(modifier = Modifier.clickable {
-//                navController.popBackStack()
+                navController.navigate("BottomScreenApplicants")
             },painter = painterResource(R.drawable.ic_arrow_back),
                 contentDescription = "",
                 tint = Color.Black)
@@ -62,12 +63,13 @@ fun FolderScreen(
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize(),
+            contentPadding = PaddingValues(bottom = 60.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
 
             items(5){
-                HistoryCard(text = "${it+1}")
+                HistoryCard(text = "${it+1}", navController = navController)
             }
         }
 
