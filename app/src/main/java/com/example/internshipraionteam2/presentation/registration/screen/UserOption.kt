@@ -32,22 +32,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.internshipraionteam2.R
 import com.example.internshipraionteam2.data.ViewModel.AuthState
 import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
+import com.example.internshipraionteam2.data.network.SharedViewModel
+import com.example.internshipraionteam2.data.network.UserData
+import com.example.internshipraionteam2.data.network.currentUid
 import com.example.internshipraionteam2.ui.theme.localFontFamily
-import com.example.internshipraionteam2.reusable.useroptionbutton
 import com.example.internshipraionteam2.ui.theme.bordercolor
 import com.example.internshipraionteam2.ui.theme.maincolor
+import com.google.firebase.auth.FirebaseAuth
 
 
 @Composable
-fun UserOption(navController: NavController, authViewModel: AuthViewModel) {
+fun UserOption(navController: NavController, authViewModel: AuthViewModel,sharedViewModel: SharedViewModel) {
 
     var stroke1 by remember { mutableStateOf(1.dp) }
     var border1 by remember { mutableStateOf(bordercolor) }
@@ -58,22 +59,96 @@ fun UserOption(navController: NavController, authViewModel: AuthViewModel) {
     var isSelected1 by remember { mutableStateOf(false) }
     var isSelected2 by remember { mutableStateOf(false) }
 
+    val auth = FirebaseAuth.getInstance().currentUser
+
     var color by remember { mutableStateOf(Color(0xFFEDEDED)) }
     var font by remember { mutableStateOf(FontWeight.Normal) }
     var fontcolor by remember { mutableStateOf(Color(0xFF9E9E9E)) }
     var fontcolor2 by remember { mutableStateOf(Color.Gray) }
 
-
     val authState = authViewModel.authState.observeAsState()
+    val context = LocalContext.current
 
-//    LaunchedEffect(authState.value) {
-//        when(authState.value){
-//            is AuthState.Authenticated -> navController.navigate("HomeScreenApplicants")
+    var accounttype: String by remember { mutableStateOf("") }
+    var useruid: String by remember { mutableStateOf("") }
+    var email: String by remember { mutableStateOf("") }
+    var isLoading = true
+    var biodataIsFilled: Boolean? = null
+
+    LaunchedEffect(Unit) {
+        if (authState.value == AuthState.Authenticated){
+            sharedViewModel.getAccountTypeData {
+                    data ->
+                accounttype = data.accounttype
+            }
+            Toast.makeText(
+                context,
+                "User Authenticated. \n\t\t\tLogging in...",
+                Toast.LENGTH_SHORT
+            ).show()
+            do {
+                if (accounttype.isNotEmpty()) {
+                    isLoading = false
+                }
+            } while (isLoading == true)
+            if (accounttype == "applicants"){
+                sharedViewModel.getApplicantsData {
+                        data ->
+                    biodataIsFilled = data.biodataisfilled
+                }
+                do {
+                } while (biodataIsFilled == null)
+                if (biodataIsFilled == true){
+                    navController.navigate("HomeScreenApplicants")
+                } else {
+                    navController.navigate("GreetingScreenApplicants")
+                }
+            } else {
+
+            }
+
+
+        }
+    }
+
+
+
+
+
+//        if (sharedViewModel.currentUid.isNotEmpty()){
+//            Toast.makeText(
+//                context,
+//               sharedViewModel.currentUid,
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            if (authState.value == AuthState.Authenticated){
+//                if (sharedViewModel.accountType == "applicants"){
+//                    if (sharedViewModel.biodataIsFilled == true){
+//                        navController.navigate("HomeScreenApplicants")
+//                    } else {
+//                        navController.navigate("GreetingScreenApplicants")
+//                    }
+//                } else {
+//                        navController.navigate("HomeScreenCafe")
+//                }
+//            }
+//        }
+
+
+//        when (authState.value) {
+//            is AuthState.Authenticated -> navController.navigate("GreetingScreenApplicants")
+//            is AuthState.Error -> Toast.makeText(
+//                context,
+//                (authState.value as AuthState.Error).message,
+//                Toast.LENGTH_SHORT
+//            ).show()
+//
 //            else -> Unit
 //        }
-//    }
 
-    if (isSelected1 || isSelected2){
+
+
+if (isSelected1 || isSelected2){
         color = maincolor
         font = FontWeight.SemiBold
         fontcolor = Color.White
@@ -235,10 +310,5 @@ fun UserOption(navController: NavController, authViewModel: AuthViewModel) {
     }
 }
 
-@Preview
-@Composable
-fun UserOptionPreview(modifier: Modifier = Modifier) {
-    val navController = rememberNavController()
-    UserOption(navController, AuthViewModel())
-}
+
 

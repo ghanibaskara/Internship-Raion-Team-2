@@ -3,7 +3,12 @@ package com.example.internshipraionteam2.data.ViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.internshipraionteam2.data.network.AccountTypeData
+import com.example.internshipraionteam2.data.network.UserData
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.tasks.await
 
 class AuthViewModel : ViewModel() {
     private val auth : FirebaseAuth = FirebaseAuth.getInstance()
@@ -12,10 +17,15 @@ class AuthViewModel : ViewModel() {
 
     val authState: LiveData<AuthState> = _authState
 
+    var currentUserUid: String = auth?.uid ?: ""
+
+
     init {
         checkAuthStatus()
 
+
     }
+
 
     fun checkAuthStatus(){
         if (auth.currentUser==null){
@@ -45,19 +55,29 @@ class AuthViewModel : ViewModel() {
             }
     }
 
-    fun signup(email : String, password : String){
-
-
-        if (email.isEmpty() || password.isEmpty()){
-            _authState.value = AuthState.Error("Email or password can't be empty.")
-            return
-        }
-
+    fun signup(email : String, password : String,accountype: String){
 
         auth.createUserWithEmailAndPassword(email,password)
             .addOnCompleteListener { task->
                 if (task.isSuccessful){
                     _authState.value = AuthState.Authenticated
+                    val userId = auth.currentUser?.uid
+                    if (userId != null) {
+                        val db = Firebase.firestore
+                        var accountType = AccountTypeData(
+                            email = email,
+                            uid = userId,
+                            accounttype = accountype
+                        )
+                        db.collection("account").document(userId).set(accountType)
+                        var userData = UserData(
+                            uid = userId,
+                            email = email,
+                            biodataisfilled = false
+                        )
+                        db.collection("biodata").document(userId).set(userData)
+                    } else {
+                    }
                 }else{
                     _authState.value =
                         AuthState.Error(task.exception?.message ?: "Something went wrong")
@@ -65,6 +85,7 @@ class AuthViewModel : ViewModel() {
             }
 
     }
+
 
     fun signout(){
         auth.signOut()

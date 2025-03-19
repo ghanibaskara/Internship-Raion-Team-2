@@ -2,7 +2,6 @@ package com.example.internshipraionteam2.presentation.registration.screen.applic
 
 import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -39,7 +38,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -52,14 +50,22 @@ import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
 import com.example.internshipraionteam2.data.ViewModel.AuthState
 import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
-import com.example.internshipraionteam2.reusable.RegisterTextField
+import com.example.internshipraionteam2.data.network.AccountTypeData
+import com.example.internshipraionteam2.data.network.SharedViewModel
+import com.example.internshipraionteam2.data.network.UserData
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 import com.example.internshipraionteam2.ui.theme.maincolor
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 @Composable
-fun SignupScreenApplicants(navController: NavController, authViewModel: AuthViewModel) {
+fun SignupScreenApplicants(
+    navController: NavController,
+    authViewModel: AuthViewModel,
+    sharedViewModel: SharedViewModel
+) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Top,
@@ -72,6 +78,9 @@ fun SignupScreenApplicants(navController: NavController, authViewModel: AuthView
         val context = LocalContext.current
         var isPasswordVisible by remember { mutableStateOf(false) }
         val authState = authViewModel.authState.observeAsState()
+        val auth = FirebaseAuth.getInstance().currentUser
+
+
         var color1 by remember { mutableStateOf(Color.Gray) }
         if (email == "") color1 = Color.Gray else color1 = maincolor
 
@@ -81,18 +90,6 @@ fun SignupScreenApplicants(navController: NavController, authViewModel: AuthView
         var color3 by remember { mutableStateOf(Color.Gray) }
         if (confirmpassword == "") color3 = Color.Gray else color3 = maincolor
 
-        LaunchedEffect(authState.value) {
-            when (authState.value) {
-                is AuthState.Authenticated -> navController.navigate("GreetingScreenApplicants")
-                is AuthState.Error -> Toast.makeText(
-                    context,
-                    (authState.value as AuthState.Error).message,
-                    Toast.LENGTH_SHORT
-                ).show()
-
-                else -> Unit
-            }
-        }
 
         Column(
             modifier = Modifier
@@ -138,7 +135,12 @@ fun SignupScreenApplicants(navController: NavController, authViewModel: AuthView
                 onValueChange = { email = it },
                 singleLine = true,
                 placeholder = {
-                    Text("Masukkan email Anda", fontFamily = localFontFamily, fontWeight = FontWeight.Normal, fontSize = 12.sp)
+                    Text(
+                        "Masukkan email Anda",
+                        fontFamily = localFontFamily,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 12.sp
+                    )
                 },
                 leadingIcon = {
                     Icon(Icons.Filled.AccountCircle, contentDescription = "", tint = color1)
@@ -174,14 +176,23 @@ fun SignupScreenApplicants(navController: NavController, authViewModel: AuthView
                 onValueChange = { password = it },
                 singleLine = true,
                 placeholder = {
-                    Text("Masukkan kata sandi Anda", fontFamily = localFontFamily, fontWeight = FontWeight.Normal, fontSize = 12.sp)
+                    Text(
+                        "Masukkan kata sandi Anda",
+                        fontFamily = localFontFamily,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 12.sp
+                    )
                 },
                 leadingIcon = {
                     Icon(Icons.Filled.Lock, contentDescription = "", tint = color2)
                 },
                 trailingIcon = {
-                    IconButton(onClick =  {isPasswordVisible = !isPasswordVisible}) {
-                        Icon(painter = if (isPasswordVisible) painterResource(R.drawable.baseline_visibility_24) else painterResource(R.drawable.baseline_visibility_off_24),"", tint = color2)
+                    IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
+                        Icon(
+                            painter = if (isPasswordVisible) painterResource(R.drawable.baseline_visibility_24) else painterResource(
+                                R.drawable.baseline_visibility_off_24
+                            ), "", tint = color2
+                        )
                     }
                 },
                 keyboardOptions = KeyboardOptions(
@@ -220,14 +231,23 @@ fun SignupScreenApplicants(navController: NavController, authViewModel: AuthView
                 onValueChange = { confirmpassword = it },
                 singleLine = true,
                 placeholder = {
-                    Text("Konfirmasi ulang kata sandi Anda", fontFamily = localFontFamily, fontWeight = FontWeight.Normal, fontSize = 12.sp)
+                    Text(
+                        "Konfirmasi ulang kata sandi Anda",
+                        fontFamily = localFontFamily,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 12.sp
+                    )
                 },
                 leadingIcon = {
                     Icon(Icons.Filled.Lock, contentDescription = "", tint = color3)
                 },
                 trailingIcon = {
-                    IconButton(onClick =  {isPasswordVisible = !isPasswordVisible}) {
-                        Icon(painter = if (isPasswordVisible) painterResource(R.drawable.baseline_visibility_24) else painterResource(R.drawable.baseline_visibility_off_24),"", tint = color3)
+                    IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
+                        Icon(
+                            painter = if (isPasswordVisible) painterResource(R.drawable.baseline_visibility_24) else painterResource(
+                                R.drawable.baseline_visibility_off_24
+                            ), "", tint = color3
+                        )
                     }
                 },
                 keyboardOptions = KeyboardOptions(
@@ -249,7 +269,8 @@ fun SignupScreenApplicants(navController: NavController, authViewModel: AuthView
             )
         }
 
-        Row(modifier = Modifier.padding(top = 12.dp, bottom = 12.dp),
+        Row(
+            modifier = Modifier.padding(top = 12.dp, bottom = 12.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
@@ -302,7 +323,10 @@ fun SignupScreenApplicants(navController: NavController, authViewModel: AuthView
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    authViewModel.signup(email, password)
+                    authViewModel.signup(email, password, "applicants" )
+                        navController.navigate("GreetingScreenApplicants")
+
+
                 }
                 navController.navigate("GreetingScreenApplicants")
             },
