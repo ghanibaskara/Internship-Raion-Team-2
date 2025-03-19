@@ -1,13 +1,29 @@
 package com.example.internshipraionteam2.presentation.home
 
+
+import androidx.compose.foundation.Image
+
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.material3.Card
+
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,132 +32,225 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
+
 import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarDefaults
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.NavigationBarItemColors
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
+
 import androidx.compose.ui.platform.LocalContext
+
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
+
+import com.example.internshipraionteam2.R
 import com.example.internshipraionteam2.data.ViewModel.AuthState
 import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
 import com.example.internshipraionteam2.data.network.SharedViewModel
-import com.example.internshipraionteam2.data.network.UserData
-import com.example.internshipraionteam2.data.network.cafeId
-import com.example.internshipraionteam2.presentation.navigation.NavItem
-import com.example.internshipraionteam2.reusable.buttonfocus
-import com.example.internshipraionteam2.supabase.SupabaseClient
-import com.example.internshipraionteam2.supabase.SupabaseViewModel
-import com.example.internshipraionteam2.supabase.utils.uriToByteArray
-import com.google.firebase.auth.FirebaseAuth
-import io.github.jan.supabase.BuildConfig
+import com.example.internshipraionteam2.reusable.EventCard
+import com.example.internshipraionteam2.reusable.NewsCard
+import com.example.internshipraionteam2.reusable.buttonmain
+import com.example.internshipraionteam2.ui.theme.buttonfocus
+import com.example.internshipraionteam2.ui.theme.localFontFamily
 
 @Composable
 fun HomeScreenApplicants(
-    navController: NavController, authViewModel: AuthViewModel, supabaseViewModel: SupabaseViewModel, sharedViewModel: SharedViewModel
+    navController: NavController,
+    authViewModel: AuthViewModel,
+    sharedViewModel: SharedViewModel = viewModel()
 ) {
-    val navItemList = listOf(
-        NavItem("Home", Icons.Default.Home),
-        NavItem("Notification", Icons.Default.Notifications),
-        NavItem("Sttings", Icons.Default.Settings)
-    )
 
-    var selectedIndex by remember {
-        mutableStateOf(0)
-    }
+        val authState = authViewModel.authState.observeAsState()
+        val getData = sharedViewModel.state.value
 
-    var context = LocalContext.current
+//    LaunchedEffect(authState.value) {
+//        val state = authState.value
+//        if (state == null) return@LaunchedEffect // Pastikan tidak `null`
+//
+//        if (state is AuthState.Unauthenticated) {
+//            navController.navigate("UserOption") {
+//                popUpTo("HomeScreenApplicants") { inclusive = true } // Mencegah navigasi berulang
+//            }
+//        }
+//    }
+//    LaunchedEffect(authState.value) {
+//        when (authState.value) {
+//            is AuthState.Unauthenticated -> navController.navigate("UserOption")
+//            else -> Unit
+//        }
+//    }
 
-    val authState = authViewModel.authState.observeAsState()
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+//            .background(Color.White) // hanya untuk preview
+            .padding(start = 32.dp, end = 32.dp)
+    ) {
+        Spacer(modifier = Modifier.height(94.dp))
 
-    var imageUri by remember { mutableStateOf<Uri?>(null) }
-
-    var cafeIds by remember { mutableStateOf(cafeId()) }
-
-    LaunchedEffect(Unit) {
-        sharedViewModel.getAllCafeIds { ids ->
-            cafeIds = ids
-        }
-    }
-
-    val launcher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.GetContent()
-    ) { uri: Uri? -> imageUri = uri }
-
-    var imageUrl by remember {
-        mutableStateOf("")
-    }
-
-    val auth = FirebaseAuth.getInstance().currentUser
-    val email = auth?.email ?: ""
-    val uid = auth?.uid ?: ""
-    var biodataisfilled by remember { mutableStateOf(false) }
-
-
-    LaunchedEffect(authState.value) {
-        when (authState.value) {
-            is AuthState.Unauthenticated -> navController.navigate("UserOption")
-            else -> Unit
-        }
-    }
-
-
-    Scaffold(bottomBar = {
-        NavigationBar {
-            navItemList.forEachIndexed { index, navItem ->
-                NavigationBarItem(selected = selectedIndex == index, onClick = {
-                    selectedIndex = index
-                }, icon = {
-                    Icon(imageVector = navItem.icon, contentDescription = "Icon")
-                }, label = {
-                    Text(text = navItem.label)
-                })
-            }
-        }
-    }, content = { paddingValues ->
-        Column(
+        Row(
             modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Button(onClick = { authViewModel.signout() }) { }
+            Column(
+                horizontalAlignment = Alignment.Start
+            ) {
+                Row(horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.Bottom) {
+                    Text("Hi, ",
+                        fontFamily = localFontFamily,
+                        fontSize = 36.sp,
+                        fontWeight = FontWeight.Bold)
+                    Text(getData.fname,
+                        fontFamily = localFontFamily,
+                        fontSize = 36.sp,
+                        fontWeight = FontWeight.Bold)
 
-            Button(onClick = { supabaseViewModel.createBucket("photos") }) {
-                Text("Create Bucket")
+                }
+
+                Text("Mari mulai bekerja di kafe impianmu!",
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.W500,
+                    fontFamily = localFontFamily
+                )
             }
 
-            Button(onClick = { launcher.launch("image/*") }) {
-                Text("Select Image")
-            }
+            Icon(painter = painterResource(R.drawable.ic_bell), contentDescription = "")
+        }
 
-            if (imageUri != null) {
-                Button(onClick = {
-                    val imageByteArray = imageUri?.uriToByteArray(context)
-                    imageByteArray?.let {
-                        supabaseViewModel.uploadFIle("photos", "newImage", it)
-                    }
-                }) {
-                    Text("Upload Image")
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Card(
+            onClick = {},
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(156.dp)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxSize()
+                    .background(color = Color(0xFF6F4A31))
+                    .padding(horizontal = 14.dp, vertical = 16.dp)
+            ) {
+            Row(
+                modifier = Modifier.height(50.dp),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+            Icon(painter = painterResource(R.drawable.ellipse_filled), contentDescription = "",
+                modifier = Modifier.size(50.dp))
+
+            Spacer(modifier = Modifier.width(12.dp))
+
+            Column(
+                modifier = Modifier.fillMaxHeight(),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text("Dekker Koffie",
+                    color = Color.White,
+                    fontSize = 16.sp,
+                    fontFamily = localFontFamily,
+                    fontWeight = FontWeight.W700)
+                Text("Lowokwaru",
+                    color = Color.White,
+                    fontSize = 14.sp,
+                    fontFamily = localFontFamily,
+                    fontWeight = FontWeight.W400)
                 }
             }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+            Text("Barista",
+                color = Color.White,
+                fontSize = 16.sp,
+                fontFamily = localFontFamily,
+                fontWeight = FontWeight.W700)
+
+                Row(horizontalArrangement = Arrangement.SpaceBetween) {
+                Text("Rp5 juta/bulan",
+                    color = Color.White,
+                    fontSize = 16.sp,
+                    fontFamily = localFontFamily,
+                    fontWeight = FontWeight.W700)
+                    Box(contentAlignment = Alignment.Center){
+                        Icon(painter = painterResource(R.drawable.ellipse_4), contentDescription = "",
+                            tint = Color.Unspecified, modifier = Modifier.size(20.dp))
+                        Icon(painter = painterResource(R.drawable.ic_arrow_right), contentDescription = "",
+                            tint = buttonfocus)
+                    }
+
+                }
+            }
+
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Row() {
+            Icon(painter = painterResource(R.drawable.tag_fulltime), contentDescription = "",
+                tint = Color.White)
+            }
+            }
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text("Event",
+            fontSize = 20.sp,
+            fontFamily = localFontFamily,
+            fontWeight = FontWeight.W700)
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        LazyRow(
+            modifier = Modifier.fillMaxWidth()
+                .background(Color.White)
+        ) {
+            items(5){
+                EventCard()
+            }
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Text("Berita",
+            fontSize = 20.sp,
+            fontFamily = localFontFamily,
+            fontWeight = FontWeight.W700)
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        LazyRow(
+            modifier = Modifier.fillMaxWidth()
+                .background(Color.White)
+        ) {
+            items(5){
+                NewsCard()
+            }
+        }
+
+    }
+}
+
+
+=======
 
             Button(onClick = {
                 supabaseViewModel.readFile("photos", "newImage") {
@@ -169,3 +278,4 @@ fun HomeScreenApplicants(
         }
     })
 }
+

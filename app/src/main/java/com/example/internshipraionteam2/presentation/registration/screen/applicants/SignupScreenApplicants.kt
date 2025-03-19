@@ -328,6 +328,7 @@ fun SignupScreenApplicants(
 
 
                 }
+                navController.navigate("GreetingScreenApplicants")
             },
             modifier = Modifier.size(width = 346.dp, height = 41.dp),
             colors = ButtonDefaults.buttonColors(containerColor = com.example.internshipraionteam2.ui.theme.buttonfocus)

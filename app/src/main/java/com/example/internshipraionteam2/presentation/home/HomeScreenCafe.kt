@@ -29,6 +29,7 @@ import com.example.internshipraionteam2.data.network.SharedViewModel
 import com.example.internshipraionteam2.presentation.navigation.NavItem
 import com.google.firebase.auth.FirebaseAuth
 
+
 @Composable
 fun HomeScreenCafe(navController: NavController, authViewModel: AuthViewModel, sharedViewModel: SharedViewModel) {
 
@@ -89,3 +90,4 @@ fun HomeScreenCafe(navController: NavController, authViewModel: AuthViewModel, s
         }
     )
 }
+

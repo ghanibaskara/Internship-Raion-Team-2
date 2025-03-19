@@ -70,6 +70,10 @@ dependencies {
     //Livedata
     implementation ("androidx.compose.runtime:runtime-livedata:1.0.0-beta01")
 
+
+    //Splash Screen
+    implementation(libs.androidx.core.splashscreen)
+
     //Supabase
     implementation("io.github.jan-tennert.supabase:gotrue-kt:1.3.2")
     implementation("io.github.jan-tennert.supabase:storage-kt:1.3.2")
@@ -77,5 +81,6 @@ dependencies {
 
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
     implementation("io.coil-kt:coil-compose:2.4.0")
+
 
 }
