@@ -321,7 +321,7 @@ fun SignupScreenCafe(
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    authViewModel.signup(email, password)
+                    authViewModel.signup(email, password, "cafe")
                     navController.navigate("LoginScreenCafe")
 
                 }

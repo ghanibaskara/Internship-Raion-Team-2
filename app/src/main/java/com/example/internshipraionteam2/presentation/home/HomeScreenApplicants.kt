@@ -153,7 +153,11 @@ fun HomeScreenApplicants(
 
             LazyColumn  {
                 items(cafeIds.cafeUid) { cafeUid ->
-                    Text(text = cafeUid, modifier = Modifier.padding(8.dp)) // Menampilkan setiap cafeUid
+                    Button(onClick = {
+                        sharedViewModel.saveAppliedApplicantsUid(uid,cafeUid)
+                    }) {
+                        Text(text = cafeUid, modifier = Modifier.padding(8.dp))
+                    } // Menampilkan setiap cafeUid
                 }
             }
 

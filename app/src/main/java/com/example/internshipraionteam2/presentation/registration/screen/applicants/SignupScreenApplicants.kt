@@ -77,6 +77,8 @@ fun SignupScreenApplicants(
         var check by remember { mutableStateOf(false) }
         val context = LocalContext.current
         var isPasswordVisible by remember { mutableStateOf(false) }
+        val authState = authViewModel.authState.observeAsState()
+        val auth = FirebaseAuth.getInstance().currentUser
 
 
         var color1 by remember { mutableStateOf(Color.Gray) }
@@ -321,8 +323,9 @@ fun SignupScreenApplicants(
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
-                    authViewModel.signup(email, password)
-                    navController.navigate("LoginScreenApplicants")
+                    authViewModel.signup(email, password, "applicants" )
+                        navController.navigate("GreetingScreenApplicants")
+
 
                 }
             },

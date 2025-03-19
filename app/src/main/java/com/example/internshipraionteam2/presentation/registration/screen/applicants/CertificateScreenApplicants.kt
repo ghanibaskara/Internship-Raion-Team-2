@@ -44,7 +44,10 @@ import com.example.internshipraionteam2.supabase.SupabaseViewModel
 import com.example.internshipraionteam2.supabase.utils.uriToByteArray
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.localFontFamily
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.firestore
 
 @Composable
 fun CertificateScreenApplicants(
@@ -61,16 +64,16 @@ fun CertificateScreenApplicants(
     var lor: String by remember { mutableStateOf("") } // location of residence
     val context = LocalContext.current
 
-    LaunchedEffect(Unit) {
-        sharedViewModel.retrieveData(context){
-                data ->
-            fname = data.fname
-            lname = data.lname
-            phone = data.phone
-            dob = data.dob
-            lor = data.lor
-        }
-    }
+//    LaunchedEffect(Unit) {
+//        sharedViewModel.retrieveData(context){
+//                data ->
+//            fname = data.fname
+//            lname = data.lname
+//            phone = data.phone
+//            dob = data.dob
+//            lor = data.lor
+//        }
+//    }
 
     val auth = FirebaseAuth.getInstance().currentUser
     val uid = auth?.uid ?: ""
@@ -298,7 +301,10 @@ fun CertificateScreenApplicants(
                 certificateurl = "https://ujpaetwqzaklppgsqvof.supabase.co/storage/v1/object/public/pdf//certificate_${uid}.pdf"
 
             )
-            sharedViewModel.saveData(userData,context)
+            val documentRef = Firebase.firestore.collection("biodata").document(uid)
+
+            // Menggunakan arrayUnion untuk menambahkan UID ke field array
+            documentRef.update("certificateurl", userData.certificateurl)
         },
             modifier = Modifier
                 .fillMaxWidth()

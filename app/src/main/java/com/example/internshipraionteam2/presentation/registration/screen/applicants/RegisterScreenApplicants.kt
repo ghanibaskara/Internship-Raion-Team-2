@@ -230,7 +230,7 @@ fun RegisterScreenApplicants(
 
             )
 
-            sharedViewModel.saveData(userData = userData, context = context)
+            sharedViewModel.saveApplicantsBiodata(userData = userData, context = context)
 
 
             navController.navigate("CvScreenApplicants")},

@@ -40,6 +40,7 @@ import com.example.internshipraionteam2.data.ViewModel.AuthState
 import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
 import com.example.internshipraionteam2.data.network.SharedViewModel
 import com.example.internshipraionteam2.data.network.UserData
+import com.example.internshipraionteam2.data.network.currentUid
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 import com.example.internshipraionteam2.ui.theme.bordercolor
 import com.example.internshipraionteam2.ui.theme.maincolor
@@ -58,6 +59,8 @@ fun UserOption(navController: NavController, authViewModel: AuthViewModel,shared
     var isSelected1 by remember { mutableStateOf(false) }
     var isSelected2 by remember { mutableStateOf(false) }
 
+    val auth = FirebaseAuth.getInstance().currentUser
+
     var color by remember { mutableStateOf(Color(0xFFEDEDED)) }
     var font by remember { mutableStateOf(FontWeight.Normal) }
     var fontcolor by remember { mutableStateOf(Color(0xFF9E9E9E)) }
@@ -65,26 +68,71 @@ fun UserOption(navController: NavController, authViewModel: AuthViewModel,shared
 
     val authState = authViewModel.authState.observeAsState()
     val context = LocalContext.current
-    val firebase = FirebaseAuth.getInstance().currentUser
-    val uid = firebase?.uid ?: ""
+
     var accounttype: String by remember { mutableStateOf("") }
     var useruid: String by remember { mutableStateOf("") }
     var email: String by remember { mutableStateOf("") }
+    var isLoading = true
+    var biodataIsFilled: Boolean? = null
 
-   LaunchedEffect(Unit) {
-       if (uid.isNotEmpty()){
-//           Toast.makeText(context,"Asdasd", Toast.LENGTH_SHORT).show()
-           sharedViewModel.retrieveAccountData(context){
-                   data ->
-               accounttype = data.accounttype
-               useruid = data.uid
-               email = data.email
-           }
+    LaunchedEffect(Unit) {
+        if (authState.value == AuthState.Authenticated){
+            sharedViewModel.getAccountTypeData {
+                    data ->
+                accounttype = data.accounttype
+            }
+            Toast.makeText(
+                context,
+                "User Authenticated. \n\t\t\tLogging in...",
+                Toast.LENGTH_SHORT
+            ).show()
+            do {
+                if (accounttype.isNotEmpty()) {
+                    isLoading = false
+                }
+            } while (isLoading == true)
+            if (accounttype == "applicants"){
+                sharedViewModel.getApplicantsData {
+                        data ->
+                    biodataIsFilled = data.biodataisfilled
+                }
+                do {
+                } while (biodataIsFilled == null)
+                if (biodataIsFilled == true){
+                    navController.navigate("HomeScreenApplicants")
+                } else {
+                    navController.navigate("GreetingScreenApplicants")
+                }
+            } else {
 
-       }
-   }
+            }
 
-//    LaunchedEffect(authState.value) {
+        }
+    }
+
+
+
+
+//        if (sharedViewModel.currentUid.isNotEmpty()){
+//            Toast.makeText(
+//                context,
+//               sharedViewModel.currentUid,
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            if (authState.value == AuthState.Authenticated){
+//                if (sharedViewModel.accountType == "applicants"){
+//                    if (sharedViewModel.biodataIsFilled == true){
+//                        navController.navigate("HomeScreenApplicants")
+//                    } else {
+//                        navController.navigate("GreetingScreenApplicants")
+//                    }
+//                } else {
+//                        navController.navigate("HomeScreenCafe")
+//                }
+//            }
+//        }
+
+
 //        when (authState.value) {
 //            is AuthState.Authenticated -> navController.navigate("GreetingScreenApplicants")
 //            is AuthState.Error -> Toast.makeText(
@@ -95,9 +143,10 @@ fun UserOption(navController: NavController, authViewModel: AuthViewModel,shared
 //
 //            else -> Unit
 //        }
-//    }
 
-    if (isSelected1 || isSelected2){
+
+
+if (isSelected1 || isSelected2){
         color = maincolor
         font = FontWeight.SemiBold
         fontcolor = Color.White

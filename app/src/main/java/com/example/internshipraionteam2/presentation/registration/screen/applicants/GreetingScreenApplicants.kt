@@ -49,9 +49,33 @@ fun GreetingScreenApplicants(
 //    sharedViewModel.saveAccountData(accountTypeData,context)
     val auth = FirebaseAuth.getInstance().currentUser
     val email = auth?.email ?: ""
-    val uid = auth?.uid ?: ""
+    var uid = ""
 
     val authState = authViewModel.authState.observeAsState()
+
+    LaunchedEffect(Unit) {
+//        uid = auth?.uid ?: ""
+//        val accountTypeData = AccountTypeData(
+//            accounttype = "applicants",
+//            email = email,
+//            uid = uid
+//        )
+//        sharedViewModel.saveAccountTypeData(accountTypeData,context, uid)
+//
+//        val userData = UserData(
+//            fname = "",
+//            lname = "",
+//            phone = "",
+//            dob = "",
+//            lor = "",
+//            email = email,
+//            uid = uid,
+//            biodataisfilled = false
+//
+//        )
+//
+//        sharedViewModel.saveApplicantsBiodata(userData = userData, context = context)
+    }
 
     Column(
         modifier = Modifier
@@ -112,26 +136,9 @@ fun GreetingScreenApplicants(
 //            val email = auth?.email ?: ""
 //
 //
-            val accountTypeData = AccountTypeData(
-                accounttype = "applicants",
-                email = email,
-                uid = uid
-            )
+
 //
-            val userData = UserData(
-                fname = "",
-                lname = "",
-                phone = "",
-                dob = "",
-                lor = "",
-                email = email,
-                uid = uid,
-                biodataisfilled = false
 
-            )
-
-            sharedViewModel.saveData(userData = userData, context = context)
-            sharedViewModel.saveAccountData(accountTypeData,context)
         },
             modifier = Modifier
                 .fillMaxWidth()
