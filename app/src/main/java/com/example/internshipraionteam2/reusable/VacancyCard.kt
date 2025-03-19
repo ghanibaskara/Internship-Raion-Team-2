@@ -2,6 +2,7 @@ package com.example.internshipraionteam2.reusable
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,12 +30,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.internshipraionteam2.R
+import com.example.internshipraionteam2.presentation.home.SearchScreen
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 
-@Preview
+
 @Composable
-fun VacancyCard() {
+fun VacancyCard(onItemClick: () -> Unit) {
     Card(
+        onClick = {onItemClick()},
         elevation = CardDefaults.cardElevation(5.dp),
         modifier = Modifier.height(133.dp)
             .width(175.dp)

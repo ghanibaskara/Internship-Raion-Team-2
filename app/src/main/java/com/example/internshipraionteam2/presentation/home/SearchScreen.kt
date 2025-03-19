@@ -1,7 +1,9 @@
 package com.example.internshipraionteam2.presentation.home
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -24,18 +26,22 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.DockedSearchBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -67,11 +73,14 @@ import com.example.internshipraionteam2.ui.theme.localFontFamily
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
-//    navController: NavController,
+    navController: NavController,
 //    authViewModel: AuthViewModel
 ) {
     var query by remember { mutableStateOf("") }
     var active by remember { mutableStateOf(false) }
+
+    val sheetState = rememberModalBottomSheetState()
+    var showBottomsheet by remember { mutableStateOf(false) }
 
     val searchHistory = listOf(
         "roketto",
@@ -179,7 +188,8 @@ fun SearchScreen(
                     .height(156.dp)
             ) {
                 Column(
-                    modifier = Modifier.fillMaxSize()
+                    modifier = Modifier
+                        .fillMaxSize()
                         .background(color = Color(0xFF6F4A31))
                         .padding(horizontal = 14.dp, vertical = 16.dp)
                 ) {
@@ -264,8 +274,130 @@ fun SearchScreen(
                 contentPadding = PaddingValues(bottom = 55.dp),
                 columns = GridCells.Fixed(2)) {
                 items(8){
-                        VacancyCard()
+                        VacancyCard(onItemClick = { showBottomsheet = true })
                     Spacer(modifier = Modifier.height(10.dp))
+                }
+            }
+
+            if (showBottomsheet){
+                ModalBottomSheet(
+                    onDismissRequest = {
+                    showBottomsheet = false
+                   },
+                    sheetState = sheetState,
+                    containerColor = buttonfocus
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(horizontal = 32.dp),
+                        horizontalAlignment = Alignment.Start
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.Center
+                        ) {
+
+                        Text("Detail pekerjaan",
+                            fontWeight = FontWeight.W600,
+                            fontFamily = localFontFamily,
+                            fontSize = 24.sp,
+                            color = Color.White)
+                        }
+
+                        Spacer(modifier = Modifier.height(32.dp))
+
+                        Row(
+                            modifier = Modifier.height(50.dp),
+                            horizontalArrangement = Arrangement.Start,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Box(
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(painter = painterResource(R.drawable.ellipse_16), contentDescription = "",
+                                    tint = Color.Unspecified)
+                                Image(painter = painterResource(R.drawable.laluna_caffee), contentDescription = "",
+                                    modifier = Modifier
+                                        .size(38.dp)
+                                        .clip(RoundedCornerShape(30.dp)))
+                            }
+
+                            Spacer(modifier = Modifier.width(12.dp))
+
+                            Column(
+                                modifier = Modifier.fillMaxHeight(),
+                                horizontalAlignment = Alignment.Start,
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                Text("Waiter",
+                                    color = Color.White,
+                                    fontSize = 16.sp,
+                                    fontFamily = localFontFamily,
+                                    fontWeight = FontWeight.W700)
+
+                                Row(modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.Start,
+                                    verticalAlignment = Alignment.CenterVertically) {
+
+                                Text("Laluna Space",
+                                    color = Color.White,
+                                    fontSize = 14.sp,
+                                    fontFamily = localFontFamily,
+                                    fontWeight = FontWeight.W400)
+
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Icon(painter = painterResource(R.drawable.ellipse_46),
+                                        contentDescription = "",
+                                        tint = Color.Unspecified)
+                                    Spacer(modifier = Modifier.width(8.dp))
+
+                                    Text("Lowokwaru, Malang",
+                                    color = Color.White,
+                                    fontSize = 14.sp,
+                                    fontFamily = localFontFamily,
+                                    fontWeight = FontWeight.W400)
+                                }
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(14.5.dp))
+
+                        Row() {
+                            Icon(painter = painterResource(R.drawable.tag_fulltime), contentDescription = "",
+                                tint = Color.White)
+                        }
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        Text("Deskripsi posisi",
+                            color = Color.White,
+                            fontSize = 14.sp,
+                            fontFamily = localFontFamily,
+                            fontWeight = FontWeight.W600)
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Text("Bertanggung jawab untuk melayani pelanggan dengan ramah, mencatat pesanan dengan akurat, membantu menjaga kebersihan area makan dan berkoordinasi dengan tim dapur untuk menyajikan makanan tepat waktu.",
+                            color = Color.White,
+                            fontSize = 12.sp,
+                            fontFamily = localFontFamily,
+                            fontWeight = FontWeight.W400)
+
+                        Spacer(modifier = Modifier.height(32.dp))
+
+                        Button(onClick = {
+                            navController.navigate("WorkDetail")
+                        },
+                            colors = ButtonDefaults.buttonColors(Color.White),
+                            modifier = Modifier.fillMaxWidth()){
+                            Text("Lihat detail pekerjaan",
+                                color = buttonfocus,
+                                fontSize = 16.sp,
+                                fontFamily = localFontFamily,
+                                fontWeight = FontWeight.W600)
+                        }
+                    }
                 }
             }
         }

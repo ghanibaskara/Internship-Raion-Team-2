@@ -127,10 +127,9 @@ fun ContentScreen(modifier: Modifier = Modifier,
                   authViewModel: AuthViewModel) {
     when(selectedIndex){
         0-> HomeScreenApplicants(navController = navController, authViewModel = authViewModel)
-        1-> SearchScreen()
+        1-> SearchScreen(navController = navController)
         2-> FolderScreen(navController = navController)
         3-> CalenderScreen()
-        4-> ProfileScreenApplicants(
-            navController = navController)
+        4-> ProfileScreenApplicants(navController = navController)
     }
 }

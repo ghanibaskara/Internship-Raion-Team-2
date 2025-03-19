@@ -18,6 +18,7 @@ import com.example.internshipraionteam2.presentation.home.InformationAccountScre
 import com.example.internshipraionteam2.presentation.home.Lamaran
 import com.example.internshipraionteam2.presentation.home.ProfileScreenApplicants
 import com.example.internshipraionteam2.presentation.home.SecurityPrivacyScreen
+import com.example.internshipraionteam2.presentation.home.WorkDetail
 import com.example.internshipraionteam2.presentation.registration.screen.UserOption
 import com.example.internshipraionteam2.presentation.registration.screen.applicants.CertificateScreenApplicants
 import com.example.internshipraionteam2.presentation.registration.screen.applicants.CvScreenApplicants
@@ -113,6 +114,9 @@ fun UserNavigation(modifier: Modifier, authViewModel: AuthViewModel, sharedViewM
         }
         composable("FolderScreen"){
             FolderScreen(navController)
+        }
+        composable("WorkDetail"){
+            WorkDetail(navController)
         }
     })
 }
