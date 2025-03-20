@@ -23,9 +23,9 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-import com.example.internshipraionteam2.data.network.SharedViewModel
+//import com.example.internshipraionteam2.data.network.SharedViewModel
 import com.example.internshipraionteam2.presentation.navigation.UserNavigation
-import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
+//import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
 import com.example.internshipraionteam2.supabase.SupabaseViewModel
 
 

@@ -1,6 +1,8 @@
 package com.example.internshipraionteam2.presentation.registration.screen.applicants
 
 import android.content.Context
+import android.icu.util.Calendar
+import android.widget.DatePicker
 import android.widget.Space
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,6 +26,8 @@ import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DatePickerDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -51,19 +55,45 @@ import com.example.internshipraionteam2.data.network.AccountTypeData
 import com.example.internshipraionteam2.data.network.SharedViewModel
 import com.example.internshipraionteam2.data.network.UserData
 import com.example.internshipraionteam2.reusable.BiodataTextField
+import com.example.internshipraionteam2.reusable.DobTextField
+import com.example.internshipraionteam2.reusable.PhoneTextField
 import com.example.internshipraionteam2.reusable.RegisterTextField
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 import com.example.internshipraionteam2.ui.theme.maincolor
 import com.google.firebase.auth.FirebaseAuth
+import java.util.Date
 import kotlin.coroutines.coroutineContext
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreenApplicants(
     navController: NavController,
-    sharedViewModel: SharedViewModel
+    sharedViewModel: SharedViewModel,
+
 ) {
+    val year: Int
+    val month: Int
+    val day: Int
+    val context = LocalContext.current
+
+    val calender = Calendar.getInstance()
+    year = calender.get(Calendar.YEAR)
+    month = calender.get(Calendar.MONTH)
+    day = calender.get(Calendar.DAY_OF_MONTH)
+    calender.time = Date()
+
+    val date = remember { mutableStateOf("") }
+    val datePickerDialog = remember {
+        android.app.DatePickerDialog(
+            context,
+            { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
+                date.value = "$dayOfMonth ${month+1} $year"
+            }, year, month, day
+
+        )
+    }
     Column(modifier = Modifier
         .fillMaxSize()
         .background(Color.White)
@@ -73,9 +103,8 @@ fun RegisterScreenApplicants(
         var fname by rememberSaveable { mutableStateOf("") } // first name
         var lname by rememberSaveable { mutableStateOf("") } // last name
         var phone by rememberSaveable { mutableStateOf("") } // phone number
-        var dob by rememberSaveable { mutableStateOf("") } // date of birth
+//        var dob by rememberSaveable { mutableStateOf("") } // date of birth
         var lor by rememberSaveable { mutableStateOf("") } // location of residence
-        val context = LocalContext.current
 
         val auth = FirebaseAuth.getInstance().currentUser
         val email = auth?.email ?: ""
@@ -86,7 +115,7 @@ fun RegisterScreenApplicants(
         var fontcolor by remember { mutableStateOf(Color(0xFF9E9E9E)) }
 
 
-        if (fname != ""&& lname != ""&& phone != ""&& dob != "" && lor != ""){
+        if (fname != ""&& lname != ""&& phone != ""&& date.value != "" && lor != ""){
             color = maincolor
             fontcolor = Color.White
             isFilled = true
@@ -191,7 +220,7 @@ fun RegisterScreenApplicants(
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(start = 16.dp))
 
-            BiodataTextField(dob, onValueChange = {dob = it}, label = "Masukkan tanggal lahir Anda", icons = Icons.Filled.DateRange)
+            DobTextField(date.value, onValueChange = {date.value = it}, label = "Masukkan tanggal lahir Anda", icons = Icons.Filled.DateRange, onItemClick = {datePickerDialog.show()})
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -201,7 +230,7 @@ fun RegisterScreenApplicants(
                 fontWeight = FontWeight.Medium,
                 modifier = Modifier.padding(start = 16.dp))
 
-            BiodataTextField(phone, onValueChange = {phone = it}, label = "Masukkan nomor telepon Anda", icons = Icons.Filled.Call)
+            PhoneTextField(phone, onValueChange = {phone = it}, label = "Masukkan nomor telepon Anda", icons = Icons.Filled.Call)
 
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -222,7 +251,7 @@ fun RegisterScreenApplicants(
                 fname = fname,
                 lname = lname,
                 phone = phone,
-                dob = dob,
+                dob = date.value,
                 lor = lor,
                 email = email ?: "",
                 uid = uid,

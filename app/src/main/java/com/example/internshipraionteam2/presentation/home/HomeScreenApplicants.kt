@@ -250,32 +250,32 @@ fun HomeScreenApplicants(
 }
 
 
-=======
-
-            Button(onClick = {
-                supabaseViewModel.readFile("photos", "newImage") {
-                    imageUrl = "${SupabaseClient.client.supabaseUrl}/storage/v1/$it"
-                }
-            }) {
-                Text("Preview Image")
-            }
-
-            LazyColumn  {
-                items(cafeIds.cafeUid) { cafeUid ->
-                    Button(onClick = {
-                        sharedViewModel.saveAppliedApplicantsUid(uid,cafeUid)
-                    }) {
-                        Text(text = cafeUid, modifier = Modifier.padding(8.dp))
-                    } // Menampilkan setiap cafeUid
-                }
-            }
-
-            Text(text = if (imageUri != null) "Image is Selected" else "")
-
-            if (imageUrl.isNotEmpty()){
-                AsyncImage(imageUrl, "")
-            }
-        }
-    })
-}
+//=======
+//
+//            Button(onClick = {
+//                supabaseViewModel.readFile("photos", "newImage") {
+//                    imageUrl = "${SupabaseClient.client.supabaseUrl}/storage/v1/$it"
+//                }
+//            }) {
+//                Text("Preview Image")
+//            }
+//
+//            LazyColumn  {
+//                items(cafeIds.cafeUid) { cafeUid ->
+//                    Button(onClick = {
+//                        sharedViewModel.saveAppliedApplicantsUid(uid,cafeUid)
+//                    }) {
+//                        Text(text = cafeUid, modifier = Modifier.padding(8.dp))
+//                    } // Menampilkan setiap cafeUid
+//                }
+//            }
+//
+//            Text(text = if (imageUri != null) "Image is Selected" else "")
+//
+//            if (imageUrl.isNotEmpty()){
+//                AsyncImage(imageUrl, "")
+//            }
+//        }
+//    })
+//}
 

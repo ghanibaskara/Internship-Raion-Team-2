@@ -1,9 +1,11 @@
 package com.example.internshipraionteam2.presentation.navigation
 
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -58,11 +60,11 @@ fun UserNavigation(modifier: Modifier, authViewModel: AuthViewModel, sharedViewM
         }
         composable("HomeScreenCafe"){
 
-            HomeScreenCafe(navController,authViewModel,sharedViewModel)
+//            HomeScreenCafe(navController,authViewModel,sharedViewModel)
         }
-        composable("HomeScreenApplicants"){
-            HomeScreenApplicants(navController, authViewModel, supabaseViewModel,sharedViewModel)
-
+        composable("BottomScreenApplicants"){
+//            HomeScreenApplicants(navController, authViewModel, supabaseViewModel,sharedViewModel)
+BottomScreenApplicants(navController,authViewModel)
         }
         composable("SignupScreenApplicants"){
             SignupScreenApplicants(navController,authViewModel, sharedViewModel)
@@ -74,7 +76,7 @@ fun UserNavigation(modifier: Modifier, authViewModel: AuthViewModel, sharedViewM
             RegisterScreenApplicants(navController, sharedViewModel = SharedViewModel())
         }
         composable("RegisterScreenCafe"){
-            RegisterScreenCafe(navController, sharedViewModel = SharedViewModel())
+//            RegisterScreenCafe(navController, sharedViewModel = SharedViewModel())
         }
         composable("GreetingScreenApplicants"){
             GreetingScreenApplicants(navController, authViewModel, sharedViewModel)

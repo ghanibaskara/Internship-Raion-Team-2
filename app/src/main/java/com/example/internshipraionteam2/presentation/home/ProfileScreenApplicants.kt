@@ -18,10 +18,12 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -32,6 +34,7 @@ import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
 import com.example.internshipraionteam2.data.network.SharedViewModel
 import com.example.internshipraionteam2.ui.theme.buttonfocus
+import com.example.internshipraionteam2.ui.theme.colortext
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 
 
@@ -80,98 +83,156 @@ fun ProfileScreenApplicants(
             fontWeight = FontWeight.W600)
         }
 
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
-        Button(onClick = {
-            navController.navigate("InformationAccountScreen")
-        }, modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(0.dp)),
-            colors = ButtonDefaults.buttonColors(buttonfocus),
-            shape = RoundedCornerShape(30)
-        ) {
+        Text("Pengaturan akun",
+            fontFamily = localFontFamily,
+            fontWeight = FontWeight.W400,
+            fontSize = 20.sp,
+            color = colortext
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
             Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
+                    .clickable { navController.navigate("InformationAccountScreen") },
+                horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically
-            ) { Text("Informasi akun",
-                fontFamily = localFontFamily)
-            Icon(painter = painterResource(R.drawable.ic_arrow_right),
-                contentDescription = "")
-            }
-
-        }
-
-        Spacer(modifier = Modifier.height(36.dp))
-
-        Button(onClick = {
-            navController.navigate("EditProfileScreen")
-        }, modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(0.dp)),
-            colors = ButtonDefaults.buttonColors(buttonfocus),
-            shape = RoundedCornerShape(30)) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) { Text("Edit profil",
-                fontFamily = localFontFamily)
-            Icon(painter = painterResource(R.drawable.ic_arrow_right),
-                contentDescription = "")
-            }
-
-        }
-
-        Spacer(modifier = Modifier.height(36.dp))
-
-        Button(onClick = {
-            navController.navigate("ExperienceInformationScreen")
-        }, modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(0.dp)),
-            colors = ButtonDefaults.buttonColors(buttonfocus),
-            shape = RoundedCornerShape(30)) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) { Text("Informasi pengalaman",
-                fontFamily = localFontFamily)
-            Icon(painter = painterResource(R.drawable.ic_arrow_right),
-                contentDescription = "")
-            }
-
-        }
-
-        Spacer(modifier = Modifier.height(36.dp))
-
-        Button(onClick = {
-            navController.navigate("SecurityPrivacyScreen")
-        }, modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(0.dp)),
-            colors = ButtonDefaults.buttonColors(buttonfocus),
-            shape = RoundedCornerShape(30)) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) { Text("Keamanan dan privasi",
-                fontFamily = localFontFamily)
-            Icon(painter = painterResource(R.drawable.ic_arrow_right),
-                contentDescription = "")
-            }
-        }
-
-        Spacer(modifier = Modifier.height(90.dp))
-
-        Button(onClick = {},
-            colors = ButtonDefaults.buttonColors(Color.Transparent)) {
-            Text("Keluar",
-                fontSize = 14.sp,
+            ) {
+                Icon(painter = painterResource(R.drawable.ic_user),
+                    contentDescription = "")
+                Spacer(modifier = Modifier.width(4.dp))
+                Text("Informasi akun",
                 fontFamily = localFontFamily,
-                color = Color.Red)
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.W500)
+                Spacer(modifier = Modifier.width(196.dp))
+                Icon(painter = painterResource(R.drawable.ic_arrow_right),
+                contentDescription = "")
+            }
+
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                .clickable { navController.navigate("EditProfileScreen") },
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(painter = painterResource(R.drawable.ic_pencil_alt),
+                contentDescription = "")
+            Spacer(modifier = Modifier.width(4.dp))
+            Text("Edit profil",
+                fontFamily = localFontFamily,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.W500)
+            Spacer(modifier = Modifier.width(196.dp))
+            Icon(painter = painterResource(R.drawable.ic_arrow_right),
+                contentDescription = "")
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                .clickable { navController.navigate("ExperienceInformationScreen") },
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(painter = painterResource(R.drawable.ic_briefcase),
+                contentDescription = "", tint = Color.Black)
+            Spacer(modifier = Modifier.width(4.dp))
+            Text("Informasi pengalaman",
+                fontFamily = localFontFamily,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.W500)
+            Spacer(modifier = Modifier.width(196.dp))
+            Icon(painter = painterResource(R.drawable.ic_arrow_right),
+                contentDescription = "")
+        }
+
+        Spacer(modifier = Modifier.height(12.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                .clickable { navController.navigate("ExperienceInformationScreen") },
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(painter = painterResource(R.drawable.ic_shield_check),
+                contentDescription = "")
+            Spacer(modifier = Modifier.width(4.dp))
+            Text("Kemanan dan privasi",
+                fontFamily = localFontFamily,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.W500)
+            Spacer(modifier = Modifier.width(196.dp))
+            Icon(painter = painterResource(R.drawable.ic_arrow_right),
+                contentDescription = "")
+        }
+
+        Spacer(modifier = Modifier.height(27.dp))
+
+        Text("Lainnya",
+            fontFamily = localFontFamily,
+            fontWeight = FontWeight.W400,
+            fontSize = 20.sp,
+            color = colortext
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                .clickable { navController.navigate("") },
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(painter = painterResource(R.drawable.ic_user_group),
+                contentDescription = "")
+            Spacer(modifier = Modifier.width(4.dp))
+            Text("Tentang kami",
+                fontFamily = localFontFamily,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.W500)
+            Spacer(modifier = Modifier.width(196.dp))
+            Icon(painter = painterResource(R.drawable.ic_arrow_right),
+                contentDescription = "")
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                .clickable { navController.navigate("") },
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(painter = painterResource(R.drawable.ic_information_circle),
+                contentDescription = "")
+            Spacer(modifier = Modifier.width(4.dp))
+            Text("Pusat layanan",
+                fontFamily = localFontFamily,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.W500)
+            Spacer(modifier = Modifier.width(196.dp))
+            Icon(painter = painterResource(R.drawable.ic_arrow_right),
+                contentDescription = "")
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth()
+                .clickable { navController.navigate("") },
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text("Pusat layanan",
+                fontFamily = localFontFamily,
+                fontSize = 16.sp,
+                color = Color.Red,
+                fontWeight = FontWeight.W600)
         }
     }
 }

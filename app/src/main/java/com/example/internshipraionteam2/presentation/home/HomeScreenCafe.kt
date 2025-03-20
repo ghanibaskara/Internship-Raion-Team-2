@@ -30,64 +30,65 @@ import com.example.internshipraionteam2.presentation.navigation.NavItem
 import com.google.firebase.auth.FirebaseAuth
 
 
-@Composable
-fun HomeScreenCafe(navController: NavController, authViewModel: AuthViewModel, sharedViewModel: SharedViewModel) {
+//@Composable
+//fun HomeScreenCafe(navController: NavController, authViewModel: AuthViewModel, sharedViewModel: SharedViewModel) {
+//
+////    val navItemList = listOf(
+////        NavItem("Home", Icons.Default.Home),
+////        NavItem("Notification", Icons.Default.Notifications),
+////        NavItem("Sttings", Icons.Default.Settings)
+////    )
+//
+//    val auth = FirebaseAuth.getInstance().currentUser
+//    val uid = auth?.uid ?: ""
+//    val email = auth?.email ?: ""
+//    var context = LocalContext.current
+//
+//    val cafeDetails = CafeDetails(
+//        uid = uid,
+//        email = email
+//    )
+//
+//    var selectedIndex by remember {
+//        mutableStateOf(0)
+//    }
 
-    val navItemList = listOf(
-        NavItem("Home", Icons.Default.Home),
-        NavItem("Notification", Icons.Default.Notifications),
-        NavItem("Sttings", Icons.Default.Settings)
-    )
-
-    val auth = FirebaseAuth.getInstance().currentUser
-    val uid = auth?.uid ?: ""
-    val email = auth?.email ?: ""
-    var context = LocalContext.current
-
-    val cafeDetails = CafeDetails(
-        uid = uid,
-        email = email
-    )
-
-    var selectedIndex by remember {
-        mutableStateOf(0)
-    }
-
-    Scaffold(
-        bottomBar = {
-            NavigationBar {
-                navItemList.forEachIndexed { index, navItem ->
-                NavigationBarItem(
-                    selected = selectedIndex == index,
-                    onClick = {
-                        selectedIndex = index},
-                    icon = {
-                        Icon(imageVector = navItem.icon, contentDescription = "Icon")
-                    },
-                    label = {
-                        Text(text = navItem.label)
-                    }
-                )
-                }
-            }
-        }, content = { 
-            paddingValues ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                Button(onClick = { authViewModel.signout() }) { }
-
-                Button(onClick = {
-                    sharedViewModel.saveCafeData(cafeDetails,context)
-                }) {
-                    Text("Daftarkan Cafe")
-                }
-            }
-        }
-    )
-}
+//    Scaffold(
+//        bottomBar = {
+//            NavigationBar {
+//                navItemList.forEachIndexed { index, navItem ->
+//                NavigationBarItem(
+//                    selected = selectedIndex == index,
+//                    onClick = {
+//                        selectedIndex = index},
+//                    icon = {
+//                        Icon(imageVector = navItem.icon, contentDescription = "Icon")
+//                    },
+//                    label = {
+//                        Text(text = navItem.label)
+//                    }
+//                )
+//                }
+//            }
+//        }, content =
+//            {
+//            paddingValues ->
+//            Column(
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .padding(paddingValues),
+//                horizontalAlignment = Alignment.CenterHorizontally,
+//                verticalArrangement = Arrangement.Center
+//            ) {
+//                Button(onClick = { authViewModel.signout() }) { }
+//
+//                Button(onClick = {
+//                    sharedViewModel.saveCafeData(cafeDetails,context)
+//                }) {
+//                    Text("Daftarkan Cafe")
+//                }
+//            }
+//        }
+//    )
+//}
 

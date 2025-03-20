@@ -13,11 +13,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,6 +40,7 @@ import com.example.internshipraionteam2.R
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 
+
 @Composable
 fun SummaryScreenApplicants(
     navController: NavController
@@ -44,6 +52,7 @@ fun SummaryScreenApplicants(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally) {
         val context = LocalContext.current
+        var expanded by remember { mutableStateOf(false) }
 
         Row(modifier = Modifier.fillMaxWidth(),
         ) {
@@ -125,45 +134,229 @@ fun SummaryScreenApplicants(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        Row(
+
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 32.dp, end = 32.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+                .padding(16.dp)
         ) {
-            Text("Biodata",
-                fontFamily = localFontFamily,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 16.sp)
-            Icon(painterResource(R.drawable.ic_arrow_down),
-                contentDescription = "")
+            // Header Dropdown
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { expanded = !expanded },
+                colors = CardDefaults.cardColors(containerColor = Color(0xFF333333)) // Warna abu-abu gelap
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Biodata",
+                        color = Color.White,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Icon(
+                        painter = if (expanded) painterResource(R.drawable.ic_arrow_back) else painterResource(R.drawable.ic_arrow_up),
+                        contentDescription = "Expand",
+                        tint = Color.White
+                    )
+                }
+            }
+
+            // Isi Dropdown (Hanya muncul jika expanded = true)
+            if (expanded) {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color.White),
+                    elevation = CardDefaults.cardElevation(4.dp)
+                ) {
+                    Column(
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+                        Text(
+                            text = "Biodata",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        BiodataRow(label = "Nama depan", value = "Agus")
+                        BiodataRow(label = "Nama belakang", value = "Budianto")
+                        BiodataRow(label = "Tanggal lahir", value = "17 Desember 1998")
+                        BiodataRow(label = "Nomor telepon", value = "087156509887")
+                        BiodataRow(label = "Lokasi tinggal", value = "Lowokwaru, Malang")
+                    }
+                }
+            }
         }
-        Row(
+
+////////////////////////////////////////////////////
+//        Row(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(start = 32.dp, end = 32.dp),
+//            horizontalArrangement = Arrangement.SpaceBetween
+//        ) {
+//            Text("Biodata",
+//                fontFamily = localFontFamily,
+//                fontWeight = FontWeight.SemiBold,
+//                fontSize = 16.sp)
+//            Icon(painterResource(R.drawable.ic_arrow_down),
+//                contentDescription = "")
+//        }
+
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 32.dp, end = 32.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+                .padding(16.dp)
         ) {
-            Text("Curriculum Vitae",
-                fontFamily = localFontFamily,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 16.sp)
-            Icon(painterResource(R.drawable.ic_arrow_down),
-                contentDescription = "")
+            // Header Dropdown
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { expanded = !expanded },
+                colors = CardDefaults.cardColors(containerColor = Color(0xFF333333)) // Warna abu-abu gelap
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "CV",
+                        color = Color.White,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Icon(
+                        painter = if (expanded) painterResource(R.drawable.ic_arrow_back) else painterResource(R.drawable.ic_arrow_up),
+                        contentDescription = "Expand",
+                        tint = Color.White
+                    )
+                }
+            }
+
+            // Isi Dropdown (Hanya muncul jika expanded = true)
+            if (expanded) {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color.White),
+                    elevation = CardDefaults.cardElevation(4.dp)
+                ) {
+                    Column(
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+                        Text(
+                            text = "CV",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        BiodataRow(label = "CV", value = "")
+                    }
+                }
+            }
         }
-        Row(
+
+        //////////////////////////////////////////
+//        Row(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(start = 32.dp, end = 32.dp),
+//            horizontalArrangement = Arrangement.SpaceBetween
+//        ) {
+//            Text("Curriculum Vitae",
+//                fontFamily = localFontFamily,
+//                fontWeight = FontWeight.SemiBold,
+//                fontSize = 16.sp)
+//            Icon(painterResource(R.drawable.ic_arrow_down),
+//                contentDescription = "")
+//        }
+
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 32.dp, end = 32.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+                .padding(16.dp)
         ) {
-            Text("Sertifikasi",
-                fontFamily = localFontFamily,
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 16.sp)
-            Icon(painterResource(R.drawable.ic_arrow_down),
-                contentDescription = "")
+            // Header Dropdown
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { expanded = !expanded },
+                colors = CardDefaults.cardColors(containerColor = Color(0xFF333333)) // Warna abu-abu gelap
+            ) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Sertifikat",
+                        color = Color.White,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Icon(
+                        painter = if (expanded) painterResource(R.drawable.ic_arrow_back) else painterResource(R.drawable.ic_arrow_up),
+                        contentDescription = "Expand",
+                        tint = Color.White
+                    )
+                }
+            }
+
+            // Isi Dropdown (Hanya muncul jika expanded = true)
+            if (expanded) {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 8.dp),
+                    colors = CardDefaults.cardColors(containerColor = Color.White),
+                    elevation = CardDefaults.cardElevation(4.dp)
+                ) {
+                    Column(
+                        modifier = Modifier.padding(16.dp)
+                    ) {
+                        Text(
+                            text = "Sertifikat",
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        BiodataRow(label = "Sertifikat", value = "")
+                    }
+                }
+            }
         }
+
+        ////////////////////////////////////
+//        Row(
+//            modifier = Modifier
+//                .fillMaxWidth()
+//                .padding(start = 32.dp, end = 32.dp),
+//            horizontalArrangement = Arrangement.SpaceBetween
+//        ) {
+//            Text("Sertifikasi",
+//                fontFamily = localFontFamily,
+//                fontWeight = FontWeight.SemiBold,
+//                fontSize = 16.sp)
+//            Icon(painterResource(R.drawable.ic_arrow_down),
+//                contentDescription = "")
+//        }
 
         Spacer(modifier = Modifier.height(333.dp))
 
@@ -181,5 +374,92 @@ fun SummaryScreenApplicants(
                 fontFamily = localFontFamily,
                 fontWeight = FontWeight.Bold)
         }
+    }
+}
+
+@Composable
+fun ExpandableBiodataCard() {
+    var expanded by remember { mutableStateOf(false) }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ) {
+        // Header Dropdown
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { expanded = !expanded },
+            colors = CardDefaults.cardColors(containerColor = Color(0xFF333333)) // Warna abu-abu gelap
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "Biodata",
+                    color = Color.White,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Icon(
+                    painter = if (expanded) painterResource(R.drawable.ic_arrow_back) else painterResource(R.drawable.ic_arrow_up),
+                    contentDescription = "Expand",
+                    tint = Color.White
+                )
+            }
+        }
+
+        // Isi Dropdown (Hanya muncul jika expanded = true)
+        if (expanded) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
+                colors = CardDefaults.cardColors(containerColor = Color.White),
+                elevation = CardDefaults.cardElevation(4.dp)
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp)
+                ) {
+                    Text(
+                        text = "Biodata",
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    BiodataRow(label = "Nama depan", value = "Agus")
+                    BiodataRow(label = "Nama belakang", value = "Budianto")
+                    BiodataRow(label = "Tanggal lahir", value = "17 Desember 1998")
+                    BiodataRow(label = "Nomor telepon", value = "087156509887")
+                    BiodataRow(label = "Lokasi tinggal", value = "Lowokwaru, Malang")
+                }
+            }
+        }
+    }
+}
+
+// Reusable Row untuk Biodata
+@Composable
+fun BiodataRow(label: String, value: String) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        Text(
+            text = "$label :",
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Medium
+        )
+        Text(
+            text = value,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal
+        )
     }
 }
