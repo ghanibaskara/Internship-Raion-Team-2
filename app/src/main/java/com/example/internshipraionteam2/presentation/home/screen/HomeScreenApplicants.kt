@@ -128,7 +128,7 @@ fun HomeScreenApplicants(
         Spacer(modifier = Modifier.height(24.dp))
 
         Card(
-            onClick = {authViewModel.signout()},
+            onClick = {},
             modifier = Modifier
                 .fillMaxWidth()
                 .height(156.dp)
@@ -217,9 +217,9 @@ fun HomeScreenApplicants(
             modifier = Modifier.fillMaxWidth()
                 .background(Color.White)
         ) {
-            items(applicantsViewModel.cafeid.value.cafeUid){
-                cafeuid ->
-                EventCard(modifier = Modifier,cafeuid)
+            items(5){
+
+                EventCard(modifier = Modifier)
             }
         }
 

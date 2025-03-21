@@ -1,11 +1,7 @@
 package com.example.internshipraionteam2.presentation.navigation
 
-import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -29,7 +25,7 @@ import com.example.internshipraionteam2.presentation.registration.screen.cafe.Lo
 import com.example.internshipraionteam2.presentation.registration.screen.cafe.SignupScreenCafe
 import com.example.internshipraionteam2.presentation.registration.screen.cafe.SummaryScreenCafe
 import com.example.internshipraionteam2.data.Supabase.supabase.SupabaseViewModel
-import com.example.internshipraionteam2.presentation.home.ChatScreen
+import com.example.internshipraionteam2.presentation.home.screen.profile.ChatScreen
 import com.example.internshipraionteam2.presentation.home.screen.BottomScreenApplicants
 import com.example.internshipraionteam2.presentation.home.screen.FolderScreen
 import com.example.internshipraionteam2.presentation.home.screen.Lamaran

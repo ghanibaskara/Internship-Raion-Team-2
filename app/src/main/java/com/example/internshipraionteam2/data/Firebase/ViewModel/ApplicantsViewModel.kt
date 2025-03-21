@@ -73,6 +73,7 @@ class ApplicantsViewModel() : ViewModel(){
             applicantData.certificatefilename = data.certificatefilename
             applicantData.cvfilename = data.cvfilename
         }
+
             getCafeIds() {
                     result ->
                 cafeid.value = cafeId(cafeUid = result.cafeUid.toMutableList())

@@ -46,7 +46,6 @@ import com.example.internshipraionteam2.presentation.home.elements.EventCard
 import com.example.internshipraionteam2.presentation.home.elements.NowEventCard
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
-import com.example.internshipraionteam2.presentation.home.screen.profile.PopUpEvent
 
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.localFontFamily
@@ -148,7 +147,7 @@ fun CalenderScreen(
 
         LazyRow() {
             items(5){
-            EventCard(modifier = Modifier, "")
+            EventCard(modifier = Modifier)
             }
         }
 

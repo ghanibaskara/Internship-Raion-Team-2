@@ -1,5 +1,6 @@
 package com.example.internshipraionteam2.presentation.home.screen.profile
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,6 +21,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -32,6 +35,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
+import com.example.internshipraionteam2.data.Firebase.ViewModel.ApplicantsViewModel
+import com.example.internshipraionteam2.data.Firebase.ViewModel.AuthState
+import com.example.internshipraionteam2.data.Firebase.ViewModel.AuthViewModel
 import com.example.internshipraionteam2.data.Firebase.ViewModel.SharedViewModel
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.colortext
@@ -41,9 +47,19 @@ import com.example.internshipraionteam2.ui.theme.localFontFamily
 @Composable
 fun ProfileScreenApplicants(
     navController: NavController,
-    sharedViewModel: SharedViewModel = viewModel()
+    applicantsViewModel: ApplicantsViewModel = viewModel(),
+    authViewModel: AuthViewModel = viewModel()
 ) {
-    val getData = sharedViewModel.state.value
+    val authState = authViewModel.authState.observeAsState()
+    LaunchedEffect(authState.value) {
+        when (authState.value) {
+            is AuthState.Unauthenticated -> navController.navigate("UserOption")
+
+
+            else -> Unit
+        }
+    }
+
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -70,14 +86,14 @@ fun ProfileScreenApplicants(
         Spacer(modifier = Modifier.height(3.dp))
 
         Row(horizontalArrangement = Arrangement.Center) {
-            Text(getData.fname,
+            Text(applicantsViewModel.applicantData.fname,
                 fontSize = 28.sp,
                 fontFamily = localFontFamily,
                 fontWeight = FontWeight.W600)
 
             Spacer(modifier = Modifier.width(5.dp))
 
-            Text(getData.lname,
+            Text(applicantsViewModel.applicantData.lname,
             fontSize = 28.sp,
             fontFamily = localFontFamily,
             fontWeight = FontWeight.W600)
@@ -246,7 +262,7 @@ fun ProfileScreenApplicants(
 
         Row(
             modifier = Modifier.fillMaxWidth()
-                .clickable { navController.navigate("") },
+                .clickable { authViewModel.signout() },
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {

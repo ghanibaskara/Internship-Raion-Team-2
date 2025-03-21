@@ -1,4 +1,4 @@
-package com.example.internshipraionteam2.presentation.home.screen.profile
+package com.example.internshipraionteam2.presentation.home.screen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

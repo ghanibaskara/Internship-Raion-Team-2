@@ -364,6 +364,11 @@ fun DeskripsiPosisi(
                         Toast.LENGTH_SHORT
                     ).show()
                 }else {
+                    Toast.makeText(
+                        context,
+                        "Lamaran terikirim!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 applicantsViewModel.applicationFunction(cafeDetails.uid,cafeDetails.job,cafeDetails.name,cafeDetails.location)}
             },
             colors = ButtonDefaults.buttonColors(buttonfocus),
@@ -515,6 +520,11 @@ fun DeskripsiKafe(cafeDetails: CafeDetails,
                         Toast.LENGTH_SHORT
                     ).show()
                 }else {
+                    Toast.makeText(
+                        context,
+                        "Lamaran terkirim!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     applicantsViewModel.applicationFunction(cafeDetails.uid,cafeDetails.job,cafeDetails.name,cafeDetails.location)}
             },
             colors = ButtonDefaults.buttonColors(buttonfocus),
