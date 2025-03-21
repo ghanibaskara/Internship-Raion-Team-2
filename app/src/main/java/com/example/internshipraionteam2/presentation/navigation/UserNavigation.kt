@@ -16,6 +16,7 @@ import com.example.internshipraionteam2.presentation.home.HomeScreenApplicants
 import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
 import com.example.internshipraionteam2.presentation.home.AboutUsScreen
 import com.example.internshipraionteam2.presentation.home.BottomScreenApplicants
+import com.example.internshipraionteam2.presentation.home.ChatScreen
 import com.example.internshipraionteam2.presentation.home.EditProfileScreen
 import com.example.internshipraionteam2.presentation.home.ExperienceInformationScreen
 import com.example.internshipraionteam2.presentation.home.FolderScreen
@@ -137,6 +138,9 @@ BottomScreenApplicants(navController,authViewModel)
         }
         composable("PassChangeScreen"){
             PassChangeScreen(navController)
+        }
+        composable("ChatScreen"){
+            ChatScreen(navController)
         }
     })
 }

@@ -328,57 +328,16 @@ fun Lamaran(navController: NavController) {
             fontSize = 14.sp,
             color = Color.Black
         )
+        Spacer(modifier = androidx.compose.ui.Modifier.height(16.dp))
         Row(
             modifier = androidx.compose.ui.Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
-            Card(
-                modifier = androidx.compose.ui.Modifier.height(117.dp)
-                    .width(180.dp)
-                    .clickable {  },
-                colors = CardDefaults.cardColors(containerColor = Color(0xFF64906))
-            ) {
-                Column(modifier = androidx.compose.ui.Modifier.fillMaxSize()
-                    .padding(12.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally) {
-                    Text(
-                        "Status",
-                        fontWeight = FontWeight.W600,
-                        fontFamily = localFontFamily,
-                        fontSize = 14.sp,
-                        color = Color.Black
-                    )
-                    Text(
-                        "Lamaran",
-                        fontWeight = FontWeight.W600,
-                        fontFamily = localFontFamily,
-                        fontSize = 14.sp,
-                        color = Color.Black
-                    )
-                    Text(
-                        "Lamaran diterima",
-                        fontWeight = FontWeight.W600,
-                        fontFamily = localFontFamily,
-                        fontSize = 12.sp,
-                        color = Color(0xFF43936C)
-                    )
-                    Spacer(modifier = androidx.compose.ui.Modifier.height(4.dp))
-                    Text(
-                        "Selamat! anda dinyatakan ",
-                        fontWeight = FontWeight.W600,
-                        fontFamily = localFontFamily,
-                        fontSize = 10.sp,
-                        color = Color.Black
-                    )
-                    Text(
-                        "telah diterima",
-                        fontWeight = FontWeight.W600,
-                        fontFamily = localFontFamily,
-                        fontSize = 10.sp,
-                        color = Color.Black
-                    )
-                }
-            }
+            Icon(painter = painterResource(R.drawable.button),
+                contentDescription = "",
+                tint = Color.Unspecified,
+                modifier = androidx.compose.ui.Modifier.clickable { navController.navigate("ChatScreen") }
+            )
         }
     }
 }
