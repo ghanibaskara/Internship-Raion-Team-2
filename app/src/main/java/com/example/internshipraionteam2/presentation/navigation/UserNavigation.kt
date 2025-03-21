@@ -22,6 +22,7 @@ import com.example.internshipraionteam2.presentation.home.FolderScreen
 import com.example.internshipraionteam2.presentation.home.HelpCenter
 import com.example.internshipraionteam2.presentation.home.InformationAccountScreen
 import com.example.internshipraionteam2.presentation.home.Lamaran
+import com.example.internshipraionteam2.presentation.home.PassChangeScreen
 import com.example.internshipraionteam2.presentation.home.ProfileScreenApplicants
 import com.example.internshipraionteam2.presentation.home.SecurityPrivacyScreen
 import com.example.internshipraionteam2.presentation.home.WorkDetail
@@ -133,6 +134,9 @@ BottomScreenApplicants(navController,authViewModel)
         }
         composable("HelperScreen"){
             HelpCenter(navController)
+        }
+        composable("PassChangeScreen"){
+            PassChangeScreen(navController)
         }
     })
 }

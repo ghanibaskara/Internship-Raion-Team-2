@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
         splashScreen.setKeepOnScreenCondition {true}
 
         CoroutineScope(Dispatchers.Main).launch{
-            delay(2000)
+            delay(1000)
             splashScreen.setKeepOnScreenCondition{false}
         }
 

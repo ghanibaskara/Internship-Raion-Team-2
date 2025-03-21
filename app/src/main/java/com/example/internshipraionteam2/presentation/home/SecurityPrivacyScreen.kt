@@ -81,7 +81,10 @@ fun SecurityPrivacyScreen(
             shape = RoundedCornerShape(30)
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth()
+                    .clickable {
+                        navController.navigate("PassChangeScreen")
+                    },
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) { Text("Ubah kata sandi",
@@ -93,36 +96,12 @@ fun SecurityPrivacyScreen(
         }
         Spacer(modifier = Modifier.height(36.dp))
 
-        Button(onClick = {
+        Text("Hapus akun",
+            fontSize = 14.sp,
+            fontWeight = FontWeight.W600,
+            fontFamily = localFontFamily,
+            color = Color.Red
+        )
 
-        }, modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(0.dp)),
-            colors = ButtonDefaults.buttonColors(buttonfocus),
-            shape = RoundedCornerShape(30)
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) { Text("Hapus/non-aktifkan akun",
-                fontFamily = localFontFamily)
-                Icon(painter = painterResource(R.drawable.ic_arrow_right),
-                    contentDescription = "")
-            }
-
-        }
-
-        Spacer(modifier = Modifier.height(187.dp))
-
-        Button(onClick = {},
-            modifier = Modifier.width(200.dp),
-            colors = ButtonDefaults.buttonColors(buttonfocus)) {
-            Text("Simpan",
-                fontSize = 14.sp,
-                fontWeight = FontWeight.W600,
-                fontFamily = localFontFamily
-            )
-        }
     }
 }
