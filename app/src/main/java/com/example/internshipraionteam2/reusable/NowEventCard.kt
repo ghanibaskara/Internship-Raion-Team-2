@@ -28,9 +28,8 @@ import androidx.compose.ui.unit.sp
 import com.example.internshipraionteam2.R
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 
-@Preview
 @Composable
-fun NowEventCard() {
+fun NowEventCard(onItemClick: () -> Unit) {
     Card(
         elevation = CardDefaults.cardElevation(5.dp),
         modifier = Modifier.height(237.dp)
@@ -128,7 +127,9 @@ fun NowEventCard() {
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    Button(onClick = {},
+                    Button(onClick = {
+                        onItemClick()
+                    },
                         colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF64906)),
                         modifier = Modifier.width(164.dp)) {
                         Text(
