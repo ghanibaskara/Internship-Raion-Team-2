@@ -60,7 +60,7 @@ fun ChatScreen(
         ) {
             Icon(
                 modifier = Modifier.clickable {
-                    navController.navigate("BottomScreenApplicants")
+                    navController.popBackStack()
                 }, painter = painterResource(R.drawable.ic_arrow_back),
                 contentDescription = "",
                 tint = Color.Black
