@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -55,7 +56,7 @@ fun AboutUsScreen(
 
         Spacer(modifier = Modifier.height(23.dp))
 
-        Icon(painter = painterResource(R.drawable.koper),
+        Icon(painter = painterResource(R.drawable.koper_kecil),
             contentDescription = "",
             tint = Color.Unspecified)
 
@@ -147,7 +148,7 @@ fun AboutUsScreen(
             fontFamily = localFontFamily,
             color = Color.Black)
 
-        Spacer(modifier = Modifier.height(48.dp))
+        Spacer(modifier = Modifier.height(4.dp))
 
         Text("Sosial Media",
             fontSize = 16.sp,
@@ -167,7 +168,8 @@ fun AboutUsScreen(
             ) {
                 Icon(painter = painterResource(R.drawable.tiktok),
                     contentDescription = "",
-                    tint = Color.Unspecified)
+                    tint = Color.Unspecified,
+                    modifier = Modifier.size(30.dp))
                 Spacer(modifier = Modifier.width(4.dp))
 
                 Text("@cafecrew",
@@ -182,7 +184,8 @@ fun AboutUsScreen(
             ) {
                 Icon(painter = painterResource(R.drawable.ic_instagram),
                     contentDescription = "",
-                    tint = Color.Unspecified)
+                    tint = Color.Unspecified,
+                    modifier = Modifier.size(40.dp))
                 Spacer(modifier = Modifier.width(4.dp))
 
                 Text("@cafecrew",

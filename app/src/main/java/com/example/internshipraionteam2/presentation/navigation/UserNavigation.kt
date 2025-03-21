@@ -1,28 +1,31 @@
 package com.example.internshipraionteam2.presentation.navigation
 
+import android.content.Context
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.internshipraionteam2.data.Firebase.ViewModel.SharedViewModel
 //import com.example.internshipraionteam2.presentation.home.HomeScreenCafe
-import com.example.internshipraionteam2.data.Firebase.ViewModel.AuthViewModel
-import com.example.internshipraionteam2.presentation.home.screen.BottomScreenApplicants
-import com.example.internshipraionteam2.presentation.home.screen.profile.EditProfileScreen
-import com.example.internshipraionteam2.presentation.home.screen.profile.ExperienceInformationScreen
-import com.example.internshipraionteam2.presentation.home.screen.FolderScreen
-import com.example.internshipraionteam2.presentation.home.screen.profile.InformationAccountScreen
-import com.example.internshipraionteam2.presentation.home.screen.Lamaran
-import com.example.internshipraionteam2.presentation.home.screen.profile.ProfileScreenApplicants
-import com.example.internshipraionteam2.presentation.home.screen.profile.SecurityPrivacyScreen
-
-import com.example.internshipraionteam2.presentation.home.screen.profile.AboutUsScreen
-
-import com.example.internshipraionteam2.presentation.home.screen.profile.HelpCenter
-
-import com.example.internshipraionteam2.presentation.home.screen.WorkDetail
+import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
+import com.example.internshipraionteam2.presentation.home.AboutUsScreen
+import com.example.internshipraionteam2.presentation.home.BottomScreenApplicants
+import com.example.internshipraionteam2.presentation.home.ChatScreen
+import com.example.internshipraionteam2.presentation.home.EditProfileScreen
+import com.example.internshipraionteam2.presentation.home.ExperienceInformationScreen
+import com.example.internshipraionteam2.presentation.home.FolderScreen
+import com.example.internshipraionteam2.presentation.home.HelpCenter
+import com.example.internshipraionteam2.presentation.home.InformationAccountScreen
+import com.example.internshipraionteam2.presentation.home.Lamaran
+import com.example.internshipraionteam2.presentation.home.PassChangeScreen
+import com.example.internshipraionteam2.presentation.home.ProfileScreenApplicants
+import com.example.internshipraionteam2.presentation.home.SecurityPrivacyScreen
+import com.example.internshipraionteam2.presentation.home.WorkDetail
 import com.example.internshipraionteam2.presentation.registration.screen.UserOption
 import com.example.internshipraionteam2.presentation.registration.screen.applicants.CertificateScreenApplicants
 import com.example.internshipraionteam2.presentation.registration.screen.applicants.CvScreenApplicants
@@ -133,6 +136,12 @@ BottomScreenApplicants(navController,authViewModel)
         }
         composable("HelperScreen"){
             HelpCenter(navController)
+        }
+        composable("PassChangeScreen"){
+            PassChangeScreen(navController)
+        }
+        composable("ChatScreen"){
+            ChatScreen(navController)
         }
     })
 }

@@ -35,10 +35,10 @@ import com.example.internshipraionteam2.R
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 
-@Preview
+//@Preview
 @Composable
 fun PassChangeScreen(
-//    navController: NavController
+    navController: NavController
 ) {
     var color1 = buttonfocus
     var password by remember { mutableStateOf("") }
@@ -54,7 +54,7 @@ fun PassChangeScreen(
             horizontalArrangement = Arrangement.Start
         ) {
             Icon(modifier = Modifier.clickable {
-//            navController.popBackStack()
+            navController.popBackStack()
             },painter = painterResource(R.drawable.ic_arrow_back),
                 contentDescription = "")
         }

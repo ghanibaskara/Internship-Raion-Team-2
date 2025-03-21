@@ -167,7 +167,7 @@ fun ProfileScreenApplicants(
 
         Row(
             modifier = Modifier.fillMaxWidth()
-                .clickable { navController.navigate("ExperienceInformationScreen") },
+                .clickable { navController.navigate("SecurityPrivacyScreen") },
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
