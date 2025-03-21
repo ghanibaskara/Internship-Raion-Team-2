@@ -146,61 +146,6 @@ fun WorkDetail(
 
         Spacer(modifier = Modifier.height(24.dp))
 
-//        Button(onClick = {},
-//            colors = ButtonDefaults.buttonColors(buttonfocus),
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .height(34.dp)){
-//            Row(modifier = Modifier.fillMaxWidth(),
-//                horizontalArrangement = Arrangement.Start) {
-//                Text("Deskripsi pekerjaan",
-//                    color = Color.White,
-//                    fontSize = 12.sp,
-//                    fontFamily = localFontFamily,
-//                    fontWeight = FontWeight.W600)
-//
-//                Spacer(modifier = Modifier.width(60.dp))
-//
-//                Text("Deskripsi kafe",
-//                    color = Color.White,
-//                    fontSize = 12.sp,
-//                    fontFamily = localFontFamily,
-//                    fontWeight = FontWeight.W600)
-//            }
-//
-//        }
-
-//        TabRow(
-//            selectedTabIndex = selectedTabIndex,
-//            containerColor = Color.Transparent,
-//            contentColor = Color(0xFF6F4A31), // Warna coklat untuk teks & indicator
-////            indicator = { tabPositions ->
-////                TabRowDefaults.Indicator(
-////                    Modifier
-////                        .tabIndicatorOffset(tabPositions[selectedTabIndex])
-////                        .height(4.dp),
-////                    color = Color(0xFF6F4A31)
-////                )
-////            }
-//        ) {
-//            tabTitles.forEachIndexed { index, title ->
-//                Tab(
-//                    selected = selectedTabIndex == index,
-//                    onClick = { selectedTabIndex = index },
-//                    text = {
-//                        Text(
-//                            text = title,
-//                            fontWeight = FontWeight.SemiBold,
-//                            color = if (selectedTabIndex == index) Color.White else Color(0xFF6F4A31),
-//                            modifier = Modifier
-//                                .background(if (selectedTabIndex == index) Color(0xFF6F4A31) else Color.Transparent)
-//                                .padding(8.dp)
-//                        )
-//                    }
-//                )
-//            }
-//        }
-
         Row(
             modifier = Modifier
                 .fillMaxWidth()

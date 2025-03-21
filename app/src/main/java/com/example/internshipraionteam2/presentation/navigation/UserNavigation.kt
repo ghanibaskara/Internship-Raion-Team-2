@@ -14,10 +14,12 @@ import com.example.internshipraionteam2.data.network.SharedViewModel
 import com.example.internshipraionteam2.presentation.home.HomeScreenApplicants
 //import com.example.internshipraionteam2.presentation.home.HomeScreenCafe
 import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
+import com.example.internshipraionteam2.presentation.home.AboutUsScreen
 import com.example.internshipraionteam2.presentation.home.BottomScreenApplicants
 import com.example.internshipraionteam2.presentation.home.EditProfileScreen
 import com.example.internshipraionteam2.presentation.home.ExperienceInformationScreen
 import com.example.internshipraionteam2.presentation.home.FolderScreen
+import com.example.internshipraionteam2.presentation.home.HelpCenter
 import com.example.internshipraionteam2.presentation.home.InformationAccountScreen
 import com.example.internshipraionteam2.presentation.home.Lamaran
 import com.example.internshipraionteam2.presentation.home.ProfileScreenApplicants
@@ -125,6 +127,12 @@ BottomScreenApplicants(navController,authViewModel)
         }
         composable("WorkDetail"){
             WorkDetail(navController)
+        }
+        composable("AboutUsScreen"){
+            AboutUsScreen(navController)
+        }
+        composable("HelperScreen"){
+            HelpCenter(navController)
         }
     })
 }

@@ -48,26 +48,16 @@ fun BottomScreenApplicants(
     navController: NavController, authViewModel: AuthViewModel
 ) {
     val navItemList = listOf(
-        NavItem(painter = painterResource(R.drawable.home)),
-        NavItem(painter = painterResource(R.drawable.search_circle)),
-        NavItem(painter = painterResource(R.drawable.folder)),
-        NavItem(painter = painterResource(R.drawable.calendar)),
-        NavItem(painter = painterResource(R.drawable.account_circle_filled_24px))
+        NavItem(painter = painterResource(R.drawable.home), painterResource(R.drawable.ic_homefilled)),
+        NavItem(painter = painterResource(R.drawable.search_circle), painterResource(R.drawable.ic_searchfilled)),
+        NavItem(painter = painterResource(R.drawable.folder), painterResource(R.drawable.ic_folderfilled)),
+        NavItem(painter = painterResource(R.drawable.calendar), painterResource(R.drawable.ic_calendarfilled)),
+        NavItem(painter = painterResource(R.drawable.account_circle_filled_24px), painterResource(R.drawable.ic_account_circlefilled))
     )
 
     var selectedIndex by remember {
         mutableStateOf(0)
     }
-
-
-//    val authState = authViewModel.authState.observeAsState()
-//
-//    LaunchedEffect(authState.value) {
-//        when (authState.value) {
-//            is AuthState.Unauthenticated -> navController.navigate("UserOption")
-//            else -> Unit
-//        }
-//    }
 
     Scaffold(
         bottomBar = {
@@ -97,10 +87,10 @@ fun BottomScreenApplicants(
                             NavigationBarItem(
                                 selected = selectedIndex == index,
                                 onClick = { selectedIndex = index },
-                                icon = { Icon(painter = navItem.painter,
-                                    contentDescription = "Icon",
-                                    tint = if (selectedIndex == index) Color(0xFF6F4A31) else Color.Gray
-                                ) },
+                                icon = {if (index == selectedIndex) {
+                                    Icon(painter = navItem.painter2, contentDescription = "")}
+                                        else Icon(painter = navItem.painter, contentDescription = "")
+                                       },
                                 colors = NavigationBarItemDefaults.colors(
                                     selectedIconColor = Color(0xFF5C3E29),
                                     unselectedIconColor = Color(0xFF6F4A31),

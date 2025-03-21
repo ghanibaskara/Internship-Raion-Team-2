@@ -97,9 +97,13 @@ fun ProfileScreenApplicants(
             Row(
                 modifier = Modifier.fillMaxWidth()
                     .clickable { navController.navigate("InformationAccountScreen") },
-                horizontalArrangement = Arrangement.Start,
+                horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                Row(
+                    horizontalArrangement = Arrangement.Start
+                ) {
+
                 Icon(painter = painterResource(R.drawable.ic_user),
                     contentDescription = "")
                 Spacer(modifier = Modifier.width(4.dp))
@@ -107,7 +111,7 @@ fun ProfileScreenApplicants(
                 fontFamily = localFontFamily,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.W500)
-                Spacer(modifier = Modifier.width(196.dp))
+                }
                 Icon(painter = painterResource(R.drawable.ic_arrow_right),
                 contentDescription = "")
             }
@@ -118,9 +122,12 @@ fun ProfileScreenApplicants(
         Row(
             modifier = Modifier.fillMaxWidth()
                 .clickable { navController.navigate("EditProfileScreen") },
-            horizontalArrangement = Arrangement.Start,
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            Row(
+                horizontalArrangement = Arrangement.Start
+            ) {
             Icon(painter = painterResource(R.drawable.ic_pencil_alt),
                 contentDescription = "")
             Spacer(modifier = Modifier.width(4.dp))
@@ -128,7 +135,7 @@ fun ProfileScreenApplicants(
                 fontFamily = localFontFamily,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.W500)
-            Spacer(modifier = Modifier.width(196.dp))
+            }
             Icon(painter = painterResource(R.drawable.ic_arrow_right),
                 contentDescription = "")
         }
@@ -138,9 +145,12 @@ fun ProfileScreenApplicants(
         Row(
             modifier = Modifier.fillMaxWidth()
                 .clickable { navController.navigate("ExperienceInformationScreen") },
-            horizontalArrangement = Arrangement.Start,
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            Row(
+                horizontalArrangement = Arrangement.Start
+            ) {
             Icon(painter = painterResource(R.drawable.ic_briefcase),
                 contentDescription = "", tint = Color.Black)
             Spacer(modifier = Modifier.width(4.dp))
@@ -148,7 +158,7 @@ fun ProfileScreenApplicants(
                 fontFamily = localFontFamily,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.W500)
-            Spacer(modifier = Modifier.width(196.dp))
+            }
             Icon(painter = painterResource(R.drawable.ic_arrow_right),
                 contentDescription = "")
         }
@@ -158,9 +168,12 @@ fun ProfileScreenApplicants(
         Row(
             modifier = Modifier.fillMaxWidth()
                 .clickable { navController.navigate("ExperienceInformationScreen") },
-            horizontalArrangement = Arrangement.Start,
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            Row(
+                horizontalArrangement = Arrangement.Start
+            ) {
             Icon(painter = painterResource(R.drawable.ic_shield_check),
                 contentDescription = "")
             Spacer(modifier = Modifier.width(4.dp))
@@ -168,28 +181,34 @@ fun ProfileScreenApplicants(
                 fontFamily = localFontFamily,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.W500)
-            Spacer(modifier = Modifier.width(196.dp))
+            }
             Icon(painter = painterResource(R.drawable.ic_arrow_right),
                 contentDescription = "")
         }
 
         Spacer(modifier = Modifier.height(27.dp))
 
+        Row (modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Start){
         Text("Lainnya",
             fontFamily = localFontFamily,
             fontWeight = FontWeight.W400,
             fontSize = 20.sp,
             color = colortext
         )
+        }
 
         Spacer(modifier = Modifier.height(8.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth()
-                .clickable { navController.navigate("") },
-            horizontalArrangement = Arrangement.Start,
+                .clickable { navController.navigate("AboutUsScreen") },
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            Row(
+                horizontalArrangement = Arrangement.Start
+            ) {
             Icon(painter = painterResource(R.drawable.ic_user_group),
                 contentDescription = "")
             Spacer(modifier = Modifier.width(4.dp))
@@ -197,7 +216,7 @@ fun ProfileScreenApplicants(
                 fontFamily = localFontFamily,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.W500)
-            Spacer(modifier = Modifier.width(196.dp))
+            }
             Icon(painter = painterResource(R.drawable.ic_arrow_right),
                 contentDescription = "")
         }
@@ -206,10 +225,13 @@ fun ProfileScreenApplicants(
 
         Row(
             modifier = Modifier.fillMaxWidth()
-                .clickable { navController.navigate("") },
-            horizontalArrangement = Arrangement.Start,
+                .clickable { navController.navigate("HelperScreen") },
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
+            Row(
+                horizontalArrangement = Arrangement.Start
+            ) {
             Icon(painter = painterResource(R.drawable.ic_information_circle),
                 contentDescription = "")
             Spacer(modifier = Modifier.width(4.dp))
@@ -217,7 +239,7 @@ fun ProfileScreenApplicants(
                 fontFamily = localFontFamily,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.W500)
-            Spacer(modifier = Modifier.width(196.dp))
+            }
             Icon(painter = painterResource(R.drawable.ic_arrow_right),
                 contentDescription = "")
         }
@@ -228,7 +250,7 @@ fun ProfileScreenApplicants(
             horizontalArrangement = Arrangement.Start,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Text("Pusat layanan",
+            Text("Keluar",
                 fontFamily = localFontFamily,
                 fontSize = 16.sp,
                 color = Color.Red,
