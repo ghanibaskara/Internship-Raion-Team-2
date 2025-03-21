@@ -19,6 +19,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,16 +31,37 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
+import com.example.internshipraionteam2.data.Firebase.DataClass.UserData
 import com.example.internshipraionteam2.data.Firebase.ViewModel.ApplicantsViewModel
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.localFontFamily
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.firestore
 
 @Composable
 fun InformationAccountScreen(
     navController: NavController,
    applicantsViewModel: ApplicantsViewModel = viewModel()
 ) {
+
     var color = buttonfocus
+    var applicantData by remember { mutableStateOf(UserData(
+        phone = applicantsViewModel.applicantData.phone,
+        dob = applicantsViewModel.applicantData.dob,
+        lor = applicantsViewModel.applicantData.lor,
+        email = applicantsViewModel.applicantData.email,
+    )) }
+
+
+    applicantsViewModel.getApplicantsData {
+            data ->
+
+        applicantData.phone = data.phone
+        applicantData.dob = data.dob
+        applicantData.lor = data.lor
+        applicantData.email = data.email
+
+    }
 
     Column(
         modifier = Modifier.fillMaxSize()
@@ -78,7 +101,7 @@ fun InformationAccountScreen(
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        OutlinedTextField(applicantsViewModel.applicantData.email,onValueChange = {applicantsViewModel.applicantData.email = it},singleLine = true,
+        OutlinedTextField(applicantData.email,onValueChange = {newValue -> applicantData = applicantData.copy(email = newValue)},singleLine = true,
             trailingIcon = {Icon(painter = painterResource(R.drawable.ic_pencil), contentDescription = "")},
             shape = RoundedCornerShape(42.dp),
             colors = OutlinedTextFieldDefaults.colors(
@@ -101,7 +124,7 @@ fun InformationAccountScreen(
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        OutlinedTextField( applicantsViewModel.applicantData.phone,onValueChange = {applicantsViewModel.applicantData.phone = it},singleLine = true,
+        OutlinedTextField(applicantData.phone,onValueChange = {newValue -> applicantData = applicantData.copy(phone = newValue)},singleLine = true,
             trailingIcon = {Icon(painter = painterResource(R.drawable.ic_pencil), contentDescription = "")},
             shape = RoundedCornerShape(42.dp),
             colors = OutlinedTextFieldDefaults.colors(
@@ -124,7 +147,7 @@ fun InformationAccountScreen(
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        OutlinedTextField( applicantsViewModel.applicantData.dob,onValueChange = {applicantsViewModel.applicantData.dob = it},singleLine = true,
+        OutlinedTextField(applicantData.dob,onValueChange = {newValue -> applicantData = applicantData.copy(dob = newValue)},singleLine = true,
             trailingIcon = {Icon(painter = painterResource(R.drawable.ic_pencil), contentDescription = "")},
             shape = RoundedCornerShape(42.dp),
             colors = OutlinedTextFieldDefaults.colors(
@@ -147,7 +170,7 @@ fun InformationAccountScreen(
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        OutlinedTextField( applicantsViewModel.applicantData.lor,onValueChange = {applicantsViewModel.applicantData.lor = it},singleLine = true,
+        OutlinedTextField(applicantData.lor,onValueChange = {newValue -> applicantData = applicantData.copy(lor = newValue)},singleLine = true,
             trailingIcon = {Icon(painter = painterResource(R.drawable.ic_pencil), contentDescription = "")},
             shape = RoundedCornerShape(42.dp),
             colors = OutlinedTextFieldDefaults.colors(
@@ -160,6 +183,13 @@ fun InformationAccountScreen(
 
         Button(onClick = {
 
+            val documentRef = Firebase.firestore.collection("biodata").document(applicantsViewModel.uid)
+
+
+            documentRef.update("email", applicantData.email)
+            documentRef.update("phone", applicantData.phone)
+            documentRef.update("dob", applicantData.dob)
+            documentRef.update("lor", applicantData.lor)
         },
             modifier = Modifier.width(200.dp),
             colors = ButtonDefaults.buttonColors(buttonfocus)) {

@@ -30,7 +30,7 @@ import com.example.internshipraionteam2.ui.theme.localFontFamily
 
 
 @Composable
-fun EventCard(modifier: Modifier, cafeUid: String) {
+fun EventCard(modifier: Modifier) {
     Card(
         elevation = CardDefaults.cardElevation(5.dp),
         modifier = Modifier
@@ -52,7 +52,7 @@ fun EventCard(modifier: Modifier, cafeUid: String) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            Text(cafeUid,
+            Text("Latte Art & Brewing Class",
                 fontWeight = FontWeight.W600,
                 fontSize = 12.sp,
                 fontFamily = localFontFamily,
