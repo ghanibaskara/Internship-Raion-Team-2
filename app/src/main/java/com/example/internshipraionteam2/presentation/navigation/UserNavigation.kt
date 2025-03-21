@@ -10,22 +10,10 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.internshipraionteam2.data.Firebase.ViewModel.AuthViewModel
 import com.example.internshipraionteam2.data.Firebase.ViewModel.SharedViewModel
 //import com.example.internshipraionteam2.presentation.home.HomeScreenCafe
-import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
-import com.example.internshipraionteam2.presentation.home.AboutUsScreen
-import com.example.internshipraionteam2.presentation.home.BottomScreenApplicants
-import com.example.internshipraionteam2.presentation.home.ChatScreen
-import com.example.internshipraionteam2.presentation.home.EditProfileScreen
-import com.example.internshipraionteam2.presentation.home.ExperienceInformationScreen
-import com.example.internshipraionteam2.presentation.home.FolderScreen
-import com.example.internshipraionteam2.presentation.home.HelpCenter
-import com.example.internshipraionteam2.presentation.home.InformationAccountScreen
-import com.example.internshipraionteam2.presentation.home.Lamaran
-import com.example.internshipraionteam2.presentation.home.PassChangeScreen
-import com.example.internshipraionteam2.presentation.home.ProfileScreenApplicants
-import com.example.internshipraionteam2.presentation.home.SecurityPrivacyScreen
-import com.example.internshipraionteam2.presentation.home.WorkDetail
+
 import com.example.internshipraionteam2.presentation.registration.screen.UserOption
 import com.example.internshipraionteam2.presentation.registration.screen.applicants.CertificateScreenApplicants
 import com.example.internshipraionteam2.presentation.registration.screen.applicants.CvScreenApplicants
@@ -41,6 +29,19 @@ import com.example.internshipraionteam2.presentation.registration.screen.cafe.Lo
 import com.example.internshipraionteam2.presentation.registration.screen.cafe.SignupScreenCafe
 import com.example.internshipraionteam2.presentation.registration.screen.cafe.SummaryScreenCafe
 import com.example.internshipraionteam2.data.Supabase.supabase.SupabaseViewModel
+import com.example.internshipraionteam2.presentation.home.ChatScreen
+import com.example.internshipraionteam2.presentation.home.screen.BottomScreenApplicants
+import com.example.internshipraionteam2.presentation.home.screen.FolderScreen
+import com.example.internshipraionteam2.presentation.home.screen.Lamaran
+import com.example.internshipraionteam2.presentation.home.screen.WorkDetail
+import com.example.internshipraionteam2.presentation.home.screen.profile.AboutUsScreen
+import com.example.internshipraionteam2.presentation.home.screen.profile.EditProfileScreen
+import com.example.internshipraionteam2.presentation.home.screen.profile.ExperienceInformationScreen
+import com.example.internshipraionteam2.presentation.home.screen.profile.HelpCenter
+import com.example.internshipraionteam2.presentation.home.screen.profile.InformationAccountScreen
+import com.example.internshipraionteam2.presentation.home.screen.profile.PassChangeScreen
+import com.example.internshipraionteam2.presentation.home.screen.profile.ProfileScreenApplicants
+import com.example.internshipraionteam2.presentation.home.screen.profile.SecurityPrivacyScreen
 
 @Composable
 fun UserNavigation(modifier: Modifier, authViewModel: AuthViewModel, sharedViewModel: SharedViewModel, supabaseViewModel: SupabaseViewModel) {

@@ -1,5 +1,6 @@
 package com.example.internshipraionteam2.presentation.home.screen
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -30,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -218,6 +220,7 @@ fun DeskripsiPosisi(
     applicantsViewModel: ApplicantsViewModel = viewModel()
 ) {
     var cafeDetails = cafeDetails
+    var context = LocalContext.current
 
 
     Column(
@@ -354,7 +357,14 @@ fun DeskripsiPosisi(
 
         Button(
             onClick = {
-                applicantsViewModel.applicationFunction(cafeDetails.uid,cafeDetails.job,cafeDetails.name,cafeDetails.location)
+                if (applicantsViewModel.applicantData.biodataisfilled == false){
+                    Toast.makeText(
+                        context,
+                        "Biodata kosong, tidak dapat mengirim data.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }else {
+                applicantsViewModel.applicationFunction(cafeDetails.uid,cafeDetails.job,cafeDetails.name,cafeDetails.location)}
             },
             colors = ButtonDefaults.buttonColors(buttonfocus),
             modifier = Modifier.fillMaxWidth()
@@ -374,6 +384,7 @@ fun DeskripsiPosisi(
 fun DeskripsiKafe(cafeDetails: CafeDetails,
                   applicantsViewModel: ApplicantsViewModel = viewModel()
 ) {
+    var context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -497,7 +508,14 @@ fun DeskripsiKafe(cafeDetails: CafeDetails,
 
         Button(
             onClick = {
-
+                if (applicantsViewModel.applicantData.biodataisfilled == false){
+                    Toast.makeText(
+                        context,
+                        "Biodata kosong, tidak dapat mengirim data.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }else {
+                    applicantsViewModel.applicationFunction(cafeDetails.uid,cafeDetails.job,cafeDetails.name,cafeDetails.location)}
             },
             colors = ButtonDefaults.buttonColors(buttonfocus),
             modifier = Modifier
