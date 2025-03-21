@@ -1,5 +1,6 @@
 package com.example.internshipraionteam2.presentation.registration.screen
 
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -28,21 +29,25 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
-import com.example.internshipraionteam2.data.ViewModel.AuthState
-import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
+import com.example.internshipraionteam2.data.Firebase.ViewModel.AuthState
+import com.example.internshipraionteam2.data.Firebase.ViewModel.AuthViewModel
+import com.example.internshipraionteam2.data.Firebase.ViewModel.ApplicantsViewModel
+import com.example.internshipraionteam2.data.Firebase.ViewModel.SharedViewModel
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 import com.example.internshipraionteam2.ui.theme.bordercolor
 import com.example.internshipraionteam2.ui.theme.maincolor
 
 
 @Composable
-fun UserOption(navController: NavController, authViewModel: AuthViewModel) {
+fun UserOption(navController: NavController, authViewModel: AuthViewModel, sharedViewModel: SharedViewModel, applicantsViewModel: ApplicantsViewModel = viewModel()) {
 
     var stroke1 by remember { mutableStateOf(1.dp) }
     var border1 by remember { mutableStateOf(bordercolor) }
@@ -53,24 +58,77 @@ fun UserOption(navController: NavController, authViewModel: AuthViewModel) {
     var isSelected1 by remember { mutableStateOf(false) }
     var isSelected2 by remember { mutableStateOf(false) }
 
+
     var color by remember { mutableStateOf(Color(0xFFEDEDED)) }
     var font by remember { mutableStateOf(FontWeight.Normal) }
     var fontcolor by remember { mutableStateOf(Color(0xFF9E9E9E)) }
     var fontcolor2 by remember { mutableStateOf(Color.Gray) }
 
     val authState = authViewModel.authState.observeAsState()
+    val context = LocalContext.current
 
-    LaunchedEffect(authState.value) {
-        when(authState.value){
-            is AuthState.Authenticated -> navController.navigate("HomeScreenApplicants")
-            else -> Unit
+    LaunchedEffect(Unit) {
+        if (authState.value == AuthState.Authenticated){
+            while (sharedViewModel.accountType.isEmpty());
+            if (sharedViewModel.accountType == "applicants"){
+                Toast.makeText(
+                    context,
+                    "User Authenticated. \n\t\t\tLogging in...",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                while (applicantsViewModel.applicantData.biodataisfilled == null);
+                if (applicantsViewModel.applicantData.biodataisfilled == true){
+                    navController.navigate("BottomScreenApplicants")
+                } else {
+                    navController.navigate("GreetingScreenApplicants")
+                }
+            } else {
+
+            }
+
+
         }
     }
 
 
 
 
-    if (isSelected1 || isSelected2){
+
+//        if (sharedViewModel.currentUid.isNotEmpty()){
+//            Toast.makeText(
+//                context,
+//               sharedViewModel.currentUid,
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            if (authState.value == AuthState.Authenticated){
+//                if (sharedViewModel.accountType == "applicants"){
+//                    if (sharedViewModel.biodataIsFilled == true){
+//                        navController.navigate("HomeScreenApplicants")
+//                    } else {
+//                        navController.navigate("GreetingScreenApplicants")
+//                    }
+//                } else {
+//                        navController.navigate("HomeScreenCafe")
+//                }
+//            }
+//        }
+
+
+//        when (authState.value) {
+//            is AuthState.Authenticated -> navController.navigate("GreetingScreenApplicants")
+//            is AuthState.Error -> Toast.makeText(
+//                context,
+//                (authState.value as AuthState.Error).message,
+//                Toast.LENGTH_SHORT
+//            ).show()
+//
+//            else -> Unit
+//        }
+
+
+
+if (isSelected1 || isSelected2){
         color = maincolor
         font = FontWeight.SemiBold
         fontcolor = Color.White
@@ -188,7 +246,7 @@ fun UserOption(navController: NavController, authViewModel: AuthViewModel) {
                             navController.navigate("SignupScreenApplicants")
                         } else if (isSelected2){
                             navController.navigate("SignupScreenCafe")
-                        } else {}
+                        }
                     },
                     colors = ButtonDefaults.buttonColors(color),
                     modifier = Modifier
@@ -209,7 +267,7 @@ fun UserOption(navController: NavController, authViewModel: AuthViewModel) {
                         navController.navigate("LoginScreenApplicants")
                     } else if (isSelected2){
                         navController.navigate("LoginScreenCafe")
-                    } else {}
+                    }
                 }) {
                     Text(
                         "Sudah memiliki akun?",

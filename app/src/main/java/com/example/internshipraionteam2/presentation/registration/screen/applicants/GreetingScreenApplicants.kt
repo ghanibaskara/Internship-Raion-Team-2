@@ -15,23 +15,39 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
+import com.example.internshipraionteam2.data.Firebase.ViewModel.AuthViewModel
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.localFontFamily
+import com.google.firebase.auth.FirebaseAuth
 
 
 @Composable
 fun GreetingScreenApplicants(
-    navController: NavController
+    navController: NavController,
+    authViewModel: AuthViewModel
 ) {
+   val context = LocalContext.current
+
+//    sharedViewModel.saveAccountData(accountTypeData,context)
+    val auth = FirebaseAuth.getInstance().currentUser
+    val email = auth?.email ?: ""
+    var uid = ""
+
+    val authState = authViewModel.authState.observeAsState()
+
+
+
     Column(
         modifier = Modifier
             .background(Color.White)
@@ -86,6 +102,14 @@ fun GreetingScreenApplicants(
 
         Button(onClick = {
             navController.navigate("RegisterScreenApplicants")
+//            var auth = FirebaseAuth.getInstance().currentUser
+//            val uid = auth?.uid ?: ""
+//            val email = auth?.email ?: ""
+//
+//
+
+//
+
         },
             modifier = Modifier
                 .fillMaxWidth()
@@ -102,7 +126,11 @@ fun GreetingScreenApplicants(
 
         Button(
             onClick = {
-                navController.navigate("HomeScreenApplicants")
+                navController.navigate("BottomScreenApplicants"){
+                    popUpTo("GreetingScreenApplicants"){
+                        inclusive = true
+                    }
+                }
             },
             modifier = Modifier
                 .fillMaxWidth(),
