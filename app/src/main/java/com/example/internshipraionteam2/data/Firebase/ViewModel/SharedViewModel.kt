@@ -35,19 +35,22 @@ class SharedViewModel() : ViewModel() {
 
     init {
         getData()
-        if (uid.isNotEmpty()){
-            getAccountTypeData {
-                    data ->
-                accountType = data.accounttype
-            }
-            while (accountType.isEmpty());
-            if (accountType == "applicants") {
-                getApplicantsData {
-                    data ->
-                    biodataIsFilled = data.biodataisfilled
-                }   
+        if (uid.isNotEmpty()) {
+            viewModelScope.launch {
+                try {
+                    getAccountTypeData { data ->
+                        accountType = data.accounttype
 
-
+                        // Only proceed to get applicant data after we have the account type
+                        if (accountType == "applicants") {
+                            getApplicantsData { data ->
+                                biodataIsFilled = data.biodataisfilled
+                            }
+                        }
+                    }
+                } catch (e: Exception) {
+                    Log.e("SharedViewModel", "Error in initialization: ${e.message}")
+                }
             }
         }
     }

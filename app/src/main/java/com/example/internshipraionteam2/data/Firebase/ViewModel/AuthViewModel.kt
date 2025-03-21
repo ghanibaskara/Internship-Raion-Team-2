@@ -1,9 +1,11 @@
 package com.example.internshipraionteam2.data.Firebase.ViewModel
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.internshipraionteam2.data.Firebase.DataClass.AccountTypeData
+import com.example.internshipraionteam2.data.Firebase.DataClass.AppliedTo
 import com.example.internshipraionteam2.data.Firebase.DataClass.UserData
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth

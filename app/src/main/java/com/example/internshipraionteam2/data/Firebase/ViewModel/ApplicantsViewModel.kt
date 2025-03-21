@@ -5,6 +5,7 @@ import android.widget.Toast
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.internshipraionteam2.data.Firebase.DataClass.AppliedTo
 import com.example.internshipraionteam2.data.Firebase.DataClass.CafeDetails
 import com.example.internshipraionteam2.data.Firebase.DataClass.UserData
 import com.example.internshipraionteam2.data.Firebase.DataClass.cafeId
@@ -16,6 +17,7 @@ import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
@@ -131,6 +133,25 @@ class ApplicantsViewModel() : ViewModel(){
             }
     }
 
+    fun getApplicationsId(onComplete: (AppliedTo) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        val applicationsId = AppliedTo()
+
+        db.collection("ApplicantsApplication").document(uid).collection("applications")
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                for (document in querySnapshot) {
+                    // Menambahkan ID dokumen ke list cafeUid
+                    applicationsId.timestamp.add(document.id)
+                }
+                onComplete(applicationsId)
+            }
+            .addOnFailureListener { exception ->
+                println("Error mengambil ID cafe: $exception")
+                onComplete(AppliedTo()) // Mengembalikan objek kosong jika terjadi error
+            }
+    }
+
     fun getCafesData(
         uid: String,
         data: (CafeDetails) -> Unit
@@ -176,12 +197,15 @@ class ApplicantsViewModel() : ViewModel(){
             .get()
             .await()
 
+
+
         if (existingApplicationSnapshot.isEmpty) {
             // User has not applied to this cafe yet, proceed with application
 
             // Update the cafe document with the applicant
             documentRef.collection("cafeDetails").document(cafeuid)
                 .update("applicants", FieldValue.arrayUnion(uid))
+
 
             // For data with unique timestamp
             val applicationData = mapOf(
