@@ -230,7 +230,6 @@ fun SummaryScreenApplicants(
                 }
                 Divider(color = Color.Gray.copy(alpha = 0.3f))
             }
-        }
 
 
         Spacer(modifier = Modifier.height(333.dp))
@@ -250,6 +249,7 @@ fun SummaryScreenApplicants(
                 fontSize = 14.sp,
                 fontFamily = localFontFamily,
                 fontWeight = FontWeight.Bold)
+        }
         }
     }
 }
