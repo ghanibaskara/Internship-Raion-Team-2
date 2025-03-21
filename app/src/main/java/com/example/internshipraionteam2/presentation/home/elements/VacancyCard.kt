@@ -26,20 +26,22 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.internshipraionteam2.R
+import com.example.internshipraionteam2.presentation.home.SearchScreen
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 
 
 @Composable
-fun VacancyCard(job: String, name: String, salary: String, location: String,cafeuid: String, onClick: (String) -> Unit) {
+fun VacancyCard(job: String, name: String, salary: String, location: String,cafeuid: String, onClick: () -> Unit) {
     Card(
+        onClick = {onClick()},
         elevation = CardDefaults.cardElevation(5.dp),
         modifier = Modifier.height(133.dp)
             .width(175.dp)
             .padding(bottom = 16.dp)
-            .clickable { onClick(cafeuid) }
     ) {
         Column(
             modifier = Modifier.fillMaxSize()
