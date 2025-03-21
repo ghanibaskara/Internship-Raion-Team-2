@@ -16,6 +16,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,16 +26,46 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
+import com.example.internshipraionteam2.data.Firebase.DataClass.AppliedTo
+import com.example.internshipraionteam2.data.Firebase.DataClass.CafeDetails
+import com.example.internshipraionteam2.data.Firebase.ViewModel.ApplicantsViewModel
 import com.example.internshipraionteam2.presentation.home.elements.HistoryCard
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 
 //@Preview
 @Composable
 fun FolderScreen(
-    navController: NavController
+    navController: NavController,
+    applicantsViewModel: ApplicantsViewModel = viewModel()
 ) {
+    val cafeDetailsList = remember { mutableStateListOf<CafeDetails>() }
+
+    // Mengambil data aplikasi
+    LaunchedEffect(Unit) {
+        // Clear existing lists before fetching new data
+        cafeDetailsList.clear()
+
+        // First, get all application document IDs
+        applicantsViewModel.getApplicationsDocumentsId { appliedTo ->
+            // Iterate through each application document ID
+            for (applicationDocId in appliedTo.timestamp) {
+                // For each application document, get the cafe UID
+                applicantsViewModel.getApplicationsId(applicationDocId) { appliedToCafes ->
+                    // For each cafe UID, get the cafe details
+                    for (cafeUid in appliedToCafes.id) {
+                        // Fetch and add cafe details to the list
+                        applicantsViewModel.getCafesData(cafeUid) { cafeDetails ->
+                            cafeDetailsList.add(cafeDetails)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     Column(modifier = Modifier
         .fillMaxSize()
         .background(Color.White)
@@ -45,8 +78,8 @@ fun FolderScreen(
         ) {
             Icon(modifier = Modifier.clickable {
                 navController.navigate("BottomScreenApplicants")
-            },painter = painterResource(R.drawable.ic_arrow_back),
-                contentDescription = "",
+            }, painter = painterResource(R.drawable.ic_arrow_back),
+                contentDescription = "Back",
                 tint = Color.Black)
             Spacer(modifier = Modifier.width(30.dp))
             Text("Riwayat Lamaran",
@@ -58,19 +91,20 @@ fun FolderScreen(
         Spacer(modifier = Modifier.height(56.dp))
 
         LazyColumn(
-            modifier = Modifier
-                .fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(bottom = 60.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            items(cafeDetailsList.size) { index ->
+                val cafeDetails = cafeDetailsList[index]
 
-            items(5){
-                HistoryCard(text ="" , navController = navController)
+                // Menampilkan kartu riwayat lamaran dengan nama cafe
+                HistoryCard(
+                    text = cafeDetails.name ?: "Cafe",
+                    navController = navController
+                )
             }
         }
-
     }
-
-
 }

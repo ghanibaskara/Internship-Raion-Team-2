@@ -1,5 +1,6 @@
 package com.example.internshipraionteam2.presentation.home.screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -24,14 +25,18 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.DockedSearchBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -41,30 +46,38 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
-import com.example.internshipraionteam2.data.Firebase.ViewModel.ApplicantsViewModel
 import com.example.internshipraionteam2.data.Firebase.DataClass.CafeDetails
+import com.example.internshipraionteam2.data.Firebase.ViewModel.ApplicantsViewModel
 import com.example.internshipraionteam2.presentation.home.elements.VacancyCard
+
+
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
-//    navController: NavController,
+    navController: NavController,
 //    authViewModel: AuthViewModel
     applicantsViewModel: ApplicantsViewModel = viewModel()
 ) {
     var query by remember { mutableStateOf("") }
     var active by remember { mutableStateOf(false) }
-    val cafeDetailsList = remember { mutableStateListOf<CafeDetails>() }
 
+    val sheetState = rememberModalBottomSheetState()
+    var showBottomsheet by remember { mutableStateOf(false) }
+
+    val cafeDetailsList = remember { mutableStateListOf<CafeDetails>() }
+    var selectedCafeDetails by remember { mutableStateOf<CafeDetails?>(null) }
 
     val searchHistory = listOf(
         "roketto",
@@ -78,6 +91,7 @@ fun SearchScreen(
         "vosco",
         "labore coffee eatery"
     )
+
     LaunchedEffect(applicantsViewModel.cafeid.value.cafeUid) {
         cafeDetailsList.clear() // Kosongkan daftar sebelum mengambil data baru
         for (cafeuid in applicantsViewModel.cafeid.value.cafeUid) {
@@ -303,17 +317,166 @@ fun SearchScreen(
                     cafeDetails.salary,
                     cafeDetails.location,
                     cafeDetails.uid,
-                    onClick = {cafeuid ->
-//                        val documentRef = Firebase.firestore
-//
-//                        // Menggunakan arrayUnion untuk menambahkan UID ke field array
-//                        documentRef.collection("cafeDetails").document(cafeuid).update("applicants", FieldValue.arrayUnion(applicantsViewModel.uid))
-
-                        applicantsViewModel.applicationFunction(cafeuid,cafeDetails.job)
-
-                    }
-                )
+                    onClick = {
+                        showBottomsheet = true
+                    selectedCafeDetails = cafeDetails})
+                Spacer(modifier = Modifier.height(10.dp))
             }
         }
-    }
+
+        if (showBottomsheet) {
+            ModalBottomSheet(
+                onDismissRequest = {
+                    showBottomsheet = false
+                },
+                sheetState = sheetState,
+                containerColor = buttonfocus
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 32.dp),
+                    horizontalAlignment = Alignment.Start
+                ) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+
+                        Text(
+                            "Detail pekerjaan",
+                            fontWeight = FontWeight.W600,
+                            fontFamily = localFontFamily,
+                            fontSize = 24.sp,
+                            color = Color.White
+                        )
+                    }
+
+                    Spacer(modifier = Modifier.height(32.dp))
+
+                    selectedCafeDetails?.let {
+                        cafe ->
+                        Row(
+                            modifier = Modifier.height(50.dp),
+                            horizontalArrangement = Arrangement.Start,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Box(
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Icon(
+                                    painter = painterResource(R.drawable.ellipse_16),
+                                    contentDescription = "",
+                                    tint = Color.Unspecified
+                                )
+                                Image(
+                                    painter = painterResource(R.drawable.laluna_caffee),
+                                    contentDescription = "",
+                                    modifier = Modifier
+                                        .size(38.dp)
+                                        .clip(RoundedCornerShape(30.dp))
+                                )
+                            }
+
+                            Spacer(modifier = Modifier.width(12.dp))
+
+                            Column(
+                                modifier = Modifier.fillMaxHeight(),
+                                horizontalAlignment = Alignment.Start,
+                                verticalArrangement = Arrangement.Center
+                            ) {
+                                Text(
+                                    cafe.job,
+                                    color = Color.White,
+                                    fontSize = 16.sp,
+                                    fontFamily = localFontFamily,
+                                    fontWeight = FontWeight.W700
+                                )
+
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.Start,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+
+                                    Text(
+                                        cafe.name,
+                                        color = Color.White,
+                                        fontSize = 14.sp,
+                                        fontFamily = localFontFamily,
+                                        fontWeight = FontWeight.W400
+                                    )
+
+                                    Spacer(modifier = Modifier.width(8.dp))
+                                    Icon(
+                                        painter = painterResource(R.drawable.ellipse_46),
+                                        contentDescription = "",
+                                        tint = Color.Unspecified
+                                    )
+                                    Spacer(modifier = Modifier.width(8.dp))
+
+                                    Text(
+                                        cafe.location,
+                                        color = Color.White,
+                                        fontSize = 14.sp,
+                                        fontFamily = localFontFamily,
+                                        fontWeight = FontWeight.W400
+                                    )
+                                }
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(14.5.dp))
+
+                        Row() {
+                            Icon(
+                                painter = painterResource(R.drawable.tag_fulltime),
+                                contentDescription = "",
+                                tint = Color.White
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        Text(
+                            "Deskripsi posisi",
+                            color = Color.White,
+                            fontSize = 14.sp,
+                            fontFamily = localFontFamily,
+                            fontWeight = FontWeight.W600
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Text(
+                            cafe.positiondescription,
+                            color = Color.White,
+                            fontSize = 12.sp,
+                            fontFamily = localFontFamily,
+                            fontWeight = FontWeight.W400
+                        )
+
+                        Spacer(modifier = Modifier.height(32.dp))
+
+                        Button(
+                            onClick = {
+                                navController.navigate("WorkDetail/${cafe.uid}")
+                            },
+                            colors = ButtonDefaults.buttonColors(Color.White),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(
+                                "Lihat detail pekerjaan",
+                                color = buttonfocus,
+                                fontSize = 16.sp,
+                                fontFamily = localFontFamily,
+                                fontWeight = FontWeight.W600
+                            )
+                        }
+                    }
+                }
+            }
+        }
+                    }
+
 }

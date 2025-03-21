@@ -28,7 +28,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SearchBarDefaults
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
@@ -41,16 +40,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.internshipraionteam2.presentation.home.elements.EventCard
 import com.example.internshipraionteam2.presentation.home.elements.NowEventCard
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.internshipraionteam2.R
-import com.example.internshipraionteam2.reusable.EventCard
-import com.example.internshipraionteam2.reusable.NowEventCard
+import com.example.internshipraionteam2.presentation.home.screen.profile.PopUpEvent
+
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 

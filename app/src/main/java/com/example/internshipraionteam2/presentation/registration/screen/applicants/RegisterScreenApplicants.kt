@@ -52,16 +52,12 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
-import com.example.internshipraionteam2.data.network.AccountTypeData
-import com.example.internshipraionteam2.data.network.SharedViewModel
-import com.example.internshipraionteam2.data.network.UserData
-import com.example.internshipraionteam2.reusable.BiodataTextField
-import com.example.internshipraionteam2.reusable.DobTextField
-import com.example.internshipraionteam2.reusable.PhoneTextField
-import com.example.internshipraionteam2.reusable.RegisterTextField
+
 import com.example.internshipraionteam2.data.Firebase.ViewModel.ApplicantsViewModel
 import com.example.internshipraionteam2.data.Firebase.DataClass.UserData
 import com.example.internshipraionteam2.presentation.registration.elements.BiodataTextField
+import com.example.internshipraionteam2.presentation.registration.elements.DobTextField
+import com.example.internshipraionteam2.presentation.registration.elements.PhoneTextField
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 import com.example.internshipraionteam2.ui.theme.maincolor

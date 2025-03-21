@@ -69,26 +69,14 @@ fun UserOption(navController: NavController, authViewModel: AuthViewModel, share
 
     LaunchedEffect(Unit) {
         if (authState.value == AuthState.Authenticated){
-//            sharedViewModel.getAccountTypeData {
-//                    data ->
-//                accounttype = data.accounttype
-//            }
-
-//            do {
-//                if (sharedViewModel.accountType.isNotEmpty()) {
-//                    isLoading = false
-//                }
-//            } while (isLoading == true)
+            while (sharedViewModel.accountType.isEmpty());
             if (sharedViewModel.accountType == "applicants"){
                 Toast.makeText(
                     context,
                     "User Authenticated. \n\t\t\tLogging in...",
                     Toast.LENGTH_SHORT
                 ).show()
-//                sharedViewModel.getApplicantsData {
-//                        data ->
-//                    biodataIsFilled = data.biodataisfilled
-//                }
+
                 while (applicantsViewModel.applicantData.biodataisfilled == null);
                 if (applicantsViewModel.applicantData.biodataisfilled == true){
                     navController.navigate("BottomScreenApplicants")

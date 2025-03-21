@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.internshipraionteam2.data.Firebase.DataClass.AppliedTo
+import com.example.internshipraionteam2.data.Firebase.DataClass.AppliedToCafes
 import com.example.internshipraionteam2.data.Firebase.DataClass.CafeDetails
 import com.example.internshipraionteam2.data.Firebase.DataClass.UserData
 import com.example.internshipraionteam2.data.Firebase.DataClass.cafeId
@@ -52,6 +53,8 @@ class ApplicantsViewModel() : ViewModel(){
 
     var cafeid = mutableStateOf(cafeId())
 
+    var applicationsid = mutableStateOf(AppliedTo())
+
 
     init {
         if (uid.isNotEmpty()){
@@ -76,6 +79,8 @@ class ApplicantsViewModel() : ViewModel(){
 
 
             }
+
+
 
 
         }
@@ -133,7 +138,7 @@ class ApplicantsViewModel() : ViewModel(){
             }
     }
 
-    fun getApplicationsId(onComplete: (AppliedTo) -> Unit) {
+    fun getApplicationsDocumentsId( data: (AppliedTo) -> Unit) {
         val db = FirebaseFirestore.getInstance()
         val applicationsId = AppliedTo()
 
@@ -144,11 +149,34 @@ class ApplicantsViewModel() : ViewModel(){
                     // Menambahkan ID dokumen ke list cafeUid
                     applicationsId.timestamp.add(document.id)
                 }
-                onComplete(applicationsId)
+                data(applicationsId)
             }
             .addOnFailureListener { exception ->
                 println("Error mengambil ID cafe: $exception")
-                onComplete(AppliedTo()) // Mengembalikan objek kosong jika terjadi error
+                data(AppliedTo()) // Mengembalikan objek kosong jika terjadi error
+            }
+    }
+
+    fun getApplicationsId(applicationsdocumentid: String, data: (AppliedToCafes) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        val applicationsId = AppliedToCafes()
+
+        db.collection("ApplicantsApplication").document(uid).collection("applications").document(applicationsdocumentid)
+            .get()
+            .addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    // Mengambil field cafeuid dari dokumen
+                    val cafeUid = documentSnapshot.getString("cafeuid")
+                    if (cafeUid != null) {
+                        // Menambahkan cafeuid ke list id
+                        applicationsId.id.add(cafeUid)
+                    }
+                }
+                data(applicationsId)
+            }
+            .addOnFailureListener { exception ->
+                println("Error mengambil ID cafe: $exception")
+                data(AppliedToCafes()) // Mengembalikan objek kosong jika terjadi error
             }
     }
 
@@ -174,7 +202,9 @@ class ApplicantsViewModel() : ViewModel(){
 
     fun applicationFunction(
         cafeuid: String,
-        position: String
+        position: String,
+        cafename: String,
+        cafelocations: String
 
     ) = viewModelScope.launch {
         val calendar = Calendar.getInstance()
@@ -182,8 +212,8 @@ class ApplicantsViewModel() : ViewModel(){
         val tanggalTerformat = formatter.format(calendar.time)
         val documentRef = Firebase.firestore
         val timestamp = System.currentTimeMillis().toString()
-        var cafename = ""
-        var cafelocations = ""
+        var cafename = cafename
+        var cafelocations = cafelocations
         getCafesData(cafeuid){
             data ->
             cafelocations = data.location

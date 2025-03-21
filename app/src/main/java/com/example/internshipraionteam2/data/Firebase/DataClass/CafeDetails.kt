@@ -6,5 +6,15 @@ data class CafeDetails(
     var name: String = "",
     var salary: String = "",
     var uid: String = "",
-    var applicants: MutableList<String> = mutableListOf()
+    var applicants: MutableList<String> = mutableListOf(),
+    var positiondescription: String = "",
+    var experience: String = "",
+    var cafedescription: String = "",
+    var extendedlocation: String = "",
+    var worktime: String = "",
+    var phone: String = "",
+    var rating: String = "",
+    var qualifications: MutableList<String> = mutableListOf(),
+    var benefit: MutableList<String> = mutableListOf(),
+    var applicationduration: String = ""
 )
