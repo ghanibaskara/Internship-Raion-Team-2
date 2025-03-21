@@ -48,14 +48,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
-import com.example.internshipraionteam2.data.ViewModel.AuthState
+import com.example.internshipraionteam2.data.Firebase.ViewModel.AuthState
 import com.example.internshipraionteam2.ui.theme.localFontFamily
-import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
-import com.example.internshipraionteam2.data.network.AccountTypeData
-import com.example.internshipraionteam2.data.network.SharedViewModel
-import com.example.internshipraionteam2.data.network.UserData
-import com.example.internshipraionteam2.presentation.registration.screen.UserOption
-import com.example.internshipraionteam2.reusable.RegisterTextField
+import com.example.internshipraionteam2.data.Firebase.ViewModel.AuthViewModel
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.maincolor
 import com.google.firebase.auth.FirebaseAuth
@@ -64,8 +59,7 @@ import com.google.firebase.auth.FirebaseAuth
 @Composable
 fun LoginScreenApplicants(
     navController: NavController,
-    authViewModel: AuthViewModel,
-    sharedViewModel: SharedViewModel
+    authViewModel: AuthViewModel
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -87,14 +81,14 @@ fun LoginScreenApplicants(
         var color2 by remember { mutableStateOf(Color.Gray) }
         if (password == "") color2 = Color.Gray else color2 = maincolor
 
+        var biodataIsFilled: Boolean? = null
 
         LaunchedEffect(authState.value) {
             when (authState.value) {
-                is AuthState.Authenticated -> navController.navigate("GreetingScreenApplicants")
+                is AuthState.Authenticated -> navController.navigate("BottomScreenApplicants")
                 is AuthState.Error -> Toast.makeText(
                     context,
-                    (authState.value as AuthState.Error).message,
-                    Toast.LENGTH_SHORT
+                    (authState.value as AuthState.Error).message, Toast.LENGTH_SHORT
                 ).show()
 
                 else -> Unit

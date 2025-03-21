@@ -48,14 +48,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
-import com.example.internshipraionteam2.data.ViewModel.AuthState
+import com.example.internshipraionteam2.data.Firebase.ViewModel.AuthState
 import com.example.internshipraionteam2.ui.theme.localFontFamily
-import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
-import com.example.internshipraionteam2.data.network.AccountTypeData
-import com.example.internshipraionteam2.data.network.SharedViewModel
-import com.example.internshipraionteam2.data.network.UserData
-import com.example.internshipraionteam2.presentation.registration.screen.UserOption
-import com.example.internshipraionteam2.reusable.RegisterTextField
+import com.example.internshipraionteam2.data.Firebase.ViewModel.AuthViewModel
+import com.example.internshipraionteam2.data.Firebase.ViewModel.SharedViewModel
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.maincolor
 import com.google.firebase.auth.FirebaseAuth

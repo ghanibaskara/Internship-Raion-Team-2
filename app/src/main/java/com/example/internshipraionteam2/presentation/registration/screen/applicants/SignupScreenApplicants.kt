@@ -48,23 +48,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
-import com.example.internshipraionteam2.data.ViewModel.AuthState
-import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
-import com.example.internshipraionteam2.data.network.AccountTypeData
-import com.example.internshipraionteam2.data.network.SharedViewModel
-import com.example.internshipraionteam2.data.network.UserData
+import com.example.internshipraionteam2.data.Firebase.ViewModel.AuthState
+import com.example.internshipraionteam2.data.Firebase.ViewModel.AuthViewModel
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 import com.example.internshipraionteam2.ui.theme.maincolor
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 
 
 @Composable
 fun SignupScreenApplicants(
     navController: NavController,
-    authViewModel: AuthViewModel,
-    sharedViewModel: SharedViewModel
+    authViewModel: AuthViewModel
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -89,6 +84,25 @@ fun SignupScreenApplicants(
 
         var color3 by remember { mutableStateOf(Color.Gray) }
         if (confirmpassword == "") color3 = Color.Gray else color3 = maincolor
+
+        LaunchedEffect(authState.value) {
+            when (authState.value) {
+                is AuthState.Authenticated -> {
+                    Toast.makeText(
+                        context,
+                        "Logging in...",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    navController.navigate("GreetingScreenApplicants")
+                }
+                is AuthState.Error -> Toast.makeText(
+                    context,
+                    (authState.value as AuthState.Error).message, Toast.LENGTH_SHORT
+                ).show()
+
+                else -> Unit
+            }
+        }
 
 
         Column(
@@ -324,11 +338,9 @@ fun SignupScreenApplicants(
                     ).show()
                 } else {
                     authViewModel.signup(email, password, "applicants" )
-                        navController.navigate("GreetingScreenApplicants")
-
 
                 }
-                navController.navigate("GreetingScreenApplicants")
+
             },
             modifier = Modifier.size(width = 346.dp, height = 41.dp),
             colors = ButtonDefaults.buttonColors(containerColor = com.example.internshipraionteam2.ui.theme.buttonfocus)

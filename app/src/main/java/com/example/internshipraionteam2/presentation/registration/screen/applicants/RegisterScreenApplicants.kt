@@ -1,8 +1,5 @@
 package com.example.internshipraionteam2.presentation.registration.screen.applicants
 
-import android.content.Context
-import android.widget.Space
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -22,7 +19,6 @@ import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -35,34 +31,28 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
-import com.example.internshipraionteam2.data.network.AccountTypeData
-import com.example.internshipraionteam2.data.network.SharedViewModel
-import com.example.internshipraionteam2.data.network.UserData
-import com.example.internshipraionteam2.reusable.BiodataTextField
-import com.example.internshipraionteam2.reusable.RegisterTextField
+import com.example.internshipraionteam2.data.Firebase.ViewModel.ApplicantsViewModel
+import com.example.internshipraionteam2.data.Firebase.DataClass.UserData
+import com.example.internshipraionteam2.presentation.registration.elements.BiodataTextField
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 import com.example.internshipraionteam2.ui.theme.maincolor
 import com.google.firebase.auth.FirebaseAuth
-import kotlin.coroutines.coroutineContext
 
 
 @Composable
 fun RegisterScreenApplicants(
     navController: NavController,
-    sharedViewModel: SharedViewModel
+    applicantsViewModel: ApplicantsViewModel = viewModel()
 ) {
     Column(modifier = Modifier
         .fillMaxSize()
@@ -226,11 +216,11 @@ fun RegisterScreenApplicants(
                 lor = lor,
                 email = email ?: "",
                 uid = uid,
-                biodataisfilled = true
+                biodataisfilled = false
 
             )
 
-            sharedViewModel.saveApplicantsBiodata(userData = userData, context = context)
+            applicantsViewModel.saveApplicantsBiodata(userData = userData, context = context)
 
 
             navController.navigate("CvScreenApplicants")},

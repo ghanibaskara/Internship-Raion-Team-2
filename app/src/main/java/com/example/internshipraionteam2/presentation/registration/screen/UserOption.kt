@@ -34,21 +34,20 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
-import com.example.internshipraionteam2.data.ViewModel.AuthState
-import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
-import com.example.internshipraionteam2.data.network.SharedViewModel
-import com.example.internshipraionteam2.data.network.UserData
-import com.example.internshipraionteam2.data.network.currentUid
+import com.example.internshipraionteam2.data.Firebase.ViewModel.AuthState
+import com.example.internshipraionteam2.data.Firebase.ViewModel.AuthViewModel
+import com.example.internshipraionteam2.data.Firebase.ViewModel.ApplicantsViewModel
+import com.example.internshipraionteam2.data.Firebase.ViewModel.SharedViewModel
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 import com.example.internshipraionteam2.ui.theme.bordercolor
 import com.example.internshipraionteam2.ui.theme.maincolor
-import com.google.firebase.auth.FirebaseAuth
 
 
 @Composable
-fun UserOption(navController: NavController, authViewModel: AuthViewModel,sharedViewModel: SharedViewModel) {
+fun UserOption(navController: NavController, authViewModel: AuthViewModel, sharedViewModel: SharedViewModel, applicantsViewModel: ApplicantsViewModel = viewModel()) {
 
     var stroke1 by remember { mutableStateOf(1.dp) }
     var border1 by remember { mutableStateOf(bordercolor) }
@@ -59,7 +58,6 @@ fun UserOption(navController: NavController, authViewModel: AuthViewModel,shared
     var isSelected1 by remember { mutableStateOf(false) }
     var isSelected2 by remember { mutableStateOf(false) }
 
-    val auth = FirebaseAuth.getInstance().currentUser
 
     var color by remember { mutableStateOf(Color(0xFFEDEDED)) }
     var font by remember { mutableStateOf(FontWeight.Normal) }
@@ -69,37 +67,31 @@ fun UserOption(navController: NavController, authViewModel: AuthViewModel,shared
     val authState = authViewModel.authState.observeAsState()
     val context = LocalContext.current
 
-    var accounttype: String by remember { mutableStateOf("") }
-    var useruid: String by remember { mutableStateOf("") }
-    var email: String by remember { mutableStateOf("") }
-    var isLoading = true
-    var biodataIsFilled: Boolean? = null
-
     LaunchedEffect(Unit) {
         if (authState.value == AuthState.Authenticated){
-            sharedViewModel.getAccountTypeData {
-                    data ->
-                accounttype = data.accounttype
-            }
-            Toast.makeText(
-                context,
-                "User Authenticated. \n\t\t\tLogging in...",
-                Toast.LENGTH_SHORT
-            ).show()
-            do {
-                if (accounttype.isNotEmpty()) {
-                    isLoading = false
-                }
-            } while (isLoading == true)
-            if (accounttype == "applicants"){
-                sharedViewModel.getApplicantsData {
-                        data ->
-                    biodataIsFilled = data.biodataisfilled
-                }
-                do {
-                } while (biodataIsFilled == null)
-                if (biodataIsFilled == true){
-                    navController.navigate("HomeScreenApplicants")
+//            sharedViewModel.getAccountTypeData {
+//                    data ->
+//                accounttype = data.accounttype
+//            }
+
+//            do {
+//                if (sharedViewModel.accountType.isNotEmpty()) {
+//                    isLoading = false
+//                }
+//            } while (isLoading == true)
+            if (sharedViewModel.accountType == "applicants"){
+                Toast.makeText(
+                    context,
+                    "User Authenticated. \n\t\t\tLogging in...",
+                    Toast.LENGTH_SHORT
+                ).show()
+//                sharedViewModel.getApplicantsData {
+//                        data ->
+//                    biodataIsFilled = data.biodataisfilled
+//                }
+                while (applicantsViewModel.applicantData.biodataisfilled == null);
+                if (applicantsViewModel.applicantData.biodataisfilled == true){
+                    navController.navigate("BottomScreenApplicants")
                 } else {
                     navController.navigate("GreetingScreenApplicants")
                 }
@@ -266,7 +258,7 @@ if (isSelected1 || isSelected2){
                             navController.navigate("SignupScreenApplicants")
                         } else if (isSelected2){
                             navController.navigate("SignupScreenCafe")
-                        } else {}
+                        }
                     },
                     colors = ButtonDefaults.buttonColors(color),
                     modifier = Modifier
@@ -287,7 +279,7 @@ if (isSelected1 || isSelected2){
                         navController.navigate("LoginScreenApplicants")
                     } else if (isSelected2){
                         navController.navigate("LoginScreenCafe")
-                    } else {}
+                    }
                 }) {
                     Text(
                         "Sudah memiliki akun?",

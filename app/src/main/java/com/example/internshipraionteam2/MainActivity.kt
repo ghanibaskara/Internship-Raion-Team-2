@@ -10,23 +10,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 
-import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.navigation.compose.rememberNavController
-import com.example.internshipraionteam2.data.ViewModel.AuthState
-import com.example.internshipraionteam2.data.network.SharedViewModel
+import com.example.internshipraionteam2.data.Firebase.ViewModel.SharedViewModel
 import com.example.internshipraionteam2.presentation.navigation.UserNavigation
-import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
+import com.example.internshipraionteam2.data.Firebase.ViewModel.AuthViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-import com.example.internshipraionteam2.data.network.SharedViewModel
-import com.example.internshipraionteam2.presentation.navigation.UserNavigation
-import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
-import com.example.internshipraionteam2.supabase.SupabaseViewModel
+import com.example.internshipraionteam2.data.Supabase.supabase.SupabaseViewModel
 
 
 class MainActivity : ComponentActivity() {
@@ -40,7 +33,7 @@ class MainActivity : ComponentActivity() {
         splashScreen.setKeepOnScreenCondition {true}
 
         CoroutineScope(Dispatchers.Main).launch{
-            delay(2000)
+            delay(1000)
             splashScreen.setKeepOnScreenCondition{false}
         }
 

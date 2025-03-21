@@ -1,6 +1,5 @@
 package com.example.internshipraionteam2.presentation.registration.screen.applicants
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,7 +15,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,21 +26,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
-import com.example.internshipraionteam2.data.ViewModel.AuthViewModel
-import com.example.internshipraionteam2.data.network.AccountTypeData
-import com.example.internshipraionteam2.data.network.SharedViewModel
-import com.example.internshipraionteam2.data.network.UserData
+import com.example.internshipraionteam2.data.Firebase.ViewModel.AuthViewModel
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.localFontFamily
-import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 
 
 @Composable
 fun GreetingScreenApplicants(
     navController: NavController,
-    authViewModel: AuthViewModel,
-    sharedViewModel: SharedViewModel
+    authViewModel: AuthViewModel
 ) {
    val context = LocalContext.current
 
@@ -53,29 +46,7 @@ fun GreetingScreenApplicants(
 
     val authState = authViewModel.authState.observeAsState()
 
-    LaunchedEffect(Unit) {
-//        uid = auth?.uid ?: ""
-//        val accountTypeData = AccountTypeData(
-//            accounttype = "applicants",
-//            email = email,
-//            uid = uid
-//        )
-//        sharedViewModel.saveAccountTypeData(accountTypeData,context, uid)
-//
-//        val userData = UserData(
-//            fname = "",
-//            lname = "",
-//            phone = "",
-//            dob = "",
-//            lor = "",
-//            email = email,
-//            uid = uid,
-//            biodataisfilled = false
-//
-//        )
-//
-//        sharedViewModel.saveApplicantsBiodata(userData = userData, context = context)
-    }
+
 
     Column(
         modifier = Modifier
@@ -155,7 +126,11 @@ fun GreetingScreenApplicants(
 
         Button(
             onClick = {
-                navController.navigate("BottomScreenApplicants")
+                navController.navigate("BottomScreenApplicants"){
+                    popUpTo("GreetingScreenApplicants"){
+                        inclusive = true
+                    }
+                }
             },
             modifier = Modifier
                 .fillMaxWidth(),

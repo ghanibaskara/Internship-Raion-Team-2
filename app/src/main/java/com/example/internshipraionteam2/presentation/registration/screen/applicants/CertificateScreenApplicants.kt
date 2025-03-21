@@ -1,6 +1,8 @@
 package com.example.internshipraionteam2.presentation.registration.screen.applicants
 
 import android.net.Uri
+import android.provider.OpenableColumns
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
@@ -21,7 +23,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -33,20 +34,18 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.internshipraionteam2.R
-import com.example.internshipraionteam2.data.network.SharedViewModel
-import com.example.internshipraionteam2.data.network.UserData
-import com.example.internshipraionteam2.supabase.SupabaseViewModel
-import com.example.internshipraionteam2.supabase.utils.uriToByteArray
+import com.example.internshipraionteam2.data.Firebase.ViewModel.SharedViewModel
+import com.example.internshipraionteam2.data.Firebase.DataClass.UserData
+import com.example.internshipraionteam2.data.Supabase.supabase.SupabaseViewModel
+import com.example.internshipraionteam2.data.Supabase.supabase.utils.uriToByteArray
 import com.example.internshipraionteam2.ui.theme.buttonfocus
 import com.example.internshipraionteam2.ui.theme.localFontFamily
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.firestore
 
 @Composable
@@ -64,24 +63,29 @@ fun CertificateScreenApplicants(
     var lor: String by remember { mutableStateOf("") } // location of residence
     val context = LocalContext.current
 
-//    LaunchedEffect(Unit) {
-//        sharedViewModel.retrieveData(context){
-//                data ->
-//            fname = data.fname
-//            lname = data.lname
-//            phone = data.phone
-//            dob = data.dob
-//            lor = data.lor
-//        }
-//    }
-
     val auth = FirebaseAuth.getInstance().currentUser
     val uid = auth?.uid ?: ""
     val email = auth?.email ?: ""
+    var fileName by remember { mutableStateOf("") }
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent()
-    ) { uri: Uri? -> pdfUri = uri }
+    ) { uri: Uri? -> pdfUri = uri
+
+        uri?.let {
+            val cursor = context.contentResolver.query(uri,null,null,null,null)
+            cursor?.use {
+                val nameIndex = it.getColumnIndex(OpenableColumns.DISPLAY_NAME)
+                if (it.moveToFirst()){
+                    val displayNameIndex = it.getColumnIndex(android.provider.OpenableColumns.DISPLAY_NAME)
+                    if (displayNameIndex != -1) {
+                        fileName = it.getString(displayNameIndex)
+                        Toast.makeText(context, "Selected file: $fileName", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+    }
 
     Column(modifier = Modifier
         .fillMaxSize()
@@ -177,22 +181,30 @@ fun CertificateScreenApplicants(
                 .clickable {
                     launcher.launch("application/pdf")
                 }){
-                Icon(
-                    painterResource(R.drawable.rectangle_796),
-                    contentDescription = "Cv column")
+                Icon(painterResource(R.drawable.rectangle_796),
+                    contentDescription = "Certificate column")
                 Column(
                     modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Icon(
-                        painterResource(R.drawable.ic_add_circle),
+                ){
+                    Icon(painterResource(R.drawable.ic_add_circle),
                         contentDescription = "add circle",
-                        modifier = Modifier.size(56.dp))
-                    Text(text = "Unggah berkas sertifikasi/lisensi Anda",
-                        fontSize = 14.sp,
-                        fontFamily = localFontFamily,
-                        fontWeight = FontWeight.Normal)
+                        modifier = Modifier.size(48.dp))
+                    if (pdfUri == null){
+                        Text(text = "Unggah berkas sertifikat Anda",
+                            fontSize = 14.sp,
+                            fontFamily = localFontFamily,
+                            fontWeight = FontWeight.Normal)
+                    } else {
+                        Text(text = fileName,
+                            fontSize = 14.sp,
+                            fontFamily = localFontFamily,
+                            fontWeight = FontWeight.Normal,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(horizontal = 16.dp))
+                    }
+
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -285,7 +297,7 @@ fun CertificateScreenApplicants(
             navController.navigate("SummaryScreenApplicants")
             val pdfByteArray = pdfUri?.uriToByteArray(context)
             pdfByteArray?.let {
-                supabaseViewModel.uploadFIle("pdf", "certificate_${uid}", it)
+                supabaseViewModel.uploadFIle("pdf", fileName.removeSuffix(".pdf"), it)
             }
 
             val userData = UserData(
@@ -297,14 +309,14 @@ fun CertificateScreenApplicants(
                 email = email ?: "",
                 uid = uid,
                 biodataisfilled = true,
-                cvurl = "https://ujpaetwqzaklppgsqvof.supabase.co/storage/v1/object/public/pdf//cv_${uid}.pdf",
-                certificateurl = "https://ujpaetwqzaklppgsqvof.supabase.co/storage/v1/object/public/pdf//certificate_${uid}.pdf"
+                certificateurl = supabaseViewModel.getFileUrl("pdf", fileName),
+                certificatefilename = fileName
 
             )
             val documentRef = Firebase.firestore.collection("biodata").document(uid)
 
-            // Menggunakan arrayUnion untuk menambahkan UID ke field array
             documentRef.update("certificateurl", userData.certificateurl)
+            documentRef.update("certificatfilename", fileName)
         },
             modifier = Modifier
                 .fillMaxWidth()
