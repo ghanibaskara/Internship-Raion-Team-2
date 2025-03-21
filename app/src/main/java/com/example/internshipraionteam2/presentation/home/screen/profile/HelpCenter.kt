@@ -38,7 +38,7 @@ fun HelpCenter(
     navController: NavController
 ) {
 
-    var expandedIndex by remember { mutableStateOf(-1) } // Menyimpan indeks dropdown yang terbuka
+    var expandedIndex by remember { mutableStateOf(-1) }
 
     val items = listOf(
         "Bagaimana daftar/masuk akun?" to listOf(
@@ -118,12 +118,6 @@ fun HelpCenter(
                     Row(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Icon(
-                            painter = painterResource(R.drawable.ic_user),
-                            contentDescription = "",
-                            modifier = Modifier.size(20.dp)
-                        )
-                        Spacer(modifier = Modifier.width(8.dp))
                         Text(
                             text = title,
                             fontFamily = localFontFamily,
